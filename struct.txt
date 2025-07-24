@@ -1,0 +1,16 @@
+my-portfolio/
+├── public/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── globals.css
+│   ├── components/
+│   │   ├── layout/        # Navbar, Footer, Background, Cursor...
+│   │   ├── sections/      # Hero, About, Projects, Contact...
+│   │   └── ui/            # Botones, Card, SkillBar...
+│   ├── data/              # Tus proyectos y habilidades (JSON o TS)
+│   ├── hooks/             # useMouse, useGlitch, etc.
+│   └── lib/               # Funciones reutilizables (opcional)
+├── tailwind.config.ts
+├── tsconfig.json
