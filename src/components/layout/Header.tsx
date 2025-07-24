@@ -18,11 +18,11 @@ const Header = () => {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm border-b border-red-900/30">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-amber-500/20">
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="text-2xl font-bold text-red-400 tracking-wider">
+          <div className="text-2xl font-bold text-amber-400 tracking-wider drop-shadow-glow">
             PORTFOLIO
           </div>
 
@@ -31,7 +31,7 @@ const Header = () => {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                className="flex items-center space-x-2 px-4 py-2 rounded-lg text-gray-300 hover:text-red-400 hover:bg-red-900/20 transition-all duration-300"
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg text-gray-200 hover:text-amber-300 hover:bg-amber-400/10 transition-all duration-300 hover:shadow-amber-glow"
               >
                 <item.icon size={18} />
                 <span>{item.label}</span>
@@ -42,7 +42,7 @@ const Header = () => {
           {/* Botón menú móvil */}
           <button
             onClick={toggleMenu}
-            className="md:hidden text-red-400 hover:text-red-300 transition-colors"
+            className="md:hidden text-amber-400 hover:text-amber-300 transition-colors drop-shadow-glow"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -50,12 +50,12 @@ const Header = () => {
 
         {/* Menú móvil */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-red-900/30">
+          <nav className="md:hidden mt-4 pb-4 border-t border-amber-500/20">
             <div className="flex flex-col space-y-2 pt-4">
               {navItems.map((item) => (
                 <button
                   key={item.id}
-                  className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all duration-300"
+                  className="flex items-center space-x-3 px-4 py-3 text-gray-200 hover:text-amber-300 hover:bg-amber-400/10 rounded-lg transition-all duration-300"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <item.icon size={20} />

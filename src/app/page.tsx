@@ -1,24 +1,33 @@
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import FogEffect from '@/components/layout/FogEffect'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white flex flex-col relative overflow-hidden">
+      {/* Efecto de niebla */}
+      <FogEffect />
+      
       {/* Header */}
       <Header />
       
-      {/* Contenido principal temporal */}
-      <main className="flex-1 flex items-center justify-center px-6">
+      {/* Contenido principal */}
+      <main className="relative z-20 flex-1 flex items-center justify-center px-6 pt-20">
         <div className="text-center space-y-8">
-          <h1 className="text-6xl md:text-8xl font-bold text-white tracking-wider">
+          <h1 className="text-6xl md:text-8xl font-bold text-white tracking-wider drop-shadow-2xl">
             PORTFOLIO
           </h1>
-          <div className="text-2xl text-red-400 font-bold animate-pulse">
+          <div className="text-2xl text-amber-400 font-bold animate-pulse drop-shadow-glow">
             DEVELOPER
           </div>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Aquí irá el contenido principal del portfolio
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            Bienvenido a mi portfolio. Mueve el cursor para apartar la niebla y descubrir mis proyectos.
           </p>
+          <div className="pt-8">
+            <button className="px-8 py-3 bg-amber-500/20 border border-amber-400/50 text-amber-300 rounded-lg hover:bg-amber-500/30 hover:border-amber-400 transition-all duration-300 backdrop-blur-sm drop-shadow-glow">
+              Explorar Proyectos
+            </button>
+          </div>
         </div>
       </main>
       
