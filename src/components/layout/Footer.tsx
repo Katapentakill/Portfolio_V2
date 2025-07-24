@@ -11,7 +11,7 @@ const Footer = () => {
           
           {/* Sección 1: Información */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-amber-400 drop-shadow-glow">Portfolio</h3>
+            <h3 className="text-xl font-bold text-amber-400 enhanced-visibility">Portfolio</h3>
             <p className="text-gray-300 text-sm">
               Desarrollador Full Stack creando experiencias digitales únicas 
               entre las brumas de Silent Hill.
@@ -20,15 +20,15 @@ const Footer = () => {
 
           {/* Sección 2: Enlaces rápidos */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-amber-400 drop-shadow-glow">Enlaces</h3>
+            <h3 className="text-xl font-bold text-amber-400 enhanced-visibility">Enlaces</h3>
             <div className="space-y-2">
-              <a href="#about" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm hover:drop-shadow-glow">
+              <a href="#about" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm nav-enhanced hover-drop-shadow-glow">
                 Sobre Mí
               </a>
-              <a href="#projects" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm hover:drop-shadow-glow">
+              <a href="#projects" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm nav-enhanced hover-drop-shadow-glow">
                 Proyectos
               </a>
-              <a href="#contact" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm hover:drop-shadow-glow">
+              <a href="#contact" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm nav-enhanced hover-drop-shadow-glow">
                 Contacto
               </a>
             </div>
@@ -36,19 +36,19 @@ const Footer = () => {
 
           {/* Sección 3: Redes sociales */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-amber-400 drop-shadow-glow">Sígueme</h3>
+            <h3 className="text-xl font-bold text-amber-400 enhanced-visibility">Sígueme</h3>
             <div className="flex space-x-4">
               <a 
                 href="https://github.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-amber-300 transition-colors hover:drop-shadow-glow"
+                className="text-gray-300 hover:text-amber-300 transition-colors nav-enhanced hover-drop-shadow-glow"
               >
                 <Github size={24} />
               </a>
               <a 
                 href="mailto:tu-email@ejemplo.com"
-                className="text-gray-300 hover:text-amber-300 transition-colors hover:drop-shadow-glow"
+                className="text-gray-300 hover:text-amber-300 transition-colors nav-enhanced hover-drop-shadow-glow"
               >
                 <Mail size={24} />
               </a>
@@ -56,7 +56,7 @@ const Footer = () => {
                 href="https://linkedin.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-amber-300 transition-colors hover:drop-shadow-glow"
+                className="text-gray-300 hover:text-amber-300 transition-colors nav-enhanced hover-drop-shadow-glow"
               >
                 <Linkedin size={24} />
               </a>
@@ -78,7 +78,7 @@ const Footer = () => {
               <span>Hecho con</span>
               <Heart size={16} className="text-red-500 animate-pulse" />
               <span>en las brumas de</span>
-              <span className="text-amber-400 font-bold drop-shadow-glow">SILENT HILL</span>
+              <span className="text-amber-400 font-bold enhanced-visibility">SILENT HILL</span>
             </div>
           </div>
         </div>

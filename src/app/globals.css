@@ -16,11 +16,11 @@
     filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5));
   }
   
-  .hover\\:shadow-amber-glow:hover {
+  .hover-shadow-amber-glow:hover {
     box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
   }
   
-  .hover\\:drop-shadow-glow:hover {
+  .hover-drop-shadow-glow:hover {
     filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
   }
   
@@ -30,5 +30,143 @@
   
   .silent-border {
     border: 1px solid rgba(251, 191, 36, 0.5);
+  }
+
+  /* Efectos de parpadeo aleatorio SOLO para navbar - más terroríficos */
+  .flicker-terrifying {
+    animation: flickerTerrifying 18s infinite;
+    animation-delay: 2s;
+  }
+
+  .flicker-terrifying-slow {
+    animation: flickerTerrifyingSlow 25s infinite;
+    animation-delay: 5s;
+  }
+
+  .flicker-terrifying-fast {
+    animation: flickerTerrifyingFast 15s infinite;
+    animation-delay: 1s;
+  }
+
+  /* Efecto de texto dañado/glitch SOLO para navbar */
+  .navbar-glitch-text {
+    text-shadow: 
+      2px 0 #ff0000,
+      -2px 0 #00ff00,
+      0 0 10px rgba(251, 191, 36, 0.8);
+    animation: navbarGlitchFlicker 22s infinite;
+    animation-delay: 3s;
+  }
+
+  /* Animaciones de parpadeo terroríficas para navbar */
+  @keyframes flickerTerrifying {
+    0%, 85%, 90%, 95%, 100% {
+      opacity: 1;
+      filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8));
+    }
+    12%, 45%, 78% {
+      opacity: 0.1;
+      filter: drop-shadow(0 0 1px rgba(251, 191, 36, 0.1));
+    }
+    15%, 48%, 82% {
+      opacity: 0.02;
+      filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.02));
+    }
+    18%, 52%, 85% {
+      opacity: 0.4;
+      filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.4));
+    }
+  }
+
+  @keyframes flickerTerrifyingSlow {
+    0%, 88%, 92%, 96%, 100% {
+      opacity: 1;
+      filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8));
+    }
+    20%, 55%, 75% {
+      opacity: 0.05;
+      filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.05));
+    }
+    25%, 60%, 80% {
+      opacity: 0.01;
+      filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.01));
+    }
+    30%, 65%, 85% {
+      opacity: 0.3;
+      filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.3));
+    }
+  }
+
+  @keyframes flickerTerrifyingFast {
+    0%, 80%, 85%, 90%, 95%, 100% {
+      opacity: 1;
+      filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8));
+    }
+    8%, 35%, 68% {
+      opacity: 0.08;
+      filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.08));
+    }
+    12%, 40%, 72% {
+      opacity: 0.01;
+      filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.01));
+    }
+    16%, 45%, 76% {
+      opacity: 0.2;
+      filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.2));
+    }
+  }
+
+  @keyframes navbarGlitchFlicker {
+    0%, 90%, 95%, 100% {
+      text-shadow: 
+        2px 0 rgba(255, 0, 0, 0.8),
+        -2px 0 rgba(0, 255, 0, 0.8),
+        0 0 10px rgba(251, 191, 36, 0.8);
+      opacity: 1;
+    }
+    15%, 50%, 75% {
+      text-shadow: 
+        -3px 0 rgba(255, 0, 0, 0.1),
+        3px 0 rgba(0, 255, 0, 0.1),
+        0 0 2px rgba(251, 191, 36, 0.1);
+      opacity: 0.1;
+    }
+    20%, 55%, 80% {
+      text-shadow: 
+        1px 0 rgba(255, 0, 0, 0.05),
+        -1px 0 rgba(0, 255, 0, 0.05),
+        0 0 1px rgba(251, 191, 36, 0.05);
+      opacity: 0.02;
+    }
+    25%, 60%, 85% {
+      text-shadow: 
+        -2px 0 rgba(255, 0, 0, 0.3),
+        2px 0 rgba(0, 255, 0, 0.3),
+        0 0 5px rgba(251, 191, 36, 0.3);
+      opacity: 0.4;
+    }
+  }
+
+  /* Mejores contrastes y visibilidad */
+  .enhanced-visibility {
+    text-shadow: 
+      1px 1px 2px rgba(0, 0, 0, 0.9),
+      0 0 8px rgba(251, 191, 36, 0.6);
+    font-weight: 600;
+  }
+
+  .nav-enhanced {
+    text-shadow: 
+      1px 1px 1px rgba(0, 0, 0, 0.8),
+      0 0 6px rgba(251, 191, 36, 0.4);
+    font-weight: 500;
+  }
+
+  .title-enhanced {
+    text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.9),
+      0 0 15px rgba(251, 191, 36, 0.8),
+      0 0 25px rgba(251, 191, 36, 0.4);
+    font-weight: 700;
   }
 }
