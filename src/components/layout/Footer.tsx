@@ -8,29 +8,25 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Contenido principal del footer */}
         <div className="grid md:grid-cols-3 gap-8 mb-6">
-          
-          {/* Sección 1: Información */}
+
+          {/* Sección 1: ¿Quién es Alexander? */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-amber-400 enhanced-visibility">Portfolio</h3>
-            <p className="text-gray-300 text-sm">
-              Desarrollador Full Stack creando experiencias digitales únicas 
-              entre las brumas de Silent Hill.
+            <h3 className="text-xl font-bold text-amber-400 enhanced-visibility">¿Quién es Alexander?</h3>
+            <p className="text-sm text-gray-400">
+              Apasionado por el machine learning, Kaggle y crear experiencias que impactan.
+              Siempre explorando el siguiente desafío.
             </p>
           </div>
 
-          {/* Sección 2: Enlaces rápidos */}
+          {/* Sección 2: Enlaces rápidos actualizados */}
           <div className="space-y-4">
             <h3 className="text-xl font-bold text-amber-400 enhanced-visibility">Enlaces</h3>
             <div className="space-y-2">
-              <a href="#about" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm nav-enhanced hover-drop-shadow-glow">
-                Sobre Mí
-              </a>
-              <a href="#projects" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm nav-enhanced hover-drop-shadow-glow">
-                Proyectos
-              </a>
-              <a href="#contact" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm nav-enhanced hover-drop-shadow-glow">
-                Contacto
-              </a>
+              <a href="#about" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm nav-enhanced hover-drop-shadow-glow">Sobre Mí</a>
+              <a href="#skills" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm nav-enhanced hover-drop-shadow-glow">Habilidades</a>
+              <a href="#experience" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm nav-enhanced hover-drop-shadow-glow">Experiencia</a>
+              <a href="#projects" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm nav-enhanced hover-drop-shadow-glow">Proyectos</a>
+              <a href="#contact" className="block text-gray-300 hover:text-amber-300 transition-colors text-sm nav-enhanced hover-drop-shadow-glow">Contacto</a>
             </div>
           </div>
 
@@ -39,7 +35,7 @@ const Footer = () => {
             <h3 className="text-xl font-bold text-amber-400 enhanced-visibility">Sígueme</h3>
             <div className="flex space-x-4">
               <a 
-                href="https://github.com" 
+                href="https://github.com/Katapentakill" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-amber-300 transition-colors nav-enhanced hover-drop-shadow-glow"
@@ -47,13 +43,13 @@ const Footer = () => {
                 <Github size={24} />
               </a>
               <a 
-                href="mailto:tu-email@ejemplo.com"
+                href="mailto:katapentakill.dev@gmail.com"
                 className="text-gray-300 hover:text-amber-300 transition-colors nav-enhanced hover-drop-shadow-glow"
               >
                 <Mail size={24} />
               </a>
               <a 
-                href="https://linkedin.com" 
+                href="https://linkedin.com/in/katapentakill" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-amber-300 transition-colors nav-enhanced hover-drop-shadow-glow"
@@ -64,16 +60,12 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Línea divisoria */}
+        {/* Línea divisoria y mensaje final */}
         <div className="border-t border-gray-700 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            
-            {/* Copyright */}
             <div className="text-gray-400 text-sm">
-              © {currentYear} Tu Nombre. Perdido en la niebla.
+              © {currentYear} Alexander - ¿Perdido en la niebla?
             </div>
-
-            {/* Mensaje especial con temática Silent Hill */}
             <div className="flex items-center space-x-1 text-gray-400 text-sm">
               <span>Hecho con</span>
               <Heart size={16} className="text-red-500 animate-pulse" />

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Home, User, Briefcase, Phone, Menu, X } from 'lucide-react'
+import { Home, User, Briefcase, Phone, Menu, X, Heart, EyeOff, Settings2, BadgeCheck } from 'lucide-react'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -9,8 +9,10 @@ const Header = () => {
   const navItems = [
     { id: 'inicio', icon: Home, label: 'Inicio' },
     { id: 'about', icon: User, label: 'Sobre Mí' },
+    { id: 'skills', icon: Settings2, label: 'Habilidades' },    // Cambiado
+    { id: 'experience', icon: BadgeCheck, label: 'Experiencia' }, // Cambiado
     { id: 'projects', icon: Briefcase, label: 'Proyectos' },
-    { id: 'contact', icon: Phone, label: 'Contacto' }
+    { id: 'contact', icon: Phone, label: 'Contacto' },
   ]
 
   const toggleMenu = () => {
@@ -22,8 +24,9 @@ const Header = () => {
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           {/* Logo con efecto de parpadeo terrorífico */}
-          <div className="text-2xl font-bold text-amber-400 tracking-wider flicker-terrifying-fast navbar-glitch-text">
-            PORTFOLIO
+          <div className="flex items-center space-x-2 text-2xl font-bold text-amber-400 tracking-wider flicker-terrifying-fast navbar-glitch-text">
+            <span>ALEXANDER TAPIA</span>
+            <EyeOff size={20} className="text-red-500 animate-pulse" />
           </div>
 
           {/* Navegación Desktop */}
