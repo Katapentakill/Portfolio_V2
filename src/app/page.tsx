@@ -1,7 +1,8 @@
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import FogEffect from '@/components/layout/FogEffect'
-import Hero from '@/components/sections/Hero'         // ⬅️ nuevo
+import Hero from '@/components/sections/Hero'
+import Skills from '@/components/sections/Skills'
 import Contact from '@/components/sections/Contact'
 
 export default function Home() {
@@ -11,7 +12,8 @@ export default function Home() {
       <Header />
 
       <main className="relative z-20 flex-1">
-        <Hero />          {/* ⬅️ Sección de bienvenida */}
+        <Hero />
+        <Skills />
         <Contact />
       </main>
 
