@@ -6,167 +6,301 @@
   }
   
   body {
-    background: #000000;
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    overflow-x: hidden;
   }
 }
 
-/* Efectos de glow y niebla */
+/* Efectos de glow y niebla mejorados */
 @layer components {
   .drop-shadow-glow {
-    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5));
+    filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.7)) drop-shadow(0 0 24px rgba(251, 191, 36, 0.3));
+  }
+  
+  .drop-shadow-glow-red {
+    filter: drop-shadow(0 0 12px rgba(220, 38, 38, 0.7)) drop-shadow(0 0 24px rgba(220, 38, 38, 0.3));
   }
   
   .hover-shadow-amber-glow:hover {
-    box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+    box-shadow: 
+      0 0 20px rgba(251, 191, 36, 0.4),
+      0 0 40px rgba(251, 191, 36, 0.2),
+      inset 0 0 20px rgba(251, 191, 36, 0.1);
   }
   
   .hover-drop-shadow-glow:hover {
-    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
+    filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.8)) drop-shadow(0 0 30px rgba(251, 191, 36, 0.4));
   }
   
   .silent-glow {
-    box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+    box-shadow: 
+      0 0 30px rgba(251, 191, 36, 0.4),
+      0 0 60px rgba(251, 191, 36, 0.2),
+      inset 0 0 30px rgba(251, 191, 36, 0.1);
   }
   
   .silent-border {
-    border: 1px solid rgba(251, 191, 36, 0.5);
+    border: 1px solid rgba(251, 191, 36, 0.6);
   }
 
-  /* Efectos de parpadeo aleatorio SOLO para navbar - más terroríficos */
+  /* Nuevas animaciones */
+  .animate-fadeIn {
+    animation: fadeIn 1.5s ease-out;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+
+  .animate-flicker {
+    animation: flicker 3s ease-in-out infinite;
+  }
+
+  /* Efectos de parpadeo mejorados y más terroríficos */
   .flicker-terrifying {
-    animation: flickerTerrifying 18s infinite;
-    animation-delay: 2s;
+    animation: flickerTerrifying 15s infinite;
+    animation-delay: calc(var(--delay, 0) * 1s);
   }
 
   .flicker-terrifying-slow {
-    animation: flickerTerrifyingSlow 25s infinite;
-    animation-delay: 5s;
+    animation: flickerTerrifyingSlow 20s infinite;
+    animation-delay: calc(var(--delay, 0) * 1s);
   }
 
   .flicker-terrifying-fast {
-    animation: flickerTerrifyingFast 15s infinite;
-    animation-delay: 1s;
+    animation: flickerTerrifyingFast 12s infinite;
+    animation-delay: calc(var(--delay, 0) * 1s);
   }
 
-  /* Efecto de texto dañado/glitch SOLO para navbar */
+  /* Efecto de logo mejorado */
+  .enhanced-logo {
+    text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.8),
+      0 0 15px rgba(251, 191, 36, 0.6),
+      0 0 30px rgba(220, 38, 38, 0.3);
+    animation: logoGlow 8s ease-in-out infinite;
+  }
+
+  /* Efecto de texto dañado/glitch mejorado */
   .navbar-glitch-text {
     text-shadow: 
-      2px 0 #ff0000,
-      -2px 0 #00ff00,
-      0 0 10px rgba(251, 191, 36, 0.8);
-    animation: navbarGlitchFlicker 22s infinite;
-    animation-delay: 3s;
+      2px 0 rgba(220, 38, 38, 0.8),
+      -2px 0 rgba(34, 197, 94, 0.8),
+      0 0 15px rgba(251, 191, 36, 0.8);
+    animation: navbarGlitchFlicker 18s infinite;
+    animation-delay: 2s;
   }
 
-  /* Animaciones de parpadeo terroríficas para navbar */
-  @keyframes flickerTerrifying {
-    0%, 85%, 90%, 95%, 100% {
-      opacity: 1;
-      filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8));
+  /* Nuevas animaciones */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
     }
-    12%, 45%, 78% {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes flicker {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes logoGlow {
+    0%, 100% {
+      text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 15px rgba(251, 191, 36, 0.6),
+        0 0 30px rgba(220, 38, 38, 0.3);
+    }
+    50% {
+      text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 25px rgba(251, 191, 36, 0.8),
+        0 0 50px rgba(220, 38, 38, 0.5);
+    }
+  }
+
+  /* Animaciones de parpadeo terroríficas mejoradas */
+  @keyframes flickerTerrifying {
+    0%, 82%, 87%, 92%, 97%, 100% {
+      opacity: 1;
+      filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.8));
+    }
+    10%, 15%, 25%, 47%, 52%, 78% {
       opacity: 0.1;
+      filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.2));
+    }
+    12%, 18%, 28%, 50%, 55%, 81% {
+      opacity: 0.02;
       filter: drop-shadow(0 0 1px rgba(251, 191, 36, 0.1));
     }
-    15%, 48%, 82% {
-      opacity: 0.02;
-      filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.02));
-    }
-    18%, 52%, 85% {
-      opacity: 0.4;
-      filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.4));
+    20%, 32%, 58%, 85% {
+      opacity: 0.6;
+      filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
     }
   }
 
   @keyframes flickerTerrifyingSlow {
-    0%, 88%, 92%, 96%, 100% {
+    0%, 85%, 90%, 94%, 98%, 100% {
       opacity: 1;
-      filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8));
+      filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.8));
     }
-    20%, 55%, 75% {
-      opacity: 0.05;
+    18%, 23%, 35%, 55%, 75% {
+      opacity: 0.08;
+      filter: drop-shadow(0 0 1px rgba(251, 191, 36, 0.1));
+    }
+    20%, 26%, 38%, 58%, 78% {
+      opacity: 0.01;
       filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.05));
     }
-    25%, 60%, 80% {
-      opacity: 0.01;
-      filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.01));
-    }
-    30%, 65%, 85% {
-      opacity: 0.3;
-      filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.3));
+    28%, 42%, 62%, 82% {
+      opacity: 0.4;
+      filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.4));
     }
   }
 
   @keyframes flickerTerrifyingFast {
-    0%, 80%, 85%, 90%, 95%, 100% {
+    0%, 78%, 83%, 88%, 93%, 98%, 100% {
       opacity: 1;
-      filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8));
+      filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.8));
     }
-    8%, 35%, 68% {
-      opacity: 0.08;
-      filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.08));
-    }
-    12%, 40%, 72% {
-      opacity: 0.01;
-      filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.01));
-    }
-    16%, 45%, 76% {
-      opacity: 0.2;
+    5%, 12%, 35%, 42%, 68%, 72% {
+      opacity: 0.12;
       filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.2));
+    }
+    8%, 15%, 38%, 45%, 70%, 75% {
+      opacity: 0.01;
+      filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.05));
+    }
+    18%, 48%, 78% {
+      opacity: 0.3;
+      filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.3));
     }
   }
 
   @keyframes navbarGlitchFlicker {
-    0%, 90%, 95%, 100% {
+    0%, 88%, 93%, 97%, 100% {
       text-shadow: 
-        2px 0 rgba(255, 0, 0, 0.8),
-        -2px 0 rgba(0, 255, 0, 0.8),
-        0 0 10px rgba(251, 191, 36, 0.8);
+        2px 0 rgba(220, 38, 38, 0.8),
+        -2px 0 rgba(34, 197, 94, 0.8),
+        0 0 15px rgba(251, 191, 36, 0.8);
       opacity: 1;
     }
-    15%, 50%, 75% {
+    12%, 17%, 50%, 55%, 75%, 80% {
       text-shadow: 
-        -3px 0 rgba(255, 0, 0, 0.1),
-        3px 0 rgba(0, 255, 0, 0.1),
-        0 0 2px rgba(251, 191, 36, 0.1);
-      opacity: 0.1;
+        -3px 0 rgba(220, 38, 38, 0.2),
+        3px 0 rgba(34, 197, 94, 0.2),
+        0 0 3px rgba(251, 191, 36, 0.2);
+      opacity: 0.15;
     }
-    20%, 55%, 80% {
+    15%, 20%, 53%, 58%, 78%, 83% {
       text-shadow: 
-        1px 0 rgba(255, 0, 0, 0.05),
-        -1px 0 rgba(0, 255, 0, 0.05),
-        0 0 1px rgba(251, 191, 36, 0.05);
-      opacity: 0.02;
+        1px 0 rgba(220, 38, 38, 0.1),
+        -1px 0 rgba(34, 197, 94, 0.1),
+        0 0 1px rgba(251, 191, 36, 0.1);
+      opacity: 0.03;
     }
-    25%, 60%, 85% {
+    22%, 60%, 85% {
       text-shadow: 
-        -2px 0 rgba(255, 0, 0, 0.3),
-        2px 0 rgba(0, 255, 0, 0.3),
-        0 0 5px rgba(251, 191, 36, 0.3);
-      opacity: 0.4;
+        -2px 0 rgba(220, 38, 38, 0.4),
+        2px 0 rgba(34, 197, 94, 0.4),
+        0 0 8px rgba(251, 191, 36, 0.4);
+      opacity: 0.5;
     }
   }
 
   /* Mejores contrastes y visibilidad */
   .enhanced-visibility {
     text-shadow: 
-      1px 1px 2px rgba(0, 0, 0, 0.9),
-      0 0 8px rgba(251, 191, 36, 0.6);
+      2px 2px 3px rgba(0, 0, 0, 0.9),
+      0 0 12px rgba(251, 191, 36, 0.7),
+      0 0 24px rgba(251, 191, 36, 0.3);
     font-weight: 600;
+  }
+
+  .enhanced-text {
+    text-shadow: 
+      1px 1px 2px rgba(0, 0, 0, 0.8),
+      0 0 8px rgba(251, 191, 36, 0.3);
   }
 
   .nav-enhanced {
     text-shadow: 
-      1px 1px 1px rgba(0, 0, 0, 0.8),
-      0 0 6px rgba(251, 191, 36, 0.4);
+      1px 1px 2px rgba(0, 0, 0, 0.8),
+      0 0 8px rgba(251, 191, 36, 0.4);
     font-weight: 500;
   }
 
   .title-enhanced {
     text-shadow: 
-      2px 2px 4px rgba(0, 0, 0, 0.9),
-      0 0 15px rgba(251, 191, 36, 0.8),
-      0 0 25px rgba(251, 191, 36, 0.4);
+      3px 3px 6px rgba(0, 0, 0, 0.9),
+      0 0 20px rgba(251, 191, 36, 0.8),
+      0 0 40px rgba(251, 191, 36, 0.4),
+      0 0 60px rgba(220, 38, 38, 0.2);
     font-weight: 700;
+  }
+
+  /* Partículas flotantes */
+  @keyframes floating-particles {
+    0% {
+      transform: translateY(100vh) translateX(0px) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-10vh) translateX(100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  .floating-particle {
+    animation: floating-particles linear infinite;
+  }
+
+  /* Gradientes personalizados */
+  .gradient-amber-red {
+    background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
+  }
+
+  .gradient-dark-amber {
+    background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(245,158,11,0.1) 100%);
+  }
+
+  .gradient-dark-red {
+    background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(220,38,38,0.1) 100%);
   }
 }
