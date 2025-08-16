@@ -87,7 +87,6 @@ const Footer = () => {
             <div className="space-y-3">
               {[
                 { id: 'hero', label: 'Inicio' },
-                { id: 'about', label: 'Sobre Mí' },
                 { id: 'skills', label: 'Habilidades' },
                 { id: 'experience', label: 'Experiencia' },
                 { id: 'projects', label: 'Proyectos' },
@@ -134,18 +133,18 @@ const Footer = () => {
               </a>
               
               <a 
-                href="mailto:katapentakill.dev@gmail.com"
+                href="mailto:alexandertapiaolmedo@gmail.com"
                 className="group flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-gray-800/50 to-transparent border border-gray-700/50 hover:border-red-500/50 hover:from-red-500/10 hover:to-transparent transition-all duration-300 hover:scale-105"
               >
                 <Mail size={24} className="text-gray-300 group-hover:text-red-300 transition-colors duration-300 group-hover:scale-110" />
                 <div>
                   <div className="text-gray-300 group-hover:text-red-300 transition-colors duration-300 font-medium">Email</div>
-                  <div className="text-xs text-gray-500">katapentakill.dev@gmail.com</div>
+                  <div className="text-xs text-gray-500">alexandertapiaolmedo@gmail.com</div>
                 </div>
               </a>
 
               <a 
-                href="https://linkedin.com/in/alexander-tapia" 
+                href="https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-gray-800/50 to-transparent border border-gray-700/50 hover:border-blue-500/50 hover:from-blue-500/10 hover:to-transparent transition-all duration-300 hover:scale-105"
@@ -153,7 +152,7 @@ const Footer = () => {
                 <Linkedin size={24} className="text-gray-300 group-hover:text-blue-300 transition-colors duration-300 group-hover:scale-110" />
                 <div>
                   <div className="text-gray-300 group-hover:text-blue-300 transition-colors duration-300 font-medium">LinkedIn</div>
-                  <div className="text-xs text-gray-500">Alexander Tapia</div>
+                  <div className="text-xs text-gray-500">Alexander Tapia Olmedo</div>
                 </div>
               </a>
             </div>
@@ -169,13 +168,39 @@ const Footer = () => {
           
           {/* Copyright */}
           <div className="flex items-center space-x-2 text-gray-500 text-sm">
-            <span>© {currentYear} Alexander Tapia.</span>
+            <span>© {currentYear} Alexander Tapia Olmedo.</span>
             <span className="flex items-center space-x-1">
               <span>Hecho con</span>
               <Heart size={14} className="text-red-400 animate-pulse" />
               <span>y mucho</span>
               <Coffee size={14} className="text-amber-400" />
             </span>
+          </div>
+
+          {/* Redes sociales rápidas */}
+          <div className="flex items-center space-x-3">
+            <a
+              href="https://github.com/Katapentakill"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 bg-gray-800/50 text-gray-400 hover:text-amber-400 rounded-lg hover:bg-amber-400/10 transition-all duration-300 hover:scale-110"
+            >
+              <Github size={16} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 bg-gray-800/50 text-gray-400 hover:text-blue-400 rounded-lg hover:bg-blue-400/10 transition-all duration-300 hover:scale-110"
+            >
+              <Linkedin size={16} />
+            </a>
+            <a
+              href="mailto:alexandertapiaolmedo@gmail.com"
+              className="p-2 bg-gray-800/50 text-gray-400 hover:text-red-400 rounded-lg hover:bg-red-400/10 transition-all duration-300 hover:scale-110"
+            >
+              <Mail size={16} />
+            </a>
           </div>
 
           {/* Botón volver arriba */}

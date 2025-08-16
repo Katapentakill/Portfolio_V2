@@ -1,17 +1,66 @@
 @import "tailwindcss";
 
+/* ==========================================
+   BASE STYLES & THEME VARIABLES
+   ========================================== */
+
 @layer base {
+  :root {
+    /* Dark theme variables (default) */
+    --bg-primary: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    --bg-secondary: rgba(0, 0, 0, 0.9);
+    --text-primary: #ffffff;
+    --text-secondary: #d1d5db;
+    --border-primary: rgba(251, 191, 36, 0.3);
+    --shadow-primary: rgba(251, 191, 36, 0.1);
+  }
+
+  .light {
+    --bg-primary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f8fafc 100%);
+    --bg-secondary: rgba(255, 255, 255, 0.9);
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --border-primary: rgba(251, 191, 36, 0.3);
+    --shadow-primary: rgba(251, 191, 36, 0.1);
+  }
+
   html {
     scroll-behavior: smooth;
   }
   
   body {
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    background: var(--bg-primary);
+    color: var(--text-primary);
     overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Scrollbar personalizado */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #f59e0b, #dc2626);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #fbbf24, #ef4444);
   }
 }
 
-/* Efectos de glow y niebla mejorados */
+/* ==========================================
+   GLOW EFFECTS & DROPS SHADOWS
+   ========================================== */
+
 @layer components {
   .drop-shadow-glow {
     filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.7)) drop-shadow(0 0 24px rgba(251, 191, 36, 0.3));
@@ -43,7 +92,10 @@
     border: 1px solid rgba(251, 191, 36, 0.6);
   }
 
-  /* Nuevas animaciones */
+/* ==========================================
+   ANIMATIONS - BASIC
+   ========================================== */
+
   .animate-fadeIn {
     animation: fadeIn 1.5s ease-out;
   }
@@ -60,7 +112,10 @@
     animation: flicker 3s ease-in-out infinite;
   }
 
-  /* Efectos de parpadeo mejorados y más terroríficos */
+/* ==========================================
+   TERRIFYING FLICKER EFFECTS
+   ========================================== */
+
   .flicker-terrifying {
     animation: flickerTerrifying 15s infinite;
     animation-delay: calc(var(--delay, 0) * 1s);
@@ -76,7 +131,10 @@
     animation-delay: calc(var(--delay, 0) * 1s);
   }
 
-  /* Efecto de logo mejorado */
+/* ==========================================
+   LOGO & TEXT EFFECTS
+   ========================================== */
+
   .enhanced-logo {
     text-shadow: 
       2px 2px 4px rgba(0, 0, 0, 0.8),
@@ -85,7 +143,6 @@
     animation: logoGlow 8s ease-in-out infinite;
   }
 
-  /* Efecto de texto dañado/glitch mejorado */
   .navbar-glitch-text {
     text-shadow: 
       2px 0 rgba(220, 38, 38, 0.8),
@@ -95,7 +152,300 @@
     animation-delay: 2s;
   }
 
-  /* Nuevas animaciones */
+  .enhanced-visibility {
+    text-shadow: 
+      2px 2px 3px rgba(0, 0, 0, 0.9),
+      0 0 12px rgba(251, 191, 36, 0.7),
+      0 0 24px rgba(251, 191, 36, 0.3);
+    font-weight: 600;
+  }
+
+  .enhanced-text {
+    text-shadow: 
+      1px 1px 2px rgba(0, 0, 0, 0.8),
+      0 0 8px rgba(251, 191, 36, 0.3);
+  }
+
+  .nav-enhanced {
+    text-shadow: 
+      1px 1px 2px rgba(0, 0, 0, 0.8),
+      0 0 8px rgba(251, 191, 36, 0.4);
+    font-weight: 500;
+  }
+
+  .title-enhanced {
+    text-shadow: 
+      3px 3px 6px rgba(0, 0, 0, 0.9),
+      0 0 20px rgba(251, 191, 36, 0.8),
+      0 0 40px rgba(251, 191, 36, 0.4),
+      0 0 60px rgba(220, 38, 38, 0.2);
+    font-weight: 700;
+  }
+
+/* ==========================================
+   MOBILE OPTIMIZATIONS
+   ========================================== */
+
+  /* Hero Section - Móvil */
+  .hero-mobile-optimized {
+    @apply px-4 py-16;
+  }
+  
+  .hero-title-mobile {
+    @apply text-4xl sm:text-6xl md:text-8xl lg:text-9xl;
+    line-height: 0.9;
+    word-break: break-word;
+  }
+  
+  .hero-subtitle-mobile {
+    @apply text-lg sm:text-2xl md:text-4xl;
+    line-height: 1.2;
+  }
+  
+  .hero-tags-mobile {
+    @apply flex-col sm:flex-row gap-2 sm:gap-3;
+  }
+  
+  .hero-tag {
+    @apply px-3 py-2 text-xs sm:text-sm md:text-base;
+    min-width: fit-content;
+  }
+
+  /* Skills Grid - Móvil */
+  .skills-grid-mobile {
+    @apply grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-6;
+  }
+  
+  .skill-card-mobile {
+    @apply p-3 sm:p-6;
+  }
+  
+  .skill-icon-mobile {
+    @apply text-4xl sm:text-6xl mb-2;
+  }
+  
+  .skill-name-mobile {
+    @apply text-xs sm:text-sm;
+    word-break: break-word;
+  }
+
+  /* Experience Cards - Móvil */
+  .experience-card-mobile {
+    @apply p-4 sm:p-6;
+  }
+  
+  .experience-header-mobile {
+    @apply flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4;
+  }
+  
+  .experience-meta-mobile {
+    @apply flex-col sm:flex-row gap-2 sm:gap-3;
+  }
+
+  /* Projects Grid - Móvil */
+  .projects-grid-mobile {
+    @apply grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8;
+  }
+  
+  .project-card-mobile {
+    @apply p-4 sm:p-6;
+  }
+  
+  .project-tech-tags-mobile {
+    @apply flex-wrap gap-1 sm:gap-2;
+  }
+  
+  .project-tech-tag {
+    @apply px-2 py-1 text-xs;
+    word-break: break-word;
+  }
+
+  /* Contact Form - Móvil */
+  .contact-grid-mobile {
+    @apply grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12;
+  }
+  
+  .contact-form-mobile {
+    @apply p-6 sm:p-8;
+  }
+  
+  .contact-buttons-mobile {
+    @apply flex-col sm:flex-row gap-4;
+  }
+
+  /* Navigation - Móvil */
+  .nav-mobile {
+    @apply px-4 py-3;
+  }
+  
+  .nav-logo-mobile {
+    @apply text-lg sm:text-2xl;
+    word-break: break-word;
+  }
+  
+  .nav-menu-mobile {
+    @apply mt-4 pb-4;
+  }
+  
+  .nav-item-mobile {
+    @apply px-4 py-3 text-sm sm:text-base;
+  }
+
+  /* Typography Móvil */
+  .section-title-mobile {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
+    line-height: 1.1;
+  }
+  
+  .section-subtitle-mobile {
+    @apply text-base sm:text-lg;
+    line-height: 1.5;
+  }
+
+  /* Containers Móvil */
+  .container-mobile {
+    @apply max-w-6xl mx-auto px-4 sm:px-6;
+  }
+  
+  .section-padding-mobile {
+    @apply py-12 sm:py-16 md:py-20;
+  }
+
+  /* Footer Móvil */
+  .footer-grid-mobile {
+    @apply grid-cols-1 md:grid-cols-4 gap-8 sm:gap-10;
+  }
+  
+  .footer-stats-mobile {
+    @apply grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8;
+  }
+
+/* ==========================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ========================================== */
+
+  @media (max-width: 640px) {
+    .flicker-terrifying,
+    .flicker-terrifying-slow,
+    .flicker-terrifying-fast {
+      animation: none; /* Desactivar animaciones intensas en móvil */
+    }
+    
+    .hover\:scale-105:hover {
+      transform: none; /* Desactivar escalado en móvil */
+    }
+    
+    .animate-float {
+      animation-duration: 8s; /* Animaciones más lentas en móvil */
+    }
+
+    .enhanced-logo {
+      text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 10px rgba(251, 191, 36, 0.4);
+      animation: none;
+    }
+
+    .navbar-glitch-text {
+      text-shadow: none;
+      animation: none;
+    }
+  }
+
+  /* Touch targets mejorados */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Texto más legible en móvil */
+  .mobile-text-contrast {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  }
+
+/* ==========================================
+   THEME COMPONENTS
+   ========================================== */
+
+  .theme-bg-primary {
+    background: var(--bg-secondary);
+  }
+  
+  .theme-text-primary {
+    color: var(--text-primary);
+  }
+  
+  .theme-text-secondary {
+    color: var(--text-secondary);
+  }
+  
+  .theme-border {
+    border-color: var(--border-primary);
+  }
+  
+  .theme-shadow {
+    box-shadow: 0 0 30px var(--shadow-primary);
+  }
+
+/* ==========================================
+   LIGHT THEME ADAPTATIONS
+   ========================================== */
+
+  .light .flicker-terrifying,
+  .light .flicker-terrifying-slow,
+  .light .flicker-terrifying-fast {
+    animation: none;
+  }
+  
+  .light .enhanced-logo {
+    text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.3),
+      0 0 15px rgba(251, 191, 36, 0.4),
+      0 0 30px rgba(220, 38, 38, 0.2);
+  }
+  
+  .light .drop-shadow-glow {
+    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5)) drop-shadow(0 0 16px rgba(251, 191, 36, 0.2));
+  }
+  
+  .light .navbar-glitch-text {
+    text-shadow: none;
+    animation: none;
+  }
+
+/* ==========================================
+   LOADING & SKELETON
+   ========================================== */
+
+  .skeleton {
+    background: linear-gradient(90deg, 
+      rgba(255, 255, 255, 0.1) 25%, 
+      rgba(255, 255, 255, 0.2) 50%, 
+      rgba(255, 255, 255, 0.1) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+/* ==========================================
+   GRADIENTS PERSONALIZADOS
+   ========================================== */
+
+  .gradient-amber-red {
+    background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
+  }
+
+  .gradient-dark-amber {
+    background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(245,158,11,0.1) 100%);
+  }
+
+  .gradient-dark-red {
+    background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(220,38,38,0.1) 100%);
+  }
+
+/* ==========================================
+   KEYFRAMES - ANIMATIONS
+   ========================================== */
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -149,7 +499,28 @@
     }
   }
 
-  /* Animaciones de parpadeo terroríficas mejoradas */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes animate-reverse {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+
+/* ==========================================
+   TERRIFYING FLICKER KEYFRAMES
+   ========================================== */
+
   @keyframes flickerTerrifying {
     0%, 82%, 87%, 92%, 97%, 100% {
       opacity: 1;
@@ -238,38 +609,27 @@
     }
   }
 
-  /* Mejores contrastes y visibilidad */
-  .enhanced-visibility {
-    text-shadow: 
-      2px 2px 3px rgba(0, 0, 0, 0.9),
-      0 0 12px rgba(251, 191, 36, 0.7),
-      0 0 24px rgba(251, 191, 36, 0.3);
-    font-weight: 600;
+/* ==========================================
+   UTILITY CLASSES
+   ========================================== */
+
+  .animate-reverse {
+    animation: animate-reverse 1s linear infinite;
   }
 
-  .enhanced-text {
-    text-shadow: 
-      1px 1px 2px rgba(0, 0, 0, 0.8),
-      0 0 8px rgba(251, 191, 36, 0.3);
+  .will-change-transform {
+    will-change: transform;
   }
 
-  .nav-enhanced {
-    text-shadow: 
-      1px 1px 2px rgba(0, 0, 0, 0.8),
-      0 0 8px rgba(251, 191, 36, 0.4);
-    font-weight: 500;
+  .backface-hidden {
+    backface-visibility: hidden;
   }
 
-  .title-enhanced {
-    text-shadow: 
-      3px 3px 6px rgba(0, 0, 0, 0.9),
-      0 0 20px rgba(251, 191, 36, 0.8),
-      0 0 40px rgba(251, 191, 36, 0.4),
-      0 0 60px rgba(220, 38, 38, 0.2);
-    font-weight: 700;
+  .perspective-1000 {
+    perspective: 1000px;
   }
 
-  /* Partículas flotantes */
+  /* Floating particles keyframe */
   @keyframes floating-particles {
     0% {
       transform: translateY(100vh) translateX(0px) rotate(0deg);
@@ -289,18 +649,5 @@
 
   .floating-particle {
     animation: floating-particles linear infinite;
-  }
-
-  /* Gradientes personalizados */
-  .gradient-amber-red {
-    background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
-  }
-
-  .gradient-dark-amber {
-    background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(245,158,11,0.1) 100%);
-  }
-
-  .gradient-dark-red {
-    background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(220,38,38,0.1) 100%);
   }
 }
