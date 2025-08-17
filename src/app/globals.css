@@ -1,653 +1,832 @@
 @import "tailwindcss";
 
 /* ==========================================
-   BASE STYLES & THEME VARIABLES
+   CONFIGURACIÓN DE FUENTES - SOLO LAS QUE TIENES
    ========================================== */
 
-@layer base {
-  :root {
-    /* Dark theme variables (default) */
-    --bg-primary: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
-    --bg-secondary: rgba(0, 0, 0, 0.9);
-    --text-primary: #ffffff;
-    --text-secondary: #d1d5db;
-    --border-primary: rgba(251, 191, 36, 0.3);
-    --shadow-primary: rgba(251, 191, 36, 0.1);
-  }
+/* Solo Silent Hill que SÍ tienes */
+@font-face {
+  font-family: 'Silent Hell of Cheryl';
+  src: url('/fonts/SLNTHLC.TTF') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
-  .light {
-    --bg-primary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f8fafc 100%);
-    --bg-secondary: rgba(255, 255, 255, 0.9);
-    --text-primary: #1e293b;
-    --text-secondary: #475569;
-    --border-primary: rgba(251, 191, 36, 0.3);
-    --shadow-primary: rgba(251, 191, 36, 0.1);
-  }
+/* JetBrains Mono que SÍ tienes */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/webfonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    overflow-x: hidden;
-  }
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/webfonts/JetBrainsMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
-  * {
-    box-sizing: border-box;
-  }
+/* ==========================================
+   SILENT HILL SAGA VARIABLES
+   ========================================== */
 
-  /* Scrollbar personalizado */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
+:root {
+  /* Fuentes principales - ACTUALIZADAS SOLO CON LAS QUE TIENES */
+  --font-silent-hill-title: 'Silent Hell of Cheryl', Impact, 'Arial Black', sans-serif;
+  --font-palatino: 'Times New Roman', Georgia, serif; /* FALLBACK DEL SISTEMA */
+  --font-jetbrains: 'JetBrains Mono', 'Courier New', monospace;
+  --font-inter: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
 
-  ::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.3);
-  }
+  /* Silent Hill 1 - Fog World Colors */
+  --sh1-fog-white: #F8F8FF;
+  --sh1-fog-gray: #D3D3D3;
+  --sh1-fog-dark: #708090;
+  --sh1-school-yellow: #FFD700;
+  --sh1-rust-brown: #8B4513;
 
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #f59e0b, #dc2626);
-    border-radius: 4px;
-  }
+  /* Silent Hill 2 - Psychological Horror Colors */
+  --sh2-flesh-pale: #F5DEB3;
+  --sh2-flesh-sick: #DEB887;
+  --sh2-blood-dark: #8B0000;
+  --sh2-blood-bright: #DC143C;
+  --sh2-rust-deep: #704214;
+  --sh2-rust-medium: #8B4513;
+  --sh2-rust-light: #CD853F;
+  --sh2-hospital-green: #2F4F4F;
+  --sh2-hospital-gray: #696969;
+  --sh2-hospital-white: #F5F5DC;
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, #fbbf24, #ef4444);
+  /* Silent Hill 3 - Mall/Church Colors */
+  --sh3-neon-pink: #FF1493;
+  --sh3-neon-blue: #00BFFF;
+  --sh3-neon-green: #32CD32;
+  --sh3-church-gold: #DAA520;
+  --sh3-church-purple: #9370DB;
+  --sh3-mall-chrome: #C0C0C0;
+
+  /* Silent Hill 4 - Apartment Colors */
+  --sh4-apartment-beige: #F5F5DC;
+  --sh4-apartment-brown: #8B7355;
+  --sh4-hole-black: #0D0D0D;
+  --sh4-chain-silver: #B8B8B8;
+  --sh4-blood-red: #B22222;
+
+  /* Silent Hill Origins - Industrial Colors */
+  --sho-industrial-orange: #FF8C00;
+  --sho-industrial-steel: #778899;
+  --sho-fire-red: #FF4500;
+  --sho-smoke-gray: #2F2F2F;
+
+  /* Silent Hill Homecoming - War Colors */
+  --shh-military-green: #556B2F;
+  --shh-military-tan: #D2B48C;
+  --shh-war-red: #8B0000;
+  --shh-steel-blue: #4682B4;
+
+  /* Silent Hill Downpour - Rain Colors */
+  --shd-rain-blue: #4169E1;
+  --shd-storm-gray: #2F4F4F;
+  --shd-lightning-white: #F0F8FF;
+  --shd-puddle-dark: #191970;
+
+  /* Silent Hill PT - Horror Colors */
+  --shpt-corridor-brown: #654321;
+  --shpt-light-flicker: #FFFACD;
+  --shpt-shadow-black: #000000;
+  --shpt-radio-static: #A9A9A9;
+
+  /* Silent Hill Shadow Colors (darkness/depth) */
+  --sh-shadow-void: #000000;
+  --sh-shadow-deep: #0D0D0D;
+  --sh-shadow-medium: #1A1A1A;
+  --sh-shadow-light: #2F2F2F;
+
+  /* Silent Hill Glow Effects */
+  --sh-glow-rust: rgba(139, 69, 19, 0.8);
+  --sh-glow-blood: rgba(220, 20, 60, 0.8);
+  --sh-glow-neon: rgba(255, 20, 147, 0.6);
+  --sh-glow-hospital: rgba(105, 105, 105, 0.7);
+  --sh-glow-fire: rgba(255, 140, 0, 0.8);
+  --sh-glow-lightning: rgba(240, 248, 255, 0.9);
+
+  /* Colores adicionales para compatibilidad */
+  --sh-red-blood: #DC143C;
+  --sh-red-dark: #8B0000;
+  --sh-rust-medium: #8B4513;
+  --sh-rust-light: #CD853F;
+  --sh-hospital-gray: #696969;
+  --sh-hospital-white: #F5F5DC;
+  --sh-hospital-yellow: #DAA520;
+  --sh-flesh-pale: #F5DEB3;
+  --sh-glow-red: rgba(220, 20, 60, 0.8);
+  --sh-glow-orange: rgba(255, 140, 0, 0.8);
+  --sh-glow-yellow: rgba(218, 165, 32, 0.8);
+}
+
+/* ==========================================
+   BASE STYLES - ENHANCED
+   ========================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(135deg, 
+    var(--sh-shadow-void) 0%, 
+    var(--sh-shadow-deep) 25%, 
+    var(--sh4-hole-black) 50%, 
+    var(--sh-shadow-deep) 75%, 
+    var(--sh-shadow-void) 100%);
+  color: var(--sh2-flesh-pale);
+  overflow-x: hidden;
+  font-family: var(--font-inter);
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Scrollbar Silent Hill Enhanced */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sh-shadow-deep);
+  border-radius: 6px;
+  border: 1px solid var(--sh2-rust-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, 
+    var(--sh2-rust-medium), 
+    var(--sh2-blood-dark),
+    var(--sh2-rust-deep));
+  border-radius: 6px;
+  border: 1px solid var(--sh2-rust-light);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, 
+    var(--sh2-rust-light), 
+    var(--sh2-blood-bright),
+    var(--sh3-neon-pink));
+  box-shadow: 0 0 10px var(--sh-glow-rust);
+}
+
+/* ==========================================
+   CLASES DE FUENTES SILENT HILL
+   ========================================== */
+
+.font-silent-hill-title {
+  font-family: var(--font-silent-hill-title);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.font-palatino {
+  font-family: var(--font-palatino);
+}
+
+.font-jetbrains {
+  font-family: var(--font-jetbrains);
+}
+
+/* ==========================================
+   ESTILOS ESPECÍFICOS SILENT HILL
+   ========================================== */
+
+/* Títulos principales estilo Silent Hill */
+.sh-hero-title {
+  font-family: var(--font-silent-hill-title);
+  font-size: clamp(2rem, 8vw, 6rem);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sh-red-blood);
+  text-shadow: 
+    0 0 10px var(--sh-glow-red),
+    0 0 20px rgba(220, 20, 60, 0.6),
+    0 0 30px rgba(220, 20, 60, 0.4),
+    3px 3px 0 rgba(0, 0, 0, 0.8),
+    -1px -1px 0 rgba(0, 0, 0, 0.8);
+  filter: contrast(1.2);
+}
+
+/* Subtítulos estilo hospital/médico */
+.sh-hero-subtitle {
+  font-family: var(--font-palatino);
+  font-size: clamp(1.125rem, 3vw, 1.875rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #FFA500;
+  text-shadow: 
+    0 0 15px rgba(255, 165, 0, 0.6),
+    2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Descripción con fuente Palatino */
+.sh-hero-description {
+  font-family: var(--font-palatino);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--sh-flesh-pale);
+}
+
+/* Estadísticas estilo terminal médico */
+.sh-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 2rem;
+  max-width: 64rem;
+  margin: 3rem auto;
+}
+
+.sh-stat-item {
+  text-align: center;
+  cursor: default;
+}
+
+.sh-stat-number {
+  font-family: var(--font-jetbrains);
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
+  font-weight: 700;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.sh-stat-label {
+  font-family: var(--font-palatino);
+  font-size: 0.875rem;
+  color: var(--sh-hospital-gray);
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* Tags estilo Silent Hill */
+.sh-tag {
+  font-family: var(--font-jetbrains);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border: 2px solid;
+  backdrop-filter: blur(4px);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.sh-tag-critical {
+  background: rgba(139, 0, 0, 0.2);
+  border-color: var(--sh-red-blood);
+  color: #ff6b6b;
+  text-shadow: 0 0 10px var(--sh-glow-red);
+}
+
+.sh-tag-warning {
+  background: rgba(255, 140, 0, 0.2);
+  border-color: #FF8C00;
+  color: #ffb366;
+  text-shadow: 0 0 10px var(--sh-glow-orange);
+}
+
+.sh-tag-tech {
+  background: rgba(218, 165, 32, 0.2);
+  border-color: var(--sh-hospital-yellow);
+  color: #ffd666;
+  text-shadow: 0 0 10px var(--sh-glow-yellow);
+}
+
+/* Destacados de texto */
+.sh-highlight-critical {
+  color: var(--sh-red-blood);
+  font-weight: 600;
+  text-shadow: 0 0 8px var(--sh-glow-red);
+}
+
+.sh-highlight-important {
+  color: var(--sh-hospital-yellow);
+  font-weight: 600;
+  text-shadow: 0 0 8px var(--sh-glow-yellow);
+}
+
+.sh-highlight-data {
+  color: #FF8C00;
+  font-weight: 600;
+  text-shadow: 0 0 8px var(--sh-glow-orange);
+}
+
+/* ==========================================
+   GRADIENTE RADIAL PARA EFECTOS DE NIEBLA
+   ========================================== */
+
+.bg-gradient-radial {
+  background-image: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* ==========================================
+   ANIMACIONES SILENT HILL
+   ========================================== */
+
+.sh-breathing {
+  animation: sh-breathing 4s ease-in-out infinite;
+}
+
+.sh-pulse-red {
+  animation: sh-pulse-red 3s ease-in-out infinite;
+}
+
+.sh-flicker-red {
+  animation: sh-flicker-red 6s infinite;
+}
+
+.sh-float {
+  animation: sh-float 6s ease-in-out infinite;
+}
+
+.sh-fade-in {
+  animation: sh-fade-in 2s ease-out;
+}
+
+.sh-hover-glow:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+  text-shadow: 0 0 20px currentColor;
+}
+
+.sh-hover-red:hover {
+  color: var(--sh-red-blood) !important;
+  text-shadow: 0 0 15px var(--sh-glow-red);
+}
+
+/* ==========================================
+   KEYFRAMES ANIMACIONES
+   ========================================== */
+
+@keyframes sh-breathing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+@keyframes sh-pulse-red {
+  0%, 100% {
+    text-shadow: 
+      0 0 15px rgba(255, 165, 0, 0.6),
+      2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+  50% {
+    text-shadow: 
+      0 0 25px rgba(255, 165, 0, 0.8),
+      0 0 35px rgba(255, 140, 0, 0.6),
+      2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+}
+
+@keyframes sh-flicker-red {
+  0%, 85%, 90%, 95%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 10px var(--sh-glow-red);
+  }
+  86%, 91%, 96% {
+    opacity: 0.3;
+    text-shadow: none;
+  }
+  87%, 92%, 97% {
+    opacity: 0.8;
+    text-shadow: 0 0 5px var(--sh-glow-red);
+  }
+}
+
+@keyframes sh-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes sh-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 /* ==========================================
-   GLOW EFFECTS & DROPS SHADOWS
+   EFECTOS ESPECIALES SILENT HILL
    ========================================== */
 
-@layer components {
-  .drop-shadow-glow {
-    filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.7)) drop-shadow(0 0 24px rgba(251, 191, 36, 0.3));
-  }
-  
-  .drop-shadow-glow-red {
-    filter: drop-shadow(0 0 12px rgba(220, 38, 38, 0.7)) drop-shadow(0 0 24px rgba(220, 38, 38, 0.3));
-  }
-  
-  .hover-shadow-amber-glow:hover {
-    box-shadow: 
-      0 0 20px rgba(251, 191, 36, 0.4),
-      0 0 40px rgba(251, 191, 36, 0.2),
-      inset 0 0 20px rgba(251, 191, 36, 0.1);
-  }
-  
-  .hover-drop-shadow-glow:hover {
-    filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.8)) drop-shadow(0 0 30px rgba(251, 191, 36, 0.4));
-  }
-  
-  .silent-glow {
-    box-shadow: 
-      0 0 30px rgba(251, 191, 36, 0.4),
-      0 0 60px rgba(251, 191, 36, 0.2),
-      inset 0 0 30px rgba(251, 191, 36, 0.1);
-  }
-  
-  .silent-border {
-    border: 1px solid rgba(251, 191, 36, 0.6);
-  }
+/* Efecto de interferencia */
+.sh-interference::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.03) 2px,
+    rgba(255, 255, 255, 0.03) 4px
+  );
+  pointer-events: none;
+  animation: sh-interference 0.1s linear infinite;
+}
+
+@keyframes sh-interference {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(4px); }
+}
+
+/* Efecto de televisión antigua */
+.sh-crt-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.sh-crt-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    transparent 50%, 
+    rgba(0, 255, 0, 0.02) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  animation: sh-scanlines 0.1s linear infinite;
+}
+
+@keyframes sh-scanlines {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
 
 /* ==========================================
-   ANIMATIONS - BASIC
+   COMPONENTES SILENT HILL MEJORADOS
    ========================================== */
 
-  .animate-fadeIn {
-    animation: fadeIn 1.5s ease-out;
-  }
+.sh-card {
+  background: linear-gradient(135deg, 
+    rgba(13, 13, 13, 0.95) 0%, 
+    rgba(26, 26, 26, 0.85) 25%,
+    rgba(47, 47, 47, 0.75) 50%,
+    rgba(26, 26, 26, 0.85) 75%,
+    rgba(13, 13, 13, 0.95) 100%);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  backdrop-filter: blur(15px) saturate(1.2);
+  position: relative;
+  overflow: hidden;
+}
 
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
+.sh-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(45deg, 
+    var(--sh2-rust-medium),
+    var(--sh2-hospital-gray),
+    var(--sh2-rust-light));
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  z-index: -1;
+}
 
-  .animate-pulse-slow {
-    animation: pulse-slow 4s ease-in-out infinite;
-  }
+.sh-card-critical {
+  background: linear-gradient(135deg, 
+    rgba(13, 13, 13, 0.95) 0%, 
+    rgba(139, 0, 0, 0.15) 25%,
+    rgba(255, 20, 147, 0.1) 50%,
+    rgba(139, 0, 0, 0.15) 75%,
+    rgba(13, 13, 13, 0.95) 100%);
+  border: 2px solid var(--sh3-neon-pink);
+  box-shadow: 
+    0 0 20px var(--sh-glow-neon),
+    inset 0 0 20px rgba(255, 20, 147, 0.1);
+}
 
-  .animate-flicker {
-    animation: flicker 3s ease-in-out infinite;
-  }
+.sh-card-important {
+  background: linear-gradient(135deg, 
+    rgba(13, 13, 13, 0.95) 0%, 
+    rgba(139, 0, 0, 0.2) 50%, 
+    rgba(13, 13, 13, 0.95) 100%);
+  border: 2px solid var(--sh2-blood-bright);
+  box-shadow: 
+    0 0 15px var(--sh-glow-blood),
+    inset 0 0 15px rgba(220, 20, 60, 0.1);
+}
+
+.sh-card-tech {
+  background: linear-gradient(135deg, 
+    rgba(13, 13, 13, 0.95) 0%, 
+    rgba(255, 140, 0, 0.1) 50%, 
+    rgba(13, 13, 13, 0.95) 100%);
+  border: 2px solid var(--sho-industrial-orange);
+  box-shadow: 
+    0 0 12px var(--sh-glow-fire),
+    inset 0 0 12px rgba(255, 140, 0, 0.1);
+}
 
 /* ==========================================
-   TERRIFYING FLICKER EFFECTS
+   BOTONES SILENT HILL MEJORADOS
    ========================================== */
 
-  .flicker-terrifying {
-    animation: flickerTerrifying 15s infinite;
-    animation-delay: calc(var(--delay, 0) * 1s);
-  }
+.sh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-family: var(--font-jetbrains);
+  letter-spacing: 0.03em;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+}
 
-  .flicker-terrifying-slow {
-    animation: flickerTerrifyingSlow 20s infinite;
-    animation-delay: calc(var(--delay, 0) * 1s);
-  }
+.sh-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent);
+  transition: left 0.6s ease;
+}
 
-  .flicker-terrifying-fast {
-    animation: flickerTerrifyingFast 12s infinite;
-    animation-delay: calc(var(--delay, 0) * 1s);
-  }
+.sh-btn:hover::before {
+  left: 100%;
+}
+
+.sh-btn-primary {
+  background: linear-gradient(135deg, 
+    var(--sh2-blood-dark) 0%, 
+    var(--sh2-blood-bright) 50%,
+    var(--sh3-neon-pink) 100%);
+  color: white;
+  border-color: var(--sh3-neon-pink);
+  text-shadow: 
+    0 0 10px rgba(0, 0, 0, 0.8),
+    0 0 20px var(--sh-glow-neon);
+  box-shadow: 
+    0 8px 25px rgba(255, 20, 147, 0.4),
+    0 0 40px var(--sh-glow-blood);
+}
+
+.sh-btn-primary:hover {
+  background: linear-gradient(135deg, 
+    var(--sh3-neon-pink) 0%, 
+    var(--sh2-blood-bright) 50%,
+    var(--sh3-neon-blue) 100%);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 
+    0 15px 35px rgba(255, 20, 147, 0.6),
+    0 0 60px var(--sh-glow-neon);
+}
+
+.sh-btn-secondary {
+  background: transparent;
+  color: var(--sho-industrial-orange);
+  border: 2px solid var(--sho-industrial-orange);
+  text-shadow: 0 0 8px var(--sh-glow-fire);
+}
+
+.sh-btn-secondary:hover {
+  background: linear-gradient(135deg,
+    rgba(255, 140, 0, 0.2),
+    rgba(255, 69, 0, 0.1));
+  color: var(--sh2-flesh-pale);
+  border-color: var(--sho-fire-red);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 
+    0 12px 30px rgba(255, 140, 0, 0.4),
+    0 0 50px var(--sh-glow-fire);
+}
 
 /* ==========================================
-   LOGO & TEXT EFFECTS
+   RESPONSIVE DESIGN
    ========================================== */
 
-  .enhanced-logo {
-    text-shadow: 
-      2px 2px 4px rgba(0, 0, 0, 0.8),
-      0 0 15px rgba(251, 191, 36, 0.6),
-      0 0 30px rgba(220, 38, 38, 0.3);
-    animation: logoGlow 8s ease-in-out infinite;
+@media (max-width: 768px) {
+  .sh-hero-title {
+    font-size: clamp(1.5rem, 10vw, 3rem);
   }
+  
+  .sh-hero-subtitle {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+  }
+  
+  .sh-hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .sh-stat-number {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+  
+  .sh-tag {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .sh-card {
+    backdrop-filter: blur(10px);
+  }
+  
+  .sh-btn {
+    padding: 0.8rem 2rem;
+    font-size: 0.9rem;
+  }
+}
 
-  .navbar-glitch-text {
-    text-shadow: 
-      2px 0 rgba(220, 38, 38, 0.8),
-      -2px 0 rgba(34, 197, 94, 0.8),
-      0 0 15px rgba(251, 191, 36, 0.8);
-    animation: navbarGlitchFlicker 18s infinite;
-    animation-delay: 2s;
+@media (max-width: 480px) {
+  .sh-hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
-
-  .enhanced-visibility {
-    text-shadow: 
-      2px 2px 3px rgba(0, 0, 0, 0.9),
-      0 0 12px rgba(251, 191, 36, 0.7),
-      0 0 24px rgba(251, 191, 36, 0.3);
-    font-weight: 600;
+  
+  .sh-stat-number {
+    font-size: 1.25rem;
   }
-
-  .enhanced-text {
-    text-shadow: 
-      1px 1px 2px rgba(0, 0, 0, 0.8),
-      0 0 8px rgba(251, 191, 36, 0.3);
+  
+  .sh-stat-label {
+    font-size: 0.75rem;
   }
-
-  .nav-enhanced {
-    text-shadow: 
-      1px 1px 2px rgba(0, 0, 0, 0.8),
-      0 0 8px rgba(251, 191, 36, 0.4);
-    font-weight: 500;
+  
+  /* Reducir efectos en móvil para performance */
+  .sh-flicker-red,
+  .sh-pulse-red,
+  .sh-breathing {
+    animation-duration: 6s;
   }
-
-  .title-enhanced {
-    text-shadow: 
-      3px 3px 6px rgba(0, 0, 0, 0.9),
-      0 0 20px rgba(251, 191, 36, 0.8),
-      0 0 40px rgba(251, 191, 36, 0.4),
-      0 0 60px rgba(220, 38, 38, 0.2);
-    font-weight: 700;
+  
+  .sh-hover-glow:hover {
+    box-shadow: 0 0 15px var(--sh-glow-neon);
   }
+}
 
 /* ==========================================
-   MOBILE OPTIMIZATIONS
+   OPTIMIZACIONES DE PERFORMANCE
    ========================================== */
 
-  /* Hero Section - Móvil */
-  .hero-mobile-optimized {
-    @apply px-4 py-16;
-  }
-  
-  .hero-title-mobile {
-    @apply text-4xl sm:text-6xl md:text-8xl lg:text-9xl;
-    line-height: 0.9;
-    word-break: break-word;
-  }
-  
-  .hero-subtitle-mobile {
-    @apply text-lg sm:text-2xl md:text-4xl;
-    line-height: 1.2;
-  }
-  
-  .hero-tags-mobile {
-    @apply flex-col sm:flex-row gap-2 sm:gap-3;
-  }
-  
-  .hero-tag {
-    @apply px-3 py-2 text-xs sm:text-sm md:text-base;
-    min-width: fit-content;
-  }
+/* Preload crítico para evitar FOUC */
+.font-preload-critical {
+  font-family: var(--font-silent-hill-title);
+  visibility: hidden;
+  position: absolute;
+  left: -9999px;
+}
 
-  /* Skills Grid - Móvil */
-  .skills-grid-mobile {
-    @apply grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-6;
-  }
-  
-  .skill-card-mobile {
-    @apply p-3 sm:p-6;
-  }
-  
-  .skill-icon-mobile {
-    @apply text-4xl sm:text-6xl mb-2;
-  }
-  
-  .skill-name-mobile {
-    @apply text-xs sm:text-sm;
-    word-break: break-word;
-  }
+/* Fallbacks para carga de fuentes */
+.font-loading .sh-hero-title {
+  font-family: Impact, 'Arial Black', sans-serif;
+}
 
-  /* Experience Cards - Móvil */
-  .experience-card-mobile {
-    @apply p-4 sm:p-6;
-  }
-  
-  .experience-header-mobile {
-    @apply flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4;
-  }
-  
-  .experience-meta-mobile {
-    @apply flex-col sm:flex-row gap-2 sm:gap-3;
-  }
+.font-loading .sh-hero-subtitle,
+.font-loading .sh-hero-description {
+  font-family: 'Times New Roman', serif;
+}
 
-  /* Projects Grid - Móvil */
-  .projects-grid-mobile {
-    @apply grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8;
-  }
-  
-  .project-card-mobile {
-    @apply p-4 sm:p-6;
-  }
-  
-  .project-tech-tags-mobile {
-    @apply flex-wrap gap-1 sm:gap-2;
-  }
-  
-  .project-tech-tag {
-    @apply px-2 py-1 text-xs;
-    word-break: break-word;
-  }
-
-  /* Contact Form - Móvil */
-  .contact-grid-mobile {
-    @apply grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12;
-  }
-  
-  .contact-form-mobile {
-    @apply p-6 sm:p-8;
-  }
-  
-  .contact-buttons-mobile {
-    @apply flex-col sm:flex-row gap-4;
-  }
-
-  /* Navigation - Móvil */
-  .nav-mobile {
-    @apply px-4 py-3;
-  }
-  
-  .nav-logo-mobile {
-    @apply text-lg sm:text-2xl;
-    word-break: break-word;
-  }
-  
-  .nav-menu-mobile {
-    @apply mt-4 pb-4;
-  }
-  
-  .nav-item-mobile {
-    @apply px-4 py-3 text-sm sm:text-base;
-  }
-
-  /* Typography Móvil */
-  .section-title-mobile {
-    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
-    line-height: 1.1;
-  }
-  
-  .section-subtitle-mobile {
-    @apply text-base sm:text-lg;
-    line-height: 1.5;
-  }
-
-  /* Containers Móvil */
-  .container-mobile {
-    @apply max-w-6xl mx-auto px-4 sm:px-6;
-  }
-  
-  .section-padding-mobile {
-    @apply py-12 sm:py-16 md:py-20;
-  }
-
-  /* Footer Móvil */
-  .footer-grid-mobile {
-    @apply grid-cols-1 md:grid-cols-4 gap-8 sm:gap-10;
-  }
-  
-  .footer-stats-mobile {
-    @apply grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8;
-  }
+.font-loading .sh-tag,
+.font-loading .sh-stat-number {
+  font-family: 'Courier New', monospace;
+}
 
 /* ==========================================
-   MOBILE PERFORMANCE OPTIMIZATIONS
+   MODO OSCURO MEJORADO
    ========================================== */
 
-  @media (max-width: 640px) {
-    .flicker-terrifying,
-    .flicker-terrifying-slow,
-    .flicker-terrifying-fast {
-      animation: none; /* Desactivar animaciones intensas en móvil */
-    }
-    
-    .hover\:scale-105:hover {
-      transform: none; /* Desactivar escalado en móvil */
-    }
-    
-    .animate-float {
-      animation-duration: 8s; /* Animaciones más lentas en móvil */
-    }
-
-    .enhanced-logo {
-      text-shadow: 
-        2px 2px 4px rgba(0, 0, 0, 0.8),
-        0 0 10px rgba(251, 191, 36, 0.4);
-      animation: none;
-    }
-
-    .navbar-glitch-text {
-      text-shadow: none;
-      animation: none;
-    }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sh-contrast-boost: 1.3;
   }
-
-  /* Touch targets mejorados */
-  .touch-target {
-    @apply min-h-[44px] min-w-[44px];
+  
+  .sh-hero-title {
+    filter: contrast(var(--sh-contrast-boost));
   }
-
-  /* Texto más legible en móvil */
-  .mobile-text-contrast {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  
+  .sh-tag {
+    backdrop-filter: blur(8px);
   }
+}
 
 /* ==========================================
-   THEME COMPONENTS
+   ACCESIBILIDAD
    ========================================== */
 
-  .theme-bg-primary {
-    background: var(--bg-secondary);
-  }
-  
-  .theme-text-primary {
-    color: var(--text-primary);
-  }
-  
-  .theme-text-secondary {
-    color: var(--text-secondary);
-  }
-  
-  .theme-border {
-    border-color: var(--border-primary);
-  }
-  
-  .theme-shadow {
-    box-shadow: 0 0 30px var(--shadow-primary);
-  }
-
-/* ==========================================
-   LIGHT THEME ADAPTATIONS
-   ========================================== */
-
-  .light .flicker-terrifying,
-  .light .flicker-terrifying-slow,
-  .light .flicker-terrifying-fast {
+@media (prefers-reduced-motion: reduce) {
+  .sh-breathing,
+  .sh-pulse-red,
+  .sh-flicker-red,
+  .sh-float {
     animation: none;
   }
   
-  .light .enhanced-logo {
-    text-shadow: 
-      2px 2px 4px rgba(0, 0, 0, 0.3),
-      0 0 15px rgba(251, 191, 36, 0.4),
-      0 0 30px rgba(220, 38, 38, 0.2);
+  .sh-hover-glow:hover {
+    transform: none;
+  }
+}
+
+/* Asegurar contraste para lectores de pantalla */
+@media (prefers-contrast: high) {
+  .sh-hero-title {
+    color: #ff0000;
+    text-shadow: 2px 2px 0 #000000;
   }
   
-  .light .drop-shadow-glow {
-    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5)) drop-shadow(0 0 16px rgba(251, 191, 36, 0.2));
+  .sh-hero-subtitle {
+    color: #ffaa00;
+    text-shadow: 1px 1px 0 #000000;
   }
-  
-  .light .navbar-glitch-text {
-    text-shadow: none;
-    animation: none;
-  }
+}
 
 /* ==========================================
-   LOADING & SKELETON
+   UTILITIES MEJORADAS
    ========================================== */
 
-  .skeleton {
-    background: linear-gradient(90deg, 
-      rgba(255, 255, 255, 0.1) 25%, 
-      rgba(255, 255, 255, 0.2) 50%, 
-      rgba(255, 255, 255, 0.1) 75%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
-  }
+.sh-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.sh-section {
+  padding: 6rem 0;
+  position: relative;
+}
+
+.sh-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--sh2-rust-medium),
+    var(--sh2-blood-bright),
+    var(--sh2-rust-medium),
+    transparent);
+  opacity: 0.6;
+}
 
 /* ==========================================
-   GRADIENTS PERSONALIZADOS
+   GRADIENTES ESPECIALES
    ========================================== */
 
-  .gradient-amber-red {
-    background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
-  }
+.gradient-critical {
+  background: linear-gradient(135deg,
+    var(--sh3-neon-pink) 0%,
+    var(--sh2-blood-bright) 50%,
+    var(--sh3-neon-blue) 100%);
+}
 
-  .gradient-dark-amber {
-    background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(245,158,11,0.1) 100%);
-  }
+.gradient-tech {
+  background: linear-gradient(135deg,
+    var(--sho-industrial-orange) 0%,
+    var(--sho-fire-red) 50%,
+    var(--sh3-church-gold) 100%);
+}
 
-  .gradient-dark-red {
-    background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(220,38,38,0.1) 100%);
-  }
-
-/* ==========================================
-   KEYFRAMES - ANIMATIONS
-   ========================================== */
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-  }
-
-  @keyframes pulse-slow {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.7;
-    }
-  }
-
-  @keyframes flicker {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
-  }
-
-  @keyframes logoGlow {
-    0%, 100% {
-      text-shadow: 
-        2px 2px 4px rgba(0, 0, 0, 0.8),
-        0 0 15px rgba(251, 191, 36, 0.6),
-        0 0 30px rgba(220, 38, 38, 0.3);
-    }
-    50% {
-      text-shadow: 
-        2px 2px 4px rgba(0, 0, 0, 0.8),
-        0 0 25px rgba(251, 191, 36, 0.8),
-        0 0 50px rgba(220, 38, 38, 0.5);
-    }
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: -200% 0;
-    }
-    100% {
-      background-position: 200% 0;
-    }
-  }
-
-  @keyframes animate-reverse {
-    from {
-      transform: rotate(360deg);
-    }
-    to {
-      transform: rotate(0deg);
-    }
-  }
-
-/* ==========================================
-   TERRIFYING FLICKER KEYFRAMES
-   ========================================== */
-
-  @keyframes flickerTerrifying {
-    0%, 82%, 87%, 92%, 97%, 100% {
-      opacity: 1;
-      filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.8));
-    }
-    10%, 15%, 25%, 47%, 52%, 78% {
-      opacity: 0.1;
-      filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.2));
-    }
-    12%, 18%, 28%, 50%, 55%, 81% {
-      opacity: 0.02;
-      filter: drop-shadow(0 0 1px rgba(251, 191, 36, 0.1));
-    }
-    20%, 32%, 58%, 85% {
-      opacity: 0.6;
-      filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
-    }
-  }
-
-  @keyframes flickerTerrifyingSlow {
-    0%, 85%, 90%, 94%, 98%, 100% {
-      opacity: 1;
-      filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.8));
-    }
-    18%, 23%, 35%, 55%, 75% {
-      opacity: 0.08;
-      filter: drop-shadow(0 0 1px rgba(251, 191, 36, 0.1));
-    }
-    20%, 26%, 38%, 58%, 78% {
-      opacity: 0.01;
-      filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.05));
-    }
-    28%, 42%, 62%, 82% {
-      opacity: 0.4;
-      filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.4));
-    }
-  }
-
-  @keyframes flickerTerrifyingFast {
-    0%, 78%, 83%, 88%, 93%, 98%, 100% {
-      opacity: 1;
-      filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.8));
-    }
-    5%, 12%, 35%, 42%, 68%, 72% {
-      opacity: 0.12;
-      filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.2));
-    }
-    8%, 15%, 38%, 45%, 70%, 75% {
-      opacity: 0.01;
-      filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0.05));
-    }
-    18%, 48%, 78% {
-      opacity: 0.3;
-      filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.3));
-    }
-  }
-
-  @keyframes navbarGlitchFlicker {
-    0%, 88%, 93%, 97%, 100% {
-      text-shadow: 
-        2px 0 rgba(220, 38, 38, 0.8),
-        -2px 0 rgba(34, 197, 94, 0.8),
-        0 0 15px rgba(251, 191, 36, 0.8);
-      opacity: 1;
-    }
-    12%, 17%, 50%, 55%, 75%, 80% {
-      text-shadow: 
-        -3px 0 rgba(220, 38, 38, 0.2),
-        3px 0 rgba(34, 197, 94, 0.2),
-        0 0 3px rgba(251, 191, 36, 0.2);
-      opacity: 0.15;
-    }
-    15%, 20%, 53%, 58%, 78%, 83% {
-      text-shadow: 
-        1px 0 rgba(220, 38, 38, 0.1),
-        -1px 0 rgba(34, 197, 94, 0.1),
-        0 0 1px rgba(251, 191, 36, 0.1);
-      opacity: 0.03;
-    }
-    22%, 60%, 85% {
-      text-shadow: 
-        -2px 0 rgba(220, 38, 38, 0.4),
-        2px 0 rgba(34, 197, 94, 0.4),
-        0 0 8px rgba(251, 191, 36, 0.4);
-      opacity: 0.5;
-    }
-  }
-
-/* ==========================================
-   UTILITY CLASSES
-   ========================================== */
-
-  .animate-reverse {
-    animation: animate-reverse 1s linear infinite;
-  }
-
-  .will-change-transform {
-    will-change: transform;
-  }
-
-  .backface-hidden {
-    backface-visibility: hidden;
-  }
-
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-
-  /* Floating particles keyframe */
-  @keyframes floating-particles {
-    0% {
-      transform: translateY(100vh) translateX(0px) rotate(0deg);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    90% {
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-10vh) translateX(100px) rotate(360deg);
-      opacity: 0;
-    }
-  }
-
-  .floating-particle {
-    animation: floating-particles linear infinite;
-  }
+.gradient-hospital {
+  background: linear-gradient(135deg,
+    var(--sh2-hospital-gray) 0%,
+    var(--sh4-chain-silver) 50%,
+    var(--sh2-hospital-white) 100%);
 }

@@ -1,12 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Home, User, Briefcase, Phone, Menu, X, Settings2, BadgeCheck, EyeOff, Trophy, Code, Github, Linkedin, Mail } from 'lucide-react'
+import { Home, User, Briefcase, Phone, Menu, X, Settings2, BadgeCheck, EyeOff, Trophy, Code, Github, Linkedin, Mail, Lightbulb, LightbulbOff, Zap, Eye, Skull } from 'lucide-react'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  const [isFlickering, setIsFlickering] = useState(false)
 
   const navItems = [
     { id: 'hero', icon: Home, label: 'Inicio' },
@@ -16,12 +17,10 @@ const Header = () => {
     { id: 'contact', icon: Phone, label: 'Contacto' },
   ]
 
-  // Detectar scroll y sección activa
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
       
-      // Detectar sección activa
       const sections = navItems.map(item => item.id)
       const currentSection = sections.find(section => {
         const element = document.getElementById(section)
@@ -36,9 +35,20 @@ const Header = () => {
         setActiveSection(currentSection)
       }
     }
+
+    // Efecto de parpadeo aleatorio del header
+    const flickerInterval = setInterval(() => {
+      if (Math.random() < 0.1) { // 10% de probabilidad cada 3 segundos
+        setIsFlickering(true)
+        setTimeout(() => setIsFlickering(false), 150 + Math.random() * 300)
+      }
+    }, 3000)
     
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      clearInterval(flickerInterval)
+    }
   }, [])
 
   const toggleMenu = () => {
@@ -53,188 +63,295 @@ const Header = () => {
     }
   }
 
+  // Función para notificar cambio de modo atmosférico
+  const toggleAtmosphericMode = (mode: string) => {
+    // Disparar evento personalizado para que otros componentes escuchen
+    window.dispatchEvent(new CustomEvent('atmosphericModeChange', { 
+      detail: { mode } 
+    }))
+  }
+
   return (
     <>
-      {/* Header principal */}
+      {/* Header principal - Enhanced Silent Hill */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled 
-          ? 'bg-gradient-to-r from-black/95 via-gray-900/95 to-black/95 backdrop-blur-lg border-b-2 border-amber-500/40 shadow-2xl shadow-amber-500/10' 
-          : 'bg-gradient-to-r from-black/80 via-gray-900/80 to-black/80 backdrop-blur-md border-b border-amber-500/20'
-      }`}>
-        <div className="max-w-6xl mx-auto nav-mobile">
-          <div className="flex justify-between items-center">
+          ? 'backdrop-blur-md bg-black/90 shadow-2xl border-b-2 border-red-500/50' 
+          : 'backdrop-blur-sm bg-black/70 border-b border-red-900/30'
+      } ${isFlickering ? 'opacity-30' : 'opacity-100'}`}>
+        
+        {/* Efecto de interferencia de TV */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/5 to-transparent animate-pulse"></div>
+          {/* Líneas de interferencia */}
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute h-px bg-red-500/20 animate-pulse"
+              style={{
+                top: `${20 + i * 30}%`,
+                left: `${Math.random() * 20}%`,
+                width: `${60 + Math.random() * 40}%`,
+                animationDelay: `${i * 0.5}s`,
+                animationDuration: `${2 + Math.random()}s`
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex justify-between items-center py-4">
             
-            {/* Logo mejorado */}
+            {/* Logo Enhanced */}
             <button
               onClick={() => scrollToSection('hero')}
-              className="flex items-center space-x-2 nav-logo-mobile font-bold tracking-wider enhanced-logo group cursor-pointer"
+              className="flex items-center space-x-3 cursor-pointer group relative"
             >
               <div className="relative">
-                <span className="bg-gradient-to-r from-amber-400 via-red-400 to-amber-400 bg-clip-text text-transparent drop-shadow-glow">
+                <span className="text-2xl sm:text-3xl font-bold text-red-500 tracking-wider font-mono relative z-10"
+                      style={{
+                        fontFamily: 'var(--font-silent-hill-title), Impact, Arial Black, sans-serif',
+                        textShadow: `
+                          0 0 10px rgba(220, 20, 60, 0.8),
+                          0 0 20px rgba(220, 20, 60, 0.6),
+                          2px 2px 0 rgba(0, 0, 0, 0.8)
+                        `
+                      }}>
                   ALEXANDER TAPIA
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400 via-red-400 to-amber-400 bg-clip-text text-transparent opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-sm">
+                
+                {/* Efecto fantasmal */}
+                <div className="absolute inset-0 text-2xl sm:text-3xl font-bold text-red-300 opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-sm transform translate-x-1 translate-y-1"
+                     style={{ fontFamily: 'var(--font-silent-hill-title), Impact, Arial Black, sans-serif' }}>
+                  ALEXANDER TAPIA
+                </div>
+                
+                {/* Glitch effect */}
+                <div className="absolute inset-0 text-2xl sm:text-3xl font-bold text-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-100 transform -translate-x-1"
+                     style={{ fontFamily: 'var(--font-silent-hill-title), Impact, Arial Black, sans-serif' }}>
                   ALEXANDER TAPIA
                 </div>
               </div>
               
               <div className="relative">
-                <EyeOff size={18} className="text-red-500 animate-pulse drop-shadow-glow-red" />
-                <div className="absolute inset-0 text-red-300 animate-ping opacity-20">
-                  <EyeOff size={18} />
+                <Skull size={24} className="text-red-500 group-hover:text-red-400 transition-colors duration-300" 
+                       style={{ filter: 'drop-shadow(0 0 10px rgba(220, 20, 60, 0.8))' }} />
+                <div className="absolute inset-0 text-red-400 opacity-0 group-hover:opacity-40 animate-pulse">
+                  <Skull size={24} />
                 </div>
               </div>
             </button>
 
-            {/* Navegación Desktop con redes sociales */}
+            {/* Controles atmosféricos */}
+            <div className="hidden lg:flex items-center space-x-2 bg-black/40 backdrop-blur-sm rounded-lg p-2 border border-red-900/30">
+              <button
+                onClick={() => toggleAtmosphericMode('fog')}
+                className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300 rounded-lg hover:bg-yellow-400/10"
+                title="Niebla (actual)"
+              >
+                <Eye size={16} />
+              </button>
+              <button
+                onClick={() => toggleAtmosphericMode('flashlight')}
+                className="p-2 text-gray-400 hover:text-blue-400 transition-colors duration-300 rounded-lg hover:bg-blue-400/10"
+                title="Modo Linterna"
+              >
+                <Lightbulb size={16} />
+              </button>
+              <button
+                onClick={() => toggleAtmosphericMode('static')}
+                className="p-2 text-gray-400 hover:text-green-400 transition-colors duration-300 rounded-lg hover:bg-green-400/10"
+                title="Interferencia TV"
+              >
+                <Zap size={16} />
+              </button>
+              <button
+                onClick={() => toggleAtmosphericMode('hospital')}
+                className="p-2 text-gray-400 hover:text-red-400 transition-colors duration-300 rounded-lg hover:bg-red-400/10"
+                title="Hospital Abandonado"
+              >
+                <LightbulbOff size={16} />
+              </button>
+            </div>
+
+            {/* Navegación Desktop Enhanced */}
             <div className="hidden md:flex items-center space-x-6">
-              {/* Navegación principal */}
               <nav className="flex space-x-1">
                 {navItems.map((item, index) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className={`group relative flex items-center space-x-2 px-4 py-2 rounded-xl text-gray-200 transition-all duration-300 font-medium overflow-hidden touch-target ${
+                    className={`relative px-4 py-2 font-medium text-sm transition-all duration-300 rounded-lg group overflow-hidden ${
                       activeSection === item.id 
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' 
-                        : 'hover:text-amber-300 hover:bg-amber-400/10'
-                    } ${
-                      index % 2 === 0 ? 'hover:flicker-terrifying-slow' : 'hover:flicker-terrifying'
+                        ? 'text-red-400 bg-red-500/20 border border-red-500/50' 
+                        : 'text-gray-400 hover:text-red-400 hover:bg-red-500/10'
                     }`}
-                    style={{'--delay': index * 0.5} as React.CSSProperties}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-amber-400/0 via-amber-400/10 to-red-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {/* Efecto de scan line */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/30 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     
-                    <div className="relative flex items-center space-x-2">
-                      <item.icon size={16} className="group-hover:drop-shadow-glow group-hover:text-amber-400 transition-all duration-300 group-hover:scale-110" />
-                      <span className="font-semibold tracking-wide text-sm">{item.label}</span>
+                    <div className="flex items-center space-x-2 relative z-10">
+                      <item.icon size={16} className={`transition-all duration-300 ${
+                        activeSection === item.id 
+                          ? 'text-red-400 drop-shadow-[0_0_8px_rgba(220,20,60,0.8)]' 
+                          : 'group-hover:scale-110'
+                      }`} />
+                      <span style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+                        {item.label}
+                      </span>
                     </div>
                     
                     {activeSection === item.id && (
-                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
                     )}
                   </button>
                 ))}
               </nav>
 
-              {/* Redes sociales en header */}
-              <div className="flex items-center space-x-2 pl-4 border-l border-amber-500/30">
-                <a
-                  href="https://github.com/Katapentakill"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 text-gray-400 hover:text-amber-400 rounded-lg hover:bg-amber-400/10 transition-all duration-300 group touch-target"
-                >
-                  <Github size={18} className="group-hover:scale-110 group-hover:drop-shadow-glow transition-all duration-300" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 text-gray-400 hover:text-blue-400 rounded-lg hover:bg-blue-400/10 transition-all duration-300 group touch-target"
-                >
-                  <Linkedin size={18} className="group-hover:scale-110 group-hover:drop-shadow-glow transition-all duration-300" />
-                </a>
-                <a
-                  href="mailto:alexandertapiaolmedo@gmail.com"
-                  className="p-2 text-gray-400 hover:text-red-400 rounded-lg hover:bg-red-400/10 transition-all duration-300 group touch-target"
-                >
-                  <Mail size={18} className="group-hover:scale-110 group-hover:drop-shadow-glow transition-all duration-300" />
-                </a>
+              {/* Redes sociales mejoradas */}
+              <div className="flex items-center space-x-2 pl-6 border-l border-red-900/30">
+                {[
+                  { href: 'https://github.com/Katapentakill', icon: Github, color: 'hover:text-purple-400' },
+                  { href: 'https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b', icon: Linkedin, color: 'hover:text-blue-400' },
+                  { href: 'mailto:alexandertapiaolmedo@gmail.com', icon: Mail, color: 'hover:text-red-400' }
+                ].map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    target={social.href.startsWith('http') ? '_blank' : '_self'}
+                    rel="noopener noreferrer"
+                    className={`p-2 text-gray-400 ${social.color} rounded-lg hover:bg-current/10 transition-all duration-300 group`}
+                  >
+                    <social.icon size={18} className="group-hover:scale-110 transition-transform duration-300" 
+                                 style={{ filter: 'drop-shadow(0 0 4px currentColor)' }} />
+                  </a>
+                ))}
               </div>
             </div>
 
-            {/* Botón menú móvil */}
+            {/* Botón menú móvil Enhanced */}
             <button
               onClick={toggleMenu}
-              className="md:hidden relative p-2 text-amber-400 hover:text-amber-300 transition-all duration-300 flicker-terrifying enhanced-visibility rounded-lg hover:bg-amber-400/10 border border-transparent hover:border-amber-500/30 touch-target"
+              className="md:hidden relative p-3 text-red-400 hover:text-red-300 transition-all duration-300 rounded-lg hover:bg-red-500/20 border border-red-500/30 group"
             >
               <div className="relative">
                 {isMenuOpen ? (
-                  <X size={20} className="transform transition-transform duration-300 rotate-90" />
+                  <X size={22} className="transform transition-all duration-300 rotate-90 group-hover:scale-110" 
+                     style={{ filter: 'drop-shadow(0 0 8px rgba(220,20,60,0.8))' }} />
                 ) : (
-                  <Menu size={20} className="transform transition-transform duration-300" />
+                  <Menu size={22} className="transform transition-all duration-300 group-hover:scale-110" 
+                        style={{ filter: 'drop-shadow(0 0 8px rgba(220,20,60,0.8))' }} />
                 )}
                 
-                <div className="absolute inset-0 animate-ping opacity-20">
-                  {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                {/* Efecto de resplandor en hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-50 transition-opacity duration-300 blur-sm">
+                  {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
                 </div>
               </div>
             </button>
           </div>
 
-          {/* Menú móvil mejorado con redes sociales */}
+          {/* Menú móvil Enhanced */}
           {isMenuOpen && (
-            <nav className="md:hidden nav-menu-mobile border-t border-amber-500/30 animate-fadeIn">
-              <div className="flex flex-col space-y-1 pt-4">
-                {/* Navegación principal móvil */}
+            <nav className="md:hidden border-t border-red-900/30 bg-black/40 backdrop-blur-md">
+              <div className="flex flex-col space-y-1 py-4">
                 {navItems.map((item, index) => (
                   <button
                     key={item.id}
-                    className={`group flex items-center space-x-3 nav-item-mobile text-gray-200 transition-all duration-300 font-medium border border-transparent rounded-xl ${
+                    className={`group flex items-center space-x-3 p-4 transition-all duration-300 font-medium border border-transparent rounded-xl relative overflow-hidden ${
                       activeSection === item.id 
-                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/30' 
-                        : 'hover:text-amber-300 hover:border-amber-500/30 hover:bg-gradient-to-r hover:from-amber-400/5 hover:to-red-400/5'
-                    } ${
-                      index % 3 === 0 ? 'hover:flicker-terrifying' : index % 3 === 1 ? 'hover:flicker-terrifying-slow' : 'hover:flicker-terrifying-fast'
-                    } touch-target`}
+                        ? 'text-red-400 bg-red-500/20 border-red-500/50' 
+                        : 'text-gray-400 hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/10'
+                    }`}
                     onClick={() => scrollToSection(item.id)}
-                    style={{'--delay': index * 0.2} as React.CSSProperties}
                   >
-                    <div className="relative">
-                      <item.icon size={18} className="group-hover:drop-shadow-glow group-hover:text-amber-400 transition-all duration-300 group-hover:scale-110" />
-                      <div className="absolute inset-0 animate-pulse opacity-0 group-hover:opacity-30">
-                        <item.icon size={18} />
-                      </div>
-                    </div>
-                    <span className="font-semibold tracking-wide flex-1 text-left">{item.label}</span>
+                    {/* Scan line effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/20 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     
-                    {activeSection === item.id && (
-                      <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
-                    )}
+                    <div className="relative z-10 flex items-center space-x-3 w-full">
+                      <item.icon size={18} className={`transition-all duration-300 ${
+                        activeSection === item.id 
+                          ? 'text-red-400' 
+                          : 'group-hover:scale-110'
+                      }`} style={activeSection === item.id ? { filter: 'drop-shadow(0 0 8px rgba(220,20,60,0.8))' } : {}} />
+                      <span className="flex-1 text-left" style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+                        {item.label}
+                      </span>
+                      
+                      {activeSection === item.id && (
+                        <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" 
+                             style={{ boxShadow: '0 0 8px rgba(220,20,60,0.8)' }}></div>
+                      )}
+                    </div>
                   </button>
                 ))}
                 
+                {/* Controles atmosféricos en móvil */}
+                <div className="pt-4 border-t border-red-900/30 mt-4">
+                  <div className="text-center text-gray-400 text-sm mb-3 font-medium" 
+                       style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+                    Atmosfera
+                  </div>
+                  <div className="flex justify-center space-x-2 mb-4">
+                    {[
+                      { mode: 'fog', icon: Eye, label: 'Niebla', color: 'hover:bg-yellow-400/20 hover:text-yellow-400' },
+                      { mode: 'flashlight', icon: Lightbulb, label: 'Linterna', color: 'hover:bg-blue-400/20 hover:text-blue-400' },
+                      { mode: 'static', icon: Zap, label: 'TV', color: 'hover:bg-green-400/20 hover:text-green-400' },
+                      { mode: 'hospital', icon: LightbulbOff, label: 'Hospital', color: 'hover:bg-red-400/20 hover:text-red-400' }
+                    ].map((item, index) => (
+                      <button
+                        key={index}
+                        onClick={() => toggleAtmosphericMode(item.mode)}
+                        className={`p-3 text-gray-400 rounded-xl border border-gray-600/30 transition-all duration-300 ${item.color}`}
+                        title={item.label}
+                      >
+                        <item.icon size={16} />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                
                 {/* Redes sociales en móvil */}
-                <div className="pt-4 border-t border-amber-500/20 mt-4">
-                  <div className="text-center text-gray-400 text-sm mb-3 font-medium">Conecta conmigo</div>
+                <div className="pt-4 border-t border-red-900/30">
+                  <div className="text-center text-gray-400 text-sm mb-3 font-medium" 
+                       style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+                    Conecta conmigo
+                  </div>
                   <div className="flex justify-center space-x-4">
-                    <a
-                      href="https://github.com/Katapentakill"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-3 bg-gray-800/50 text-gray-300 hover:text-amber-400 rounded-xl border border-gray-700/30 hover:border-amber-500/50 transition-all duration-300 touch-target"
-                    >
-                      <Github size={20} />
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-3 bg-gray-800/50 text-gray-300 hover:text-blue-400 rounded-xl border border-gray-700/30 hover:border-blue-500/50 transition-all duration-300 touch-target"
-                    >
-                      <Linkedin size={20} />
-                    </a>
-                    <a
-                      href="mailto:alexandertapiaolmedo@gmail.com"
-                      className="p-3 bg-gray-800/50 text-gray-300 hover:text-red-400 rounded-xl border border-gray-700/30 hover:border-red-500/50 transition-all duration-300 touch-target"
-                    >
-                      <Mail size={20} />
-                    </a>
+                    {[
+                      { href: 'https://github.com/Katapentakill', icon: Github, color: 'hover:text-purple-400 hover:border-purple-400/50' },
+                      { href: 'https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b', icon: Linkedin, color: 'hover:text-blue-400 hover:border-blue-400/50' },
+                      { href: 'mailto:alexandertapiaolmedo@gmail.com', icon: Mail, color: 'hover:text-red-400 hover:border-red-400/50' }
+                    ].map((social, index) => (
+                      <a
+                        key={index}
+                        href={social.href}
+                        target={social.href.startsWith('http') ? '_blank' : '_self'}
+                        rel="noopener noreferrer"
+                        className={`p-3 text-gray-400 rounded-xl border border-gray-600/30 transition-all duration-300 ${social.color}`}
+                      >
+                        <social.icon size={20} />
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>
               
               {/* Decoración inferior del menú */}
-              <div className="mt-4 pt-3 border-t border-amber-500/20">
-                <div className="flex justify-center space-x-2">
+              <div className="pb-4 border-t border-red-900/30">
+                <div className="flex justify-center space-x-3 pt-3">
                   {[...Array(5)].map((_, i) => (
                     <div
                       key={i}
                       className={`w-1.5 h-1.5 rounded-full animate-pulse ${
-                        i % 2 === 0 ? 'bg-amber-400/50' : 'bg-red-400/50'
+                        i % 3 === 0 ? 'bg-red-500' : 
+                        i % 3 === 1 ? 'bg-yellow-500' : 
+                        'bg-orange-500'
                       }`}
-                      style={{animationDelay: `${i * 0.2}s`}}
+                      style={{
+                        animationDelay: `${i * 0.3}s`,
+                        boxShadow: `0 0 8px currentColor`
+                      }}
                     />
                   ))}
                 </div>
@@ -244,21 +361,30 @@ const Header = () => {
         </div>
         
         {/* Línea de resplandor inferior */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent"></div>
+        
+        {/* Ruido de fondo sutil */}
+        <div className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay"
+             style={{
+               backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E")`
+             }}>
+        </div>
       </header>
 
-      {/* Navegación flotante en móvil (opcional) */}
+      {/* Navegación flotante en móvil Enhanced */}
       <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 md:hidden">
-        <div className="flex items-center space-x-1 bg-black/90 backdrop-blur-lg rounded-full border border-amber-500/30 px-2 py-2 shadow-2xl shadow-amber-500/20">
-          {navItems.slice(0, 4).map((item) => (
+        <div className="flex items-center space-x-1 bg-black/80 backdrop-blur-lg rounded-full border border-red-500/50 px-3 py-2 shadow-2xl"
+             style={{ boxShadow: '0 0 20px rgba(220,20,60,0.4), 0 8px 32px rgba(0,0,0,0.8)' }}>
+          {navItems.slice(0, 4).map((item, index) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`p-2 rounded-full transition-all duration-300 touch-target ${
+              className={`p-2 rounded-full transition-all duration-300 ${
                 activeSection === item.id 
-                  ? 'bg-amber-500/30 text-amber-300' 
-                  : 'text-gray-400 hover:text-amber-300 hover:bg-amber-500/20'
+                  ? 'bg-red-500/30 text-red-400' 
+                  : 'text-gray-400 hover:text-red-400 hover:bg-red-500/20'
               }`}
+              style={activeSection === item.id ? { filter: 'drop-shadow(0 0 8px rgba(220,20,60,0.8))' } : {}}
             >
               <item.icon size={16} />
             </button>

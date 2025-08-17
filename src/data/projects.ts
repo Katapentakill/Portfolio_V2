@@ -6,7 +6,7 @@ export interface Project {
   title: string
   description: string
   longDescription?: string[]
-  category: 'mvp' | 'portfolio' | 'competition' | 'personal' | 'client'
+  category: 'mvp' | 'university' | 'ibm' | 'kaggle' | 'personal' | 'tools'
   technologies: string[]
   features?: string[]
   achievements?: string[]
@@ -87,87 +87,277 @@ export const projects: Project[] = [
     priority: 2
   },
 
-  // ===== PORTAFOLIO IBM PROJECTS =====
+  // ===== PROYECTOS UNIVERSITARIOS UCN =====
   {
-    id: 'ibm-projects-portfolio',
-    title: 'IBM Full Stack Projects Portfolio',
-    description: 'Colección completa de 6 proyectos Full Stack desarrollados durante la certificación IBM con tecnologías modernas.',
+    id: 'fcab-comments-classifier',
+    title: 'Clasificador de Comentarios FCAB - IA Desktop',
+    description: 'Aplicación de escritorio con IA para análisis automático y clasificación inteligente de comentarios organizacionales.',
     longDescription: [
-      'Repositorio integral con proyectos que demuestran competencias Full Stack',
-      'Incluye microservicios, aplicaciones React, APIs REST y sistemas con IA',
-      'Implementación de mejores prácticas de desarrollo y despliegue',
-      'Documentación completa y código listo para producción'
+      'Sistema completo de análisis automático y clasificación inteligente de comentarios organizacionales',
+      'Uso de Electron para aplicación desktop multiplataforma',
+      'Integración con modelos NLP de Hugging Face y Sentence Transformers',
+      'Conexión directa con SharePoint Online para procesamiento en tiempo real'
     ],
-    category: 'portfolio',
-    technologies: ['React', 'Node.js', 'Express', 'Django', 'Flask', 'Go', 'Docker', 'Kubernetes', 'IBM Watson'],
+    category: 'university',
+    technologies: ['Electron', 'Python', 'Hugging Face', 'Sentence Transformers', 'SharePoint', 'NLP', 'Machine Learning'],
     features: [
-      'Microservicios con Docker y Kubernetes',
-      'Aplicación React con Redux Toolkit',
-      'APIs REST con autenticación JWT',
-      'Sistema de detección de emociones con IA',
-      'Plataforma educativa completa',
-      'Orquestación de contenedores'
+      'Análisis semántico con Sentence Transformers',
+      'Integración con SharePoint Online',
+      'Procesamiento de lenguaje natural multilingüe',
+      'Interfaz moderna con tema claro/oscuro',
+      'Clasificación automática de sentimientos',
+      'Exportación de resultados analíticos'
     ],
     achievements: [
-      '6 proyectos completos y funcionales',
-      'Arquitectura de microservicios implementada',
-      'Integración exitosa con servicios de IA de IBM Watson',
-      'Despliegues automatizados en múltiples plataformas cloud'
+      'Modelo de IA con alta precisión en clasificación',
+      'Integración exitosa con sistemas empresariales',
+      'Interfaz usuario-friendly para usuarios no técnicos'
     ],
     status: 'completed',
-    startDate: 'Enero 2024',
-    endDate: 'Julio 2025',
-    github: 'https://github.com/Katapentakill/IBM_Projects',
+    startDate: 'Marzo 2024',
+    endDate: 'Julio 2024',
+    github: 'https://github.com/Katapentakill/University_Projects',
     featured: true,
     priority: 3
   },
   {
-    id: 'microservices-dealership',
-    title: 'Dealership Evaluation - Microservices',
-    description: 'Sistema de evaluación de concesionarios basado en arquitectura de microservicios con Docker.',
+    id: 'microservices-cicd',
+    title: 'Microservicios con CI/CD - DevOps Completo',
+    description: 'Plataforma distribuida con 8 microservicios dockerizados, pipelines CI/CD y orquestación completa.',
     longDescription: [
-      'Aplicación distribuida con múltiples servicios independientes',
-      'Gestión de productos, concesionarios y precios con comunicación entre servicios',
-      'Implementación completa de patrones de microservicios',
-      'Containerización y orquestación con Docker'
+      'Sistema distribuido implementando 8 microservicios completamente dockerizados',
+      'Pipelines de CI/CD automatizados usando GitHub Actions',
+      'Orquestación completa con Docker Compose',
+      'Load balancing con NGINX para alta disponibilidad'
     ],
-    category: 'portfolio',
-    technologies: ['Python', 'Flask', 'Node.js', 'Express', 'Docker', 'Nginx', 'Microservices'],
+    category: 'university',
+    technologies: ['NestJS', 'Docker', 'GitHub Actions', 'NGINX', 'PostgreSQL', 'MongoDB', 'CI/CD', 'Microservices'],
     features: [
-      'Microservicio de productos en Python/Flask',
-      'Microservicio de concesionarios en Node.js/Express',
-      'Frontend con templates HTML y Nginx',
-      'Comunicación RESTful entre servicios',
-      'Containerización completa con Docker'
+      '8 microservicios completamente containerizados',
+      'Pipelines CI/CD con GitHub Actions',
+      'Docker Compose para orquestación',
+      'Load balancing con NGINX',
+      'Monitoreo y logging distribuido',
+      'Escalabilidad horizontal automática'
     ],
     achievements: [
-      'Arquitectura de microservicios funcional',
-      'Comunicación exitosa entre servicios',
-      'Despliegue automatizado con Docker Compose'
+      'Arquitectura de microservicios robusta implementada',
+      'CI/CD totalmente automatizado',
+      'Alta disponibilidad y escalabilidad lograda'
     ],
     status: 'completed',
-    startDate: 'Marzo 2024',
-    endDate: 'Abril 2024',
-    github: 'https://github.com/Katapentakill/IBM_Projects',
+    startDate: 'Enero 2024',
+    endDate: 'Mayo 2024',
+    github: 'https://github.com/Katapentakill/University_Projects',
+    featured: true,
     priority: 4
   },
   {
-    id: 'paradise-nursery-react',
-    title: 'Paradise Nursery - React Shopping App',
+    id: 'grpc-microservices-platform',
+    title: 'Plataforma Microservicios gRPC',
+    description: 'Sistema distribuido de 6 microservicios con comunicación gRPC, RabbitMQ y múltiples bases de datos.',
+    longDescription: [
+      'Sistema distribuido de 6 microservicios implementando comunicación gRPC',
+      'Message broker con RabbitMQ para comunicación asíncrona',
+      'Múltiples bases de datos especializadas por dominio',
+      'API Gateway con load balancing para gestión centralizada'
+    ],
+    category: 'university',
+    technologies: ['NestJS', 'gRPC', 'RabbitMQ', 'PostgreSQL', 'MongoDB', 'API Gateway', 'Event-Driven Architecture'],
+    features: [
+      '6 microservicios con comunicación gRPC',
+      'RabbitMQ para eventos asíncronos',
+      'Múltiples bases de datos especializadas',
+      'API Gateway con load balancing',
+      'Event-driven architecture',
+      'Monitoreo distribuido'
+    ],
+    achievements: [
+      'Comunicación inter-service eficiente con gRPC',
+      'Event-driven architecture implementada',
+      'Performance optimizado con message queues'
+    ],
+    status: 'completed',
+    startDate: 'Agosto 2023',
+    endDate: 'Diciembre 2023',
+    github: 'https://github.com/Katapentakill/University_Projects',
+    priority: 5
+  },
+  {
+    id: 'virtubazaar-ecommerce',
+    title: 'VirtuBazaar E-commerce Full Stack',
+    description: 'Plataforma e-commerce completa con API backend, frontend web responsive y aplicación móvil.',
+    longDescription: [
+      'Solución full-stack que incluye API backend robusta con ASP.NET Core',
+      'Frontend web responsive con Angular y Tailwind CSS',
+      'Aplicación móvil multiplataforma con Ionic',
+      'Sistema de autenticación JWT completo'
+    ],
+    category: 'university',
+    technologies: ['ASP.NET Core', 'Angular', 'Ionic', 'SQLite', 'JWT', 'Tailwind CSS', 'TypeScript'],
+    features: [
+      'API REST robusta con ASP.NET Core',
+      'Frontend web responsive con Angular',
+      'Aplicación móvil con Ionic',
+      'Sistema de autenticación JWT',
+      'Gestión de productos y carritos',
+      'Procesamiento de pagos'
+    ],
+    achievements: [
+      'Aplicación full-stack completamente funcional',
+      'Experiencia multiplataforma consistente',
+      'Arquitectura escalable implementada'
+    ],
+    status: 'completed',
+    startDate: 'Marzo 2023',
+    endDate: 'Julio 2023',
+    github: 'https://github.com/Katapentakill/University_Projects',
+    priority: 6
+  },
+  {
+    id: 'multi-database-api',
+    title: 'API Multi-Base de Datos',
+    description: 'Sistema backend robusto con NestJS gestionando múltiples conexiones de base de datos y autenticación JWT.',
+    longDescription: [
+      'API NestJS que gestiona usuarios, autenticación, facturas y videos',
+      'Múltiples conexiones de base de datos especializadas',
+      'Sistema de autenticación JWT con roles avanzados',
+      'Generación automática de datos de prueba'
+    ],
+    category: 'university',
+    technologies: ['NestJS', 'MariaDB', 'PostgreSQL', 'MongoDB', 'JWT', 'TypeORM', 'Swagger'],
+    features: [
+      'Arquitectura multi-base de datos',
+      'Autenticación JWT con roles',
+      'Validación automática de datos',
+      'Generación de datos de prueba',
+      'Documentación API con Swagger',
+      'CRUD completo para múltiples entidades'
+    ],
+    achievements: [
+      'Arquitectura multi-DB exitosamente implementada',
+      'Sistema de autenticación robusto',
+      'API completamente documentada'
+    ],
+    status: 'completed',
+    startDate: 'Septiembre 2023',
+    endDate: 'Noviembre 2023',
+    github: 'https://github.com/Katapentakill/University_Projects',
+    priority: 7
+  },
+  {
+    id: 'portfolio-angular-cyberpunk',
+    title: 'Portfolio Angular Cyberpunk',
+    description: 'Portafolio personal con diseño cyberpunk, navegación dinámica y efectos audiovisuales inmersivos.',
+    longDescription: [
+      'Aplicación Angular con diseño cyberpunk futurista',
+      'Navegación con scroll dinámico y efectos animados',
+      'Sistema de música de fondo y efectos de escritura',
+      'Grid responsive de proyectos con modales interactivos'
+    ],
+    category: 'university',
+    technologies: ['Angular', 'TypeScript', 'Tailwind CSS', 'RxJS', 'CSS3', 'Animations'],
+    features: [
+      'Navegación con scroll dinámico',
+      'Efectos de escritura animados',
+      'Música de fondo cyberpunk',
+      'Grid responsive de proyectos',
+      'Modales interactivos',
+      'Soporte bilingüe (ES/EN)'
+    ],
+    achievements: [
+      'Experiencia audiovisual inmersiva',
+      'Performance optimizado',
+      'Diseño único y memorable'
+    ],
+    status: 'completed',
+    startDate: 'Mayo 2023',
+    endDate: 'Agosto 2023',
+    github: 'https://github.com/Katapentakill/University_Projects',
+    priority: 8
+  },
+
+  // ===== PROYECTOS IBM CERTIFICATION =====
+  {
+    id: 'ibm-backend-microservices',
+    title: 'Backend Microservicios Full Stack - IBM',
+    description: 'Sistema completo de microservicios con Flask + Django para banda musical con testing y containerización.',
+    longDescription: [
+      'Sistema completo que integra tres microservicios independientes',
+      'Microservicio Pictures (Flask), Songs (Flask) y Django Web App',
+      'Testing automatizado con PyTest y cobertura 95%+',
+      'Containerización con Docker Compose y Nginx como proxy reverso'
+    ],
+    category: 'ibm',
+    technologies: ['Python', 'Flask', 'Django', 'Docker', 'Nginx', 'PostgreSQL', 'PyTest', 'Bootstrap 5'],
+    features: [
+      'Microservicio Pictures con CRUD completo',
+      'Microservicio Songs con metadatos',
+      'Django Web App con templates responsivos',
+      'Testing completo con PyTest',
+      'Docker Compose con 3 servicios',
+      'UI moderna con Bootstrap 5'
+    ],
+    achievements: [
+      'Arquitectura de microservicios completa',
+      '95%+ cobertura de testing',
+      'Despliegue cloud-ready'
+    ],
+    status: 'completed',
+    startDate: 'Junio 2024',
+    endDate: 'Julio 2024',
+    github: 'https://github.com/Katapentakill/IBM_Projects',
+    featured: true,
+    priority: 9
+  },
+  {
+    id: 'ibm-kubernetes-guestbook',
+    title: 'Guestbook Kubernetes - IBM',
+    description: 'Aplicación Go desplegada en Kubernetes con autoescalado, rollback y gestión de registry en IBM Cloud.',
+    longDescription: [
+      'Aplicación completa desarrollada en Go con frontend responsive',
+      'Desplegada en clúster Kubernetes con integración a IBM Cloud Container Registry',
+      'Autoescalado horizontal y rollback automático',
+      'Componentes Redis para persistencia master-slave'
+    ],
+    category: 'ibm',
+    technologies: ['Go', 'Kubernetes', 'Redis', 'Docker', 'IBM Cloud', 'HTML5', 'CSS3', 'jQuery'],
+    features: [
+      'Backend robusto en Go',
+      'Orquestación con Kubernetes',
+      'Autoescalado basado en CPU',
+      'Rollback automático',
+      'Persistencia Redis master-slave',
+      'Cloud Registry integration'
+    ],
+    achievements: [
+      'Despliegue exitoso en Kubernetes',
+      'Autoescalado funcionando correctamente',
+      'Integración con IBM Cloud Registry'
+    ],
+    status: 'completed',
+    startDate: 'Mayo 2024',
+    endDate: 'Junio 2024',
+    github: 'https://github.com/Katapentakill/IBM_Projects',
+    priority: 10
+  },
+  {
+    id: 'ibm-react-ecommerce',
+    title: 'Paradise Nursery React - IBM',
     description: 'E-commerce SPA para tienda de plantas con React, Redux Toolkit y despliegue en Vercel.',
     longDescription: [
       'Aplicación de comercio electrónico completa para tienda de plantas',
       'Gestión de estado avanzada con Redux Toolkit',
-      'Interfaz moderna y responsive',
+      'Interfaz moderna y responsive con Vite',
       'Carrito de compras funcional y navegación fluida'
     ],
-    category: 'portfolio',
+    category: 'ibm',
     technologies: ['React', 'Redux Toolkit', 'Vite', 'CSS3', 'Vercel'],
     features: [
       'Catálogo de productos interactivo',
       'Carrito de compras con persistencia',
       'Categorías y filtros de plantas',
-      'Interfaz responsive y moderna',
+      'Interfaz responsive moderna',
       'Gestión de estado con Redux'
     ],
     achievements: [
@@ -180,19 +370,19 @@ export const projects: Project[] = [
     endDate: 'Marzo 2024',
     url: 'https://ibm-projects.vercel.app',
     github: 'https://github.com/Katapentakill/IBM_Projects',
-    priority: 5
+    priority: 11
   },
   {
-    id: 'emotion-detection-ai',
-    title: 'Emotion Detection App - IBM Watson',
+    id: 'ibm-emotion-detection',
+    title: 'Emotion Detection - IBM Watson',
     description: 'Aplicación web de detección de emociones usando IBM Watson Natural Language Understanding.',
     longDescription: [
       'Sistema de análisis de texto para identificar emociones dominantes',
       'Integración con IBM Watson NLU para procesamiento de lenguaje natural',
       'Interfaz web interactiva con resultados en tiempo real',
-      'API Flask robusta con manejo de errores'
+      'API Flask robusta con manejo de errores y testing unitario'
     ],
-    category: 'portfolio',
+    category: 'ibm',
     technologies: ['Python', 'Flask', 'IBM Watson NLU', 'JavaScript', 'Bootstrap', 'HTML5'],
     features: [
       'Análisis de emociones en tiempo real',
@@ -210,11 +400,11 @@ export const projects: Project[] = [
     startDate: 'Abril 2024',
     endDate: 'Mayo 2024',
     github: 'https://github.com/Katapentakill/IBM_Projects',
-    priority: 6
+    priority: 12
   },
   {
-    id: 'online-courses-django',
-    title: 'Sistema de Cursos Online - Django',
+    id: 'ibm-django-courses',
+    title: 'Sistema de Cursos Django - IBM',
     description: 'Plataforma educativa completa con sistema de exámenes y calificación automática usando Django.',
     longDescription: [
       'Plataforma web full-stack para educación online',
@@ -222,7 +412,7 @@ export const projects: Project[] = [
       'Exámenes de opción múltiple con calificación automática',
       'Panel administrativo completo para instructores'
     ],
-    category: 'portfolio',
+    category: 'ibm',
     technologies: ['Python', 'Django', 'SQLite', 'Bootstrap 4', 'HTML5', 'JavaScript'],
     features: [
       'Gestión de usuarios y autenticación',
@@ -241,72 +431,106 @@ export const projects: Project[] = [
     startDate: 'Mayo 2024',
     endDate: 'Junio 2024',
     github: 'https://github.com/Katapentakill/IBM_Projects',
-    priority: 7
-  },
-  {
-    id: 'guestbook-kubernetes',
-    title: 'Guestbook App - Kubernetes Deployment',
-    description: 'Aplicación de libro de visitas desplegada en Kubernetes con autoescalado y gestión avanzada.',
-    longDescription: [
-      'Aplicación completa en Go con frontend responsive',
-      'Despliegue en clúster Kubernetes con componentes Redis',
-      'Autoescalado horizontal y rollback automático',
-      'Integración con IBM Cloud Container Registry'
-    ],
-    category: 'portfolio',
-    technologies: ['Go', 'HTML5', 'CSS3', 'jQuery', 'Kubernetes', 'Redis', 'Docker', 'IBM Cloud'],
-    features: [
-      'Backend robusto en Go',
-      'Frontend responsive moderno',
-      'Orquestación con Kubernetes',
-      'Autoescalado basado en CPU',
-      'Persistencia con Redis master-slave',
-      'Rollback automático'
-    ],
-    achievements: [
-      'Despliegue exitoso en Kubernetes',
-      'Autoescalado funcionando correctamente',
-      'Integración con registry en la nube'
-    ],
-    status: 'completed',
-    startDate: 'Junio 2024',
-    endDate: 'Julio 2024',
-    github: 'https://github.com/Katapentakill/IBM_Projects',
-    priority: 8
+    priority: 13
   },
 
-  // ===== PROYECTOS KAGGLE/COMPETENCIAS =====
+  // ===== PROYECTOS KAGGLE/DATA SCIENCE =====
   {
-    id: 'kaggle-competitions',
+    id: 'kaggle-competitions-portfolio',
     title: 'Kaggle Competitions Portfolio',
-    description: 'Participación en múltiples competencias de Machine Learning con rankings top y soluciones innovadoras.',
+    description: 'Portafolio completo de competencias de Machine Learning con rankings top y soluciones innovadoras.',
     longDescription: [
-      'Participación activa en competencias de Machine Learning y Data Science',
-      'Múltiples top rankings incluyendo posición 28º en competencia destacada',
-      'Especialización en NLP, series temporales y predicción',
-      'Contribuciones a la comunidad con notebooks públicos'
+      'Participación activa en 7+ competencias de Machine Learning y Data Science',
+      'Especialización en NLP, series temporales, clasificación y regresión',
+      'Implementación de modelos avanzados como StackingClassifier, CatBoost, XGBoost',
+      'Fine-tuning de transformers como DistilBERT y Flan-T5'
     ],
-    category: 'competition',
-    technologies: ['Python', 'Pandas', 'Scikit-learn', 'TensorFlow', 'PyTorch', 'XGBoost', 'Jupyter'],
+    category: 'kaggle',
+    technologies: ['Python', 'Scikit-learn', 'CatBoost', 'XGBoost', 'PyTorch', 'DistilBERT', 'Flan-T5', 'Pandas'],
     features: [
-      'Modelos de Machine Learning avanzados',
-      'Preprocessing y feature engineering',
-      'Ensemble methods y stacking',
-      'Análisis exploratorio de datos',
-      'Visualizaciones interactivas',
-      'Notebooks documentados'
+      'Competencias de Blood Glucose Prediction',
+      'House Prices Advanced Regression',
+      'EEDI Mining Misconceptions (NLP)',
+      'Natural Disaster Tweets Classification',
+      'Store Sales Time Series Forecasting',
+      'Space Titanic Sci-Fi Challenge'
     ],
     achievements: [
-      '8+ competencias completadas',
-      'Ranking 28º como mejor posición',
-      'Múltiples top 100 rankings',
-      'Notebooks con upvotes de la comunidad'
+      '7+ competencias completadas exitosamente',
+      'Rankings top en múltiples competencias',
+      'Contribuciones a la comunidad Kaggle',
+      'Notebooks públicos con alta valoración'
     ],
     status: 'completed',
     startDate: 'Enero 2023',
     endDate: 'Presente',
+    github: 'https://github.com/Katapentakill/data-science-portfolio',
     featured: true,
-    priority: 9
+    priority: 14
+  },
+  {
+    id: 'geoscience-analysis',
+    title: 'Análisis Geoespacial - Ciencia de Datos',
+    description: 'Proyectos de análisis científico en climatología y sismología con visualizaciones interactivas.',
+    longDescription: [
+      'Análisis exploratorio científico en geociencias',
+      'Investigación sobre cambio climático con datos meteorológicos',
+      'Análisis sísmico de Chile (1976-2021) con visualizaciones temporales',
+      'Uso de APIs científicas como Open-Meteo para datos en tiempo real'
+    ],
+    category: 'kaggle',
+    technologies: ['Python', 'GeoPandas', 'Folium', 'Plotly', 'Open-Meteo API', 'Matplotlib', 'Seaborn'],
+    features: [
+      'Análisis geoespacial avanzado',
+      'Visualizaciones interactivas con mapas',
+      'Series temporales meteorológicas',
+      'Animaciones temporales de eventos sísmicos',
+      'Integración con APIs científicas',
+      'Reportes automatizados'
+    ],
+    achievements: [
+      'Análisis científico riguroso implementado',
+      'Visualizaciones impactantes generadas',
+      'Integración exitosa con fuentes de datos reales'
+    ],
+    status: 'completed',
+    startDate: 'Junio 2023',
+    endDate: 'Diciembre 2023',
+    github: 'https://github.com/Katapentakill/data-science-portfolio',
+    priority: 15
+  },
+
+  // ===== HERRAMIENTAS Y UTILITIES =====
+  {
+    id: 'web-scraping-tools',
+    title: 'Herramientas de Web Scraping',
+    description: 'Herramientas de automatización y web scraping con Node.js, Puppeteer y navegación programática.',
+    longDescription: [
+      'Herramientas de automatización y web scraping especializadas',
+      'Extracción automatizada de noticias criminológicas',
+      'Sistemas de scroll infinito y navegación programática',
+      'Manejo robusto de errores y reintentos automáticos'
+    ],
+    category: 'tools',
+    technologies: ['Node.js', 'Puppeteer', 'JavaScript', 'Chromium', 'Web Scraping'],
+    features: [
+      'Web scraping con contenido dinámico',
+      'Scroll infinito automatizado',
+      'Navegación programática robusta',
+      'Extracción selectiva de información',
+      'Manejo de errores avanzado',
+      'Monitoreo automatizado'
+    ],
+    achievements: [
+      'Herramientas de scraping robustas',
+      'Automatización exitosa de procesos',
+      'Extracción de datos confiable'
+    ],
+    status: 'completed',
+    startDate: 'Abril 2023',
+    endDate: 'Agosto 2023',
+    github: 'https://github.com/Katapentakill/data-science-portfolio',
+    priority: 16
   }
 ]
 
@@ -335,10 +559,18 @@ export const getMVPProjects = () => {
   return getProjectsByCategory('mvp')
 }
 
-export const getPortfolioProjects = () => {
-  return getProjectsByCategory('portfolio')
+export const getUniversityProjects = () => {
+  return getProjectsByCategory('university')
 }
 
-export const getCompetitionProjects = () => {
-  return getProjectsByCategory('competition')
+export const getIBMProjects = () => {
+  return getProjectsByCategory('ibm')
+}
+
+export const getKaggleProjects = () => {
+  return getProjectsByCategory('kaggle')
+}
+
+export const getToolsProjects = () => {
+  return getProjectsByCategory('tools')
 }

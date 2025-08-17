@@ -17,19 +17,19 @@ const Footer = () => {
   }
 
   return (
-    <footer className="relative z-20 bg-gradient-to-br from-gray-900/90 via-black/95 to-gray-800/90 border-t-2 border-amber-500/30 mt-auto backdrop-blur-lg overflow-hidden">
+    <footer className="relative z-20 hospital-card border-t-2 silent-border-rust mt-auto backdrop-blur-lg overflow-hidden">
       
-      {/* Efectos de fondo */}
-      <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-red-500/5 pointer-events-none"></div>
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent"></div>
+      {/* Efectos de fondo Silent Hill */}
+      <div className="absolute inset-0 gradient-dark-rust pointer-events-none"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-rust-400/50 to-transparent"></div>
       
-      {/* Partículas flotantes */}
+      {/* Partículas flotantes Silent Hill */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(8)].map((_, i) => (
           <div
             key={i}
             className={`absolute w-1 h-1 rounded-full animate-float ${
-              i % 2 === 0 ? 'bg-amber-400/20' : 'bg-red-400/20'
+              i % 3 === 0 ? 'bg-rust-400/20' : i % 3 === 1 ? 'bg-hospital-400/20' : 'bg-blood-400/20'
             }`}
             style={{
               left: `${5 + i * 12}%`,
@@ -49,30 +49,30 @@ const Footer = () => {
           {/* Sección 1: Sobre Alexander */}
           <div className="md:col-span-2 space-y-6">
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-red-400 bg-clip-text text-transparent enhanced-visibility flex items-center space-x-2">
-                <Code className="text-amber-400" size={24} />
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-rust-400 to-blood-400 bg-clip-text text-transparent enhanced-visibility-sh flex items-center space-x-2">
+                <Code className="text-rust-400" size={24} />
                 <span>Alexander Tapia</span>
               </h3>
               
-              <p className="text-gray-400 leading-relaxed text-base">
-                Full Stack Developer apasionado por el <span className="text-amber-400 font-semibold">machine learning</span>, 
-                las competencias en <span className="text-red-400 font-semibold">Kaggle</span> y crear experiencias 
+              <p className="text-hospital-400 leading-relaxed text-base hospital-text">
+                Full Stack Developer apasionado por el <span className="text-rust-400 font-semibold">machine learning</span>, 
+                las competencias en <span className="text-blood-400 font-semibold">Kaggle</span> y crear experiencias 
                 digitales que impactan. Siempre explorando el siguiente desafío tecnológico.
               </p>
               
-              {/* Stats rápidas */}
+              {/* Stats rápidas Silent Hill */}
               <div className="grid grid-cols-3 gap-4 pt-4">
-                <div className="text-center p-3 bg-gradient-to-br from-amber-500/10 to-transparent rounded-xl border border-amber-500/20 hover:border-amber-500/40 transition-colors duration-300 group">
-                  <div className="text-xl font-bold text-amber-400 group-hover:scale-110 transition-transform duration-300">3+</div>
-                  <div className="text-xs text-gray-500 uppercase tracking-wider">Años</div>
+                <div className="text-center p-3 gradient-dark-rust rounded-xl silent-border-rust hover:border-rust-500/40 transition-colors duration-300 group">
+                  <div className="text-xl font-bold text-rust-400 group-hover:scale-110 transition-transform duration-300">3+</div>
+                  <div className="text-xs text-hospital-500 uppercase tracking-wider hospital-text">Años</div>
                 </div>
-                <div className="text-center p-3 bg-gradient-to-br from-red-500/10 to-transparent rounded-xl border border-red-500/20 hover:border-red-500/40 transition-colors duration-300 group">
-                  <div className="text-xl font-bold text-red-400 group-hover:scale-110 transition-transform duration-300">50+</div>
-                  <div className="text-xs text-gray-500 uppercase tracking-wider">Proyectos</div>
+                <div className="text-center p-3 bg-gradient-to-br from-blood-500/10 to-transparent rounded-xl silent-border-blood hover:border-blood-500/40 transition-colors duration-300 group">
+                  <div className="text-xl font-bold text-blood-400 group-hover:scale-110 transition-transform duration-300">50+</div>
+                  <div className="text-xs text-hospital-500 uppercase tracking-wider hospital-text">Proyectos</div>
                 </div>
-                <div className="text-center p-3 bg-gradient-to-br from-amber-500/10 to-transparent rounded-xl border border-amber-500/20 hover:border-amber-500/40 transition-colors duration-300 group">
-                  <div className="text-xl font-bold text-amber-400 group-hover:scale-110 transition-transform duration-300">∞</div>
-                  <div className="text-xs text-gray-500 uppercase tracking-wider">Pasión</div>
+                <div className="text-center p-3 gradient-hospital rounded-xl silent-border-hospital hover:border-hospital-500/40 transition-colors duration-300 group">
+                  <div className="text-xl font-bold text-hospital-400 group-hover:scale-110 transition-transform duration-300">∞</div>
+                  <div className="text-xs text-hospital-500 uppercase tracking-wider hospital-text">Pasión</div>
                 </div>
               </div>
             </div>
@@ -80,8 +80,8 @@ const Footer = () => {
 
           {/* Sección 2: Enlaces rápidos */}
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-amber-400 enhanced-visibility flex items-center space-x-2">
-              <Zap className="text-amber-400" size={20} />
+            <h3 className="text-xl font-bold text-rust-400 enhanced-visibility-sh flex items-center space-x-2">
+              <Zap className="text-rust-400" size={20} />
               <span>Navegación</span>
             </h3>
             <div className="space-y-3">
@@ -95,13 +95,15 @@ const Footer = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`block text-gray-300 hover:text-amber-300 transition-all duration-300 text-sm nav-enhanced hover-drop-shadow-glow font-medium group ${
+                  className={`block text-hospital-300 hover:${index % 2 === 0 ? 'text-rust-300' : 'text-hospital-200'} transition-all duration-300 text-sm nav-enhanced-sh hover-drop-shadow-rust font-medium group ${
                     index % 2 === 0 ? 'hover:translate-x-1' : 'hover:translate-x-2'
                   }`}
                 >
                   <span className="flex items-center space-x-2">
                     <div className={`w-1 h-1 rounded-full transition-all duration-300 ${
-                      index % 2 === 0 ? 'bg-amber-400/50 group-hover:bg-amber-400' : 'bg-red-400/50 group-hover:bg-red-400'
+                      index % 3 === 0 ? 'bg-rust-400/50 group-hover:bg-rust-400' : 
+                      index % 3 === 1 ? 'bg-hospital-400/50 group-hover:bg-hospital-400' : 
+                      'bg-blood-400/50 group-hover:bg-blood-400'
                     }`}></div>
                     <span>{item.label}</span>
                   </span>
@@ -112,34 +114,34 @@ const Footer = () => {
 
           {/* Sección 3: Redes sociales */}
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-red-400 enhanced-visibility flex items-center space-x-2">
-              <Coffee className="text-red-400" size={20} />
+            <h3 className="text-xl font-bold text-blood-400 enhanced-visibility-sh flex items-center space-x-2">
+              <Coffee className="text-blood-400" size={20} />
               <span>Conecta</span>
             </h3>
             
-            {/* Redes sociales con efectos mejorados */}
+            {/* Redes sociales Silent Hill style */}
             <div className="space-y-4">
               <a 
                 href="https://github.com/Katapentakill" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-gray-800/50 to-transparent border border-gray-700/50 hover:border-amber-500/50 hover:from-amber-500/10 hover:to-transparent transition-all duration-300 hover:scale-105"
+                className="group flex items-center space-x-3 p-3 rounded-xl hospital-card silent-border-hospital hover:silent-border-rust hover:gradient-dark-rust transition-all duration-300 hover:scale-105"
               >
-                <Github size={24} className="text-gray-300 group-hover:text-amber-300 transition-colors duration-300 group-hover:scale-110" />
+                <Github size={24} className="text-hospital-300 group-hover:text-rust-300 transition-colors duration-300 group-hover:scale-110" />
                 <div>
-                  <div className="text-gray-300 group-hover:text-amber-300 transition-colors duration-300 font-medium">GitHub</div>
-                  <div className="text-xs text-gray-500">@Katapentakill</div>
+                  <div className="text-hospital-300 group-hover:text-rust-300 transition-colors duration-300 font-medium">GitHub</div>
+                  <div className="text-xs text-hospital-500 hospital-text">@Katapentakill</div>
                 </div>
               </a>
               
               <a 
                 href="mailto:alexandertapiaolmedo@gmail.com"
-                className="group flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-gray-800/50 to-transparent border border-gray-700/50 hover:border-red-500/50 hover:from-red-500/10 hover:to-transparent transition-all duration-300 hover:scale-105"
+                className="group flex items-center space-x-3 p-3 rounded-xl hospital-card silent-border-hospital hover:silent-border-blood hover:bg-gradient-to-r hover:from-blood-500/10 hover:to-transparent transition-all duration-300 hover:scale-105"
               >
-                <Mail size={24} className="text-gray-300 group-hover:text-red-300 transition-colors duration-300 group-hover:scale-110" />
+                <Mail size={24} className="text-hospital-300 group-hover:text-blood-300 transition-colors duration-300 group-hover:scale-110" />
                 <div>
-                  <div className="text-gray-300 group-hover:text-red-300 transition-colors duration-300 font-medium">Email</div>
-                  <div className="text-xs text-gray-500">alexandertapiaolmedo@gmail.com</div>
+                  <div className="text-hospital-300 group-hover:text-blood-300 transition-colors duration-300 font-medium">Email</div>
+                  <div className="text-xs text-hospital-500 hospital-text">alexandertapiaolmedo@gmail.com</div>
                 </div>
               </a>
 
@@ -147,12 +149,12 @@ const Footer = () => {
                 href="https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-gray-800/50 to-transparent border border-gray-700/50 hover:border-blue-500/50 hover:from-blue-500/10 hover:to-transparent transition-all duration-300 hover:scale-105"
+                className="group flex items-center space-x-3 p-3 rounded-xl hospital-card silent-border-hospital hover:border-hospital-400/50 hover:gradient-hospital transition-all duration-300 hover:scale-105"
               >
-                <Linkedin size={24} className="text-gray-300 group-hover:text-blue-300 transition-colors duration-300 group-hover:scale-110" />
+                <Linkedin size={24} className="text-hospital-300 group-hover:text-hospital-200 transition-colors duration-300 group-hover:scale-110" />
                 <div>
-                  <div className="text-gray-300 group-hover:text-blue-300 transition-colors duration-300 font-medium">LinkedIn</div>
-                  <div className="text-xs text-gray-500">Alexander Tapia Olmedo</div>
+                  <div className="text-hospital-300 group-hover:text-hospital-200 transition-colors duration-300 font-medium">LinkedIn</div>
+                  <div className="text-xs text-hospital-500 hospital-text">Alexander Tapia Olmedo</div>
                 </div>
               </a>
             </div>
@@ -160,20 +162,20 @@ const Footer = () => {
 
         </div>
 
-        {/* Línea divisoria con gradiente */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent mb-8"></div>
+        {/* Línea divisoria con gradiente Silent Hill */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-rust-500/30 to-transparent mb-8"></div>
 
         {/* Footer inferior */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           
           {/* Copyright */}
-          <div className="flex items-center space-x-2 text-gray-500 text-sm">
+          <div className="flex items-center space-x-2 text-hospital-500 text-sm hospital-text">
             <span>© {currentYear} Alexander Tapia Olmedo.</span>
             <span className="flex items-center space-x-1">
               <span>Hecho con</span>
-              <Heart size={14} className="text-red-400 animate-pulse" />
+              <Heart size={14} className="text-blood-400 animate-pulse" />
               <span>y mucho</span>
-              <Coffee size={14} className="text-amber-400" />
+              <Coffee size={14} className="text-rust-400" />
             </span>
           </div>
 
@@ -183,7 +185,7 @@ const Footer = () => {
               href="https://github.com/Katapentakill"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 bg-gray-800/50 text-gray-400 hover:text-amber-400 rounded-lg hover:bg-amber-400/10 transition-all duration-300 hover:scale-110"
+              className="p-2 hospital-card text-hospital-400 hover:text-rust-400 rounded-lg hover:bg-rust-400/10 transition-all duration-300 hover:scale-110"
             >
               <Github size={16} />
             </a>
@@ -191,31 +193,31 @@ const Footer = () => {
               href="https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 bg-gray-800/50 text-gray-400 hover:text-blue-400 rounded-lg hover:bg-blue-400/10 transition-all duration-300 hover:scale-110"
+              className="p-2 hospital-card text-hospital-400 hover:text-hospital-200 rounded-lg hover:bg-hospital-400/10 transition-all duration-300 hover:scale-110"
             >
               <Linkedin size={16} />
             </a>
             <a
               href="mailto:alexandertapiaolmedo@gmail.com"
-              className="p-2 bg-gray-800/50 text-gray-400 hover:text-red-400 rounded-lg hover:bg-red-400/10 transition-all duration-300 hover:scale-110"
+              className="p-2 hospital-card text-hospital-400 hover:text-blood-400 rounded-lg hover:bg-blood-400/10 transition-all duration-300 hover:scale-110"
             >
               <Mail size={16} />
             </a>
           </div>
 
-          {/* Botón volver arriba */}
+          {/* Botón volver arriba Silent Hill */}
           <button
             onClick={scrollToTop}
-            className="group flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-amber-500/20 to-red-500/20 hover:from-amber-500/30 hover:to-red-500/30 border border-amber-500/30 hover:border-amber-500/50 rounded-full transition-all duration-300 hover:scale-105 hover:-translate-y-1"
+            className="group flex items-center space-x-2 px-4 py-2 gradient-rust-blood hover:from-rust-500/30 hover:to-blood-500/30 silent-border-rust hover:border-rust-500/50 rounded-full transition-all duration-300 hover:scale-105 hover:-translate-y-1"
           >
-            <ArrowUp size={16} className="text-amber-400 group-hover:text-amber-300 transition-colors duration-300 group-hover:-translate-y-0.5" />
-            <span className="text-amber-400 group-hover:text-amber-300 transition-colors duration-300 text-sm font-medium">
+            <ArrowUp size={16} className="text-rust-400 group-hover:text-rust-300 transition-colors duration-300 group-hover:-translate-y-0.5" />
+            <span className="text-rust-400 group-hover:text-rust-300 transition-colors duration-300 text-sm font-medium">
               Volver Arriba
             </span>
           </button>
         </div>
 
-        {/* Efecto de resplandor en el botón */}
+        {/* Efecto de resplandor Silent Hill */}
         <style jsx>{`
           @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -226,16 +228,20 @@ const Footer = () => {
             animation: float linear infinite;
           }
           
-          .enhanced-visibility {
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+          .enhanced-visibility-sh {
+            text-shadow: 0 0 10px rgba(139, 69, 19, 0.3);
           }
           
-          .nav-enhanced {
+          .nav-enhanced-sh {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           }
           
-          .hover-drop-shadow-glow:hover {
-            filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.4));
+          .hover-drop-shadow-rust:hover {
+            filter: drop-shadow(0 0 8px rgba(139, 69, 19, 0.4));
+          }
+          
+          .hospital-text {
+            text-shadow: 1px 1px 2px rgba(28, 28, 28, 0.8);
           }
         `}</style>
       </div>

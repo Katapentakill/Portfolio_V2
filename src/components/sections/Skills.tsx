@@ -58,8 +58,8 @@ const LazySection = ({
         fallback || (
           <div className="flex items-center justify-center min-h-[200px]">
             <div className="flex items-center space-x-3">
-              <div className="w-4 h-4 border-2 border-amber-400/30 border-t-amber-400 rounded-full animate-spin"></div>
-              <span className="text-gray-400 text-sm">Cargando habilidades...</span>
+              <div className="w-4 h-4 border-2 border-rust-400/30 border-t-rust-400 rounded-full animate-spin"></div>
+              <span className="text-hospital-400 text-sm hospital-text">Cargando habilidades...</span>
             </div>
           </div>
         )
@@ -68,7 +68,7 @@ const LazySection = ({
   );
 };
 
-// Componente de barra de habilidad optimizado y compacto
+// Componente de barra de habilidad Silent Hill style
 const SkillBar = ({ 
   skill, 
   index, 
@@ -94,37 +94,58 @@ const SkillBar = ({
     setImageError(true);
   }, []);
 
-  const isEven = index % 2 === 0;
-  const colorClasses = isEven 
-    ? {
-        bg: 'bg-gradient-to-br from-black/80 via-amber-900/20 to-black/80',
-        border: 'border-amber-500/30 hover:border-amber-500/60',
-        shadow: 'hover:shadow-amber-500/20',
-        text: 'text-amber-400',
-        glow: 'drop-shadow-[0_0_8px_#f59e0b] group-hover:drop-shadow-[0_0_15px_#f59e0b]',
-        particle: 'bg-amber-400',
-        ring: 'border-amber-400/50',
-        progress: 'bg-gradient-to-r from-amber-600 to-amber-400',
-        gradient: 'bg-gradient-to-br from-amber-500/5 via-transparent to-amber-500/5',
-        shadowGlow: 'shadow-[0_0_10px_#f59e0b]'
-      }
-    : {
-        bg: 'bg-gradient-to-br from-black/80 via-red-900/20 to-black/80',
-        border: 'border-red-500/30 hover:border-red-500/60',
-        shadow: 'hover:shadow-red-500/20',
-        text: 'text-red-400',
-        glow: 'drop-shadow-[0_0_8px_#dc2626] group-hover:drop-shadow-[0_0_15px_#dc2626]',
-        particle: 'bg-red-400',
-        ring: 'border-red-400/50',
-        progress: 'bg-gradient-to-r from-red-600 to-red-400',
-        gradient: 'bg-gradient-to-br from-red-500/5 via-transparent to-red-500/5',
-        shadowGlow: 'shadow-[0_0_10px_#dc2626]'
-      };
+  // Patrón Silent Hill: rust, hospital, blood
+  const getColorScheme = (index: number) => {
+    const pattern = index % 3;
+    switch (pattern) {
+      case 0: // rust
+        return {
+          bg: 'gradient-dark-rust',
+          border: 'silent-border-rust hover:border-rust-500/60',
+          shadow: 'hover-shadow-rust-glow',
+          text: 'text-rust-400',
+          glow: 'drop-shadow-rust group-hover:drop-shadow-[0_0_15px_#8B4513]',
+          particle: 'bg-rust-400',
+          ring: 'border-rust-400/50',
+          progress: 'bg-gradient-to-r from-rust-600 to-rust-400',
+          gradient: 'gradient-dark-rust',
+          shadowGlow: 'shadow-[0_0_10px_#8B4513]'
+        };
+      case 1: // hospital
+        return {
+          bg: 'gradient-hospital',
+          border: 'silent-border-hospital hover:border-hospital-500/60',
+          shadow: 'hover-shadow-hospital-glow',
+          text: 'text-hospital-400',
+          glow: 'drop-shadow-hospital group-hover:drop-shadow-[0_0_15px_#708090]',
+          particle: 'bg-hospital-400',
+          ring: 'border-hospital-400/50',
+          progress: 'bg-gradient-to-r from-hospital-600 to-hospital-400',
+          gradient: 'gradient-hospital',
+          shadowGlow: 'shadow-[0_0_10px_#708090]'
+        };
+      default: // blood
+        return {
+          bg: 'bg-gradient-to-br from-blood-900/20 to-blood-800/10',
+          border: 'silent-border-blood hover:border-blood-500/60',
+          shadow: 'hover:shadow-blood-500/20',
+          text: 'text-blood-400',
+          glow: 'drop-shadow-blood group-hover:drop-shadow-[0_0_15px_#8B0000]',
+          particle: 'bg-blood-400',
+          ring: 'border-blood-400/50',
+          progress: 'bg-gradient-to-r from-blood-600 to-blood-400',
+          gradient: 'bg-gradient-to-br from-blood-500/5 via-transparent to-blood-500/5',
+          shadowGlow: 'shadow-[0_0_10px_#8B0000]'
+        };
+    }
+  };
 
-  // Renderizar icono con fallbacks (más compacto)
+  const colorClasses = getColorScheme(index);
+
+  // Renderizar icono con fallbacks
   const renderIcon = () => {
-    const iconSize = isMobile ? 32 : 40; // Reducido de 50/70 a 32/40
-    const iconClasses = `text-2xl sm:text-3xl mb-1 transition-all duration-300 ${colorClasses.text} ${colorClasses.glow}`; // Reducido de text-4xl/6xl
+    const iconSize = isMobile ? 32 : 40;
+    const iconClasses = `text-2xl sm:text-3xl mb-1 transition-all duration-300 ${colorClasses.text} ${colorClasses.glow}`;
 
     if (skill.iconifyIcon && !imageError) {
       return (
@@ -174,10 +195,10 @@ const SkillBar = ({
       );
     }
 
-    // Fallback icon (más pequeño)
+    // Fallback icon
     return (
-      <div className="w-[32px] h-[32px] sm:w-[40px] sm:h-[40px] mb-1 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-        <span className="text-sm sm:text-base font-bold text-gray-400">
+      <div className="w-[32px] h-[32px] sm:w-[40px] sm:h-[40px] mb-1 hospital-card rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+        <span className="text-sm sm:text-base font-bold text-hospital-400">
           {skill.name.charAt(0).toUpperCase()}
         </span>
       </div>
@@ -196,29 +217,31 @@ const SkillBar = ({
         transitionDelay: `${index * 30}ms`
       }}
     >
-      {/* Efecto de brillo de fondo - solo en desktop */}
+      {/* Efecto de brillo de fondo */}
       {!isMobile && (
         <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${colorClasses.gradient}`}></div>
       )}
 
       <div className="relative z-10 flex flex-col items-center space-y-1 sm:space-y-2 w-full">
-        {/* Icono con efectos */}
+        {/* Icono con efectos Silent Hill */}
         <div className="relative group-hover:scale-110 transition-transform duration-300">
           {renderIcon()}
           
-          {/* Anillo de resplandor - solo en desktop */}
+          {/* Anillo de resplandor */}
           {!isMobile && (
             <div className={`absolute inset-0 rounded-full border opacity-0 group-hover:opacity-100 transition-all duration-300 animate-pulse ${colorClasses.ring}`}></div>
           )}
         </div>
 
-        {/* Nombre de la habilidad (más compacto) */}
+        {/* Nombre de la habilidad */}
         <div className="text-center space-y-1 w-full">
           <span 
             className={`text-xs font-semibold tracking-wide transition-colors duration-300 block text-center ${
-              isEven 
-                ? 'text-gray-200 group-hover:text-amber-300' 
-                : 'text-gray-200 group-hover:text-red-300'
+              index % 3 === 0 
+                ? 'text-flesh-200 group-hover:text-rust-300' 
+                : index % 3 === 1
+                ? 'text-flesh-200 group-hover:text-hospital-300'
+                : 'text-flesh-200 group-hover:text-blood-300'
             }`}
             style={{
               wordBreak: 'break-word',
@@ -229,11 +252,11 @@ const SkillBar = ({
             {skill.name}
           </span>
           
-          {/* Barra de nivel (más pequeña) */}
+          {/* Barra de nivel Silent Hill */}
           {skill.level && (
             <div className="w-full">
               <div className="flex justify-between items-center mb-1">
-                <span className="text-xs text-gray-500">Nivel</span>
+                <span className="text-xs text-hospital-500 hospital-text">Nivel</span>
                 <span className={`text-xs font-bold ${colorClasses.text}`}>
                   {skill.level}%
                 </span>
@@ -251,10 +274,10 @@ const SkillBar = ({
           )}
         </div>
 
-        {/* Indicador de especialización (más pequeño) */}
+        {/* Indicador de especialización */}
         {skill.featured && (
           <div className={`absolute -top-1 -right-1 w-2 h-2 rounded-full border border-black ${
-            isEven ? 'bg-amber-400' : 'bg-red-400'
+            index % 3 === 0 ? 'bg-rust-400' : index % 3 === 1 ? 'bg-hospital-400' : 'bg-blood-400'
           } animate-pulse`}></div>
         )}
       </div>
@@ -262,7 +285,7 @@ const SkillBar = ({
   );
 };
 
-// Componente principal Skills (más compacto)
+// Componente principal Skills Silent Hill
 function Skills() {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -283,66 +306,66 @@ function Skills() {
       id="skills"
       className="relative z-20 px-4 sm:px-6 flex items-center justify-center py-8 sm:py-12"
     >
-      <div className="w-full max-w-6xl bg-gradient-to-br from-black/90 via-gray-900/90 to-black/90 backdrop-blur-lg rounded-xl sm:rounded-2xl border border-amber-500/30 shadow-xl shadow-amber-500/10 p-4 sm:p-8 z-30 relative overflow-hidden">
+      <div className="w-full max-w-6xl hospital-card backdrop-blur-lg rounded-xl sm:rounded-2xl silent-border-rust shadow-xl hover-shadow-rust-glow p-4 sm:p-8 z-30 relative overflow-hidden">
         
-        {/* Efectos de fondo */}
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-red-500/5 pointer-events-none"></div>
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent"></div>
+        {/* Efectos de fondo Silent Hill */}
+        <div className="absolute inset-0 gradient-dark-rust pointer-events-none"></div>
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-rust-400/50 to-transparent"></div>
         
-        {/* Título (más compacto) */}
+        {/* Título Silent Hill style */}
         <div className="text-center mb-6 sm:mb-10 relative z-10">
           <div className="relative inline-block">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-amber-400 via-red-400 to-amber-400 bg-clip-text text-transparent tracking-wider flicker-terrifying">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-rust-400 via-blood-400 to-rust-400 bg-clip-text text-transparent tracking-wider flicker-silent-hill">
               Mis Habilidades
             </h2>
-            {/* Sombra del título - solo en desktop */}
+            {/* Sombra del título */}
             {!isMobile && (
-              <div className="absolute inset-0 text-2xl sm:text-3xl md:text-4xl font-bold text-white/5 tracking-wider transform translate-x-1 translate-y-1">
+              <div className="absolute inset-0 text-2xl sm:text-3xl md:text-4xl font-bold text-flesh-500/10 tracking-wider transform translate-x-1 translate-y-1">
                 Mis Habilidades
               </div>
             )}
           </div>
           
-          {/* Línea decorativa (más pequeña) */}
+          {/* Línea decorativa Silent Hill */}
           <div className="flex justify-center mt-3 sm:mt-4">
-            <div className="h-0.5 w-16 sm:w-24 bg-gradient-to-r from-amber-500 via-red-500 to-amber-500 rounded-full shadow-lg shadow-amber-500/50"></div>
+            <div className="h-0.5 w-16 sm:w-24 bg-gradient-to-r from-rust-500 via-blood-500 to-rust-500 rounded-full shadow-lg hover-shadow-rust-glow"></div>
           </div>
           
           {/* Subtítulo */}
-          <p className="text-gray-400 mt-2 sm:mt-3 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mobile-text-contrast">
+          <p className="text-hospital-400 mt-2 sm:mt-3 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mobile-text-contrast hospital-text">
             Tecnologías y herramientas que domino en mi journey como desarrollador
           </p>
         </div>
 
-        {/* Categorías de habilidades (espaciado reducido) */}
+        {/* Categorías de habilidades */}
         <div className="space-y-4 sm:space-y-8 relative z-10">
           {Object.entries(grouped).map(([category, items], categoryIndex) => (
             <LazySection key={category}>
               <div className="space-y-3 sm:space-y-4">
                 
-                {/* Título de categoría (más compacto) */}
+                {/* Título de categoría Silent Hill */}
                 <div className="text-center">
                   <h3 className={`text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 pb-1 sm:pb-2 tracking-wide uppercase transition-all duration-300 relative inline-block ${
-                    categoryIndex % 2 === 0 ? 'text-amber-500' : 'text-red-500'
+                    categoryIndex % 3 === 0 ? 'text-rust-500' : categoryIndex % 3 === 1 ? 'text-hospital-500' : 'text-blood-500'
                   }`}>
                     {category}
                     
                     {/* Línea inferior decorativa */}
                     <div className={`absolute bottom-0 left-0 right-0 h-0.5 rounded-full ${
-                      categoryIndex % 2 === 0 ? 'bg-amber-500/50' : 'bg-red-500/50'
+                      categoryIndex % 3 === 0 ? 'bg-rust-500/50' : categoryIndex % 3 === 1 ? 'bg-hospital-500/50' : 'bg-blood-500/50'
                     }`}></div>
                     
-                    {/* Puntos decorativos - solo en desktop */}
+                    {/* Puntos decorativos */}
                     {!isMobile && (
                       <>
                         <div className="absolute -left-3 top-1/2 transform -translate-y-1/2">
                           <div className={`w-1.5 h-1.5 rounded-full ${
-                            categoryIndex % 2 === 0 ? 'bg-amber-400' : 'bg-red-400'
+                            categoryIndex % 3 === 0 ? 'bg-rust-400' : categoryIndex % 3 === 1 ? 'bg-hospital-400' : 'bg-blood-400'
                           } animate-pulse`}></div>
                         </div>
                         <div className="absolute -right-3 top-1/2 transform -translate-y-1/2">
                           <div className={`w-1.5 h-1.5 rounded-full ${
-                            categoryIndex % 2 === 0 ? 'bg-amber-400' : 'bg-red-400'
+                            categoryIndex % 3 === 0 ? 'bg-rust-400' : categoryIndex % 3 === 1 ? 'bg-hospital-400' : 'bg-blood-400'
                           } animate-pulse`} style={{animationDelay: '0.5s'}}></div>
                         </div>
                       </>
@@ -350,7 +373,7 @@ function Skills() {
                   </h3>
                 </div>
                 
-                {/* Grid de habilidades (más denso) */}
+                {/* Grid de habilidades */}
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
                   {items.map((skill, index) => (
                     <SkillBar 
@@ -366,41 +389,41 @@ function Skills() {
           ))}
         </div>
 
-        {/* Estadísticas adicionales (más compactas) */}
-        <div className="mt-6 sm:mt-10 pt-4 sm:pt-6 border-t border-amber-500/20 relative z-10">
+        {/* Estadísticas Silent Hill */}
+        <div className="mt-6 sm:mt-10 pt-4 sm:pt-6 border-t silent-border-rust relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             <div className="text-center group">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-400 mb-1 group-hover:scale-110 transition-transform duration-300">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-rust-400 mb-1 group-hover:scale-110 transition-transform duration-300">
                 {Object.values(grouped).flat().length}+
               </div>
-              <div className="text-gray-400 text-xs sm:text-sm font-medium">Tecnologías</div>
+              <div className="text-hospital-400 text-xs sm:text-sm font-medium hospital-text">Tecnologías</div>
             </div>
             
             <div className="text-center group">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-red-400 mb-1 group-hover:scale-110 transition-transform duration-300">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-blood-400 mb-1 group-hover:scale-110 transition-transform duration-300">
                 3+
               </div>
-              <div className="text-gray-400 text-xs sm:text-sm font-medium">Años Experiencia</div>
+              <div className="text-hospital-400 text-xs sm:text-sm font-medium hospital-text">Años Experiencia</div>
             </div>
             
             <div className="text-center group">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-400 mb-1 group-hover:scale-110 transition-transform duration-300">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-rust-400 mb-1 group-hover:scale-110 transition-transform duration-300">
                 50+
               </div>
-              <div className="text-gray-400 text-xs sm:text-sm font-medium">Proyectos</div>
+              <div className="text-hospital-400 text-xs sm:text-sm font-medium hospital-text">Proyectos</div>
             </div>
             
             <div className="text-center group">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-red-400 mb-1 group-hover:scale-110 transition-transform duration-300">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-blood-400 mb-1 group-hover:scale-110 transition-transform duration-300">
                 ∞
               </div>
-              <div className="text-gray-400 text-xs sm:text-sm font-medium">Pasión</div>
+              <div className="text-hospital-400 text-xs sm:text-sm font-medium hospital-text">Pasión</div>
             </div>
           </div>
         </div>
 
         {/* Efectos decorativos inferiores */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-400/50 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blood-400/50 to-transparent"></div>
       </div>
     </section>
   );

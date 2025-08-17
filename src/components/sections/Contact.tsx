@@ -36,19 +36,19 @@ const Contact = () => {
       id="contact"
       className="relative z-20 min-h-screen px-6 flex items-center justify-center py-20"
     >
-      <div className="w-full max-w-6xl bg-gradient-to-br from-black/90 via-gray-900/90 to-black/90 backdrop-blur-lg rounded-3xl border-2 border-amber-500/30 shadow-2xl shadow-amber-500/10 p-12 z-30 relative overflow-hidden">
+      <div className="w-full max-w-6xl hospital-card backdrop-blur-lg rounded-3xl silent-border-rust shadow-2xl hover-shadow-rust-glow p-12 z-30 relative overflow-hidden">
         
-        {/* Efectos de fondo */}
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-red-500/5 pointer-events-none"></div>
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent"></div>
+        {/* Efectos de fondo Silent Hill */}
+        <div className="absolute inset-0 gradient-dark-rust pointer-events-none"></div>
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-rust-400/50 to-transparent"></div>
         
-        {/* Partículas flotantes */}
+        {/* Partículas flotantes Silent Hill */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
               className={`absolute w-1 h-1 rounded-full animate-float ${
-                i % 2 === 0 ? 'bg-amber-400/30' : 'bg-red-400/30'
+                i % 3 === 0 ? 'bg-rust-400/30' : i % 3 === 1 ? 'bg-hospital-400/30' : 'bg-blood-400/30'
               }`}
               style={{
                 left: `${10 + i * 15}%`,
@@ -60,27 +60,27 @@ const Contact = () => {
           ))}
         </div>
 
-        {/* Título mejorado */}
+        {/* Título Silent Hill */}
         <div className="text-center mb-16 relative z-10">
           <div className="relative inline-block">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-amber-400 via-red-400 to-amber-400 bg-clip-text text-transparent tracking-wider flicker-terrifying">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-rust-400 via-blood-400 to-rust-400 bg-clip-text text-transparent tracking-wider flicker-silent-hill">
               Contáctame
             </h2>
             {/* Sombra del título */}
-            <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-bold text-white/5 tracking-wider transform translate-x-1 translate-y-1">
+            <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-bold text-flesh-500/5 tracking-wider transform translate-x-1 translate-y-1">
               Contáctame
             </div>
           </div>
           
-          {/* Línea decorativa */}
+          {/* Línea decorativa Silent Hill */}
           <div className="flex justify-center mt-6">
-            <div className="h-1 w-32 bg-gradient-to-r from-amber-500 via-red-500 to-amber-500 rounded-full shadow-lg shadow-amber-500/50"></div>
+            <div className="h-1 w-32 bg-gradient-to-r from-rust-500 via-blood-500 to-rust-500 rounded-full shadow-lg hover-shadow-rust-glow"></div>
           </div>
           
           {/* Subtítulo */}
-          <p className="text-gray-400 mt-4 text-lg max-w-3xl mx-auto leading-relaxed">
+          <p className="text-hospital-400 mt-4 text-lg max-w-3xl mx-auto leading-relaxed hospital-text">
             Estoy disponible para colaborar, aprender y crear proyectos que inspiren. 
-            <span className="text-amber-400 font-semibold"> ¡Conectemos!</span>
+            <span className="text-rust-400 font-semibold"> ¡Conectemos!</span>
           </p>
         </div>
 
@@ -89,13 +89,13 @@ const Contact = () => {
           
           {/* Información de contacto */}
           <div className="space-y-8">
-            <div className="bg-gradient-to-br from-black/80 via-amber-900/20 to-black/80 p-8 rounded-2xl border-2 border-amber-500/30 hover:border-amber-500/50 transition-all duration-500 hover:shadow-amber-500/20 shadow-xl relative overflow-hidden group">
+            <div className="gradient-dark-rust p-8 rounded-2xl silent-border-rust hover:border-rust-500/50 transition-all duration-500 hover-shadow-rust-glow shadow-xl relative overflow-hidden group">
               
-              {/* Efecto de brillo */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              {/* Efecto de brillo Silent Hill */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-rust-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               
               <div className="relative z-10">
-                <h3 className="text-2xl font-bold text-amber-400 mb-6 flex items-center space-x-3">
+                <h3 className="text-2xl font-bold text-rust-400 mb-6 flex items-center space-x-3">
                   <MessageSquare className="animate-pulse" />
                   <span>Información de Contacto</span>
                 </h3>
@@ -103,40 +103,40 @@ const Contact = () => {
                 <div className="space-y-6">
                   {/* Email */}
                   <div className="flex items-start space-x-4 group/item hover:scale-105 transition-transform duration-300">
-                    <div className="p-3 bg-amber-500/20 rounded-xl border border-amber-500/30 group-hover/item:border-amber-500/60 transition-colors duration-300">
-                      <Mail className="text-amber-400 group-hover/item:scale-110 transition-transform duration-300" size={20} />
+                    <div className="p-3 bg-rust-500/20 rounded-xl silent-border-rust group-hover/item:border-rust-500/60 transition-colors duration-300">
+                      <Mail className="text-rust-400 group-hover/item:scale-110 transition-transform duration-300" size={20} />
                     </div>
                     <div className="flex-1">
-                      <p className="text-gray-200 font-medium group-hover/item:text-amber-300 transition-colors duration-300">
+                      <p className="text-flesh-200 font-medium group-hover/item:text-rust-300 transition-colors duration-300">
                         alexandertapia.dev@gmail.com
                       </p>
-                      <span className="text-xs text-gray-500 uppercase tracking-wider">Correo electrónico</span>
+                      <span className="text-xs text-hospital-500 uppercase tracking-wider hospital-text">Correo electrónico</span>
                     </div>
                   </div>
                   
                   {/* Teléfono */}
                   <div className="flex items-start space-x-4 group/item hover:scale-105 transition-transform duration-300">
-                    <div className="p-3 bg-red-500/20 rounded-xl border border-red-500/30 group-hover/item:border-red-500/60 transition-colors duration-300">
-                      <Phone className="text-red-400 group-hover/item:scale-110 transition-transform duration-300" size={20} />
+                    <div className="p-3 bg-blood-500/20 rounded-xl silent-border-blood group-hover/item:border-blood-500/60 transition-colors duration-300">
+                      <Phone className="text-blood-400 group-hover/item:scale-110 transition-transform duration-300" size={20} />
                     </div>
                     <div className="flex-1">
-                      <p className="text-gray-200 font-medium group-hover/item:text-red-300 transition-colors duration-300">
+                      <p className="text-flesh-200 font-medium group-hover/item:text-blood-300 transition-colors duration-300">
                         +56 9 1234 5678
                       </p>
-                      <span className="text-xs text-gray-500 uppercase tracking-wider">Teléfono</span>
+                      <span className="text-xs text-hospital-500 uppercase tracking-wider hospital-text">Teléfono</span>
                     </div>
                   </div>
                   
                   {/* Ubicación */}
                   <div className="flex items-start space-x-4 group/item hover:scale-105 transition-transform duration-300">
-                    <div className="p-3 bg-amber-500/20 rounded-xl border border-amber-500/30 group-hover/item:border-amber-500/60 transition-colors duration-300">
-                      <MapPin className="text-amber-400 group-hover/item:scale-110 transition-transform duration-300" size={20} />
+                    <div className="p-3 bg-hospital-500/20 rounded-xl silent-border-hospital group-hover/item:border-hospital-500/60 transition-colors duration-300">
+                      <MapPin className="text-hospital-400 group-hover/item:scale-110 transition-transform duration-300" size={20} />
                     </div>
                     <div className="flex-1">
-                      <p className="text-gray-200 font-medium group-hover/item:text-amber-300 transition-colors duration-300">
+                      <p className="text-flesh-200 font-medium group-hover/item:text-hospital-300 transition-colors duration-300">
                         Antofagasta, Chile
                       </p>
-                      <span className="text-xs text-gray-500 uppercase tracking-wider">Ubicación</span>
+                      <span className="text-xs text-hospital-500 uppercase tracking-wider hospital-text">Ubicación</span>
                     </div>
                   </div>
                 </div>
@@ -144,46 +144,46 @@ const Contact = () => {
             </div>
 
             {/* Disponibilidad */}
-            <div className="bg-gradient-to-br from-black/80 via-red-900/20 to-black/80 p-8 rounded-2xl border-2 border-red-500/30 hover:border-red-500/50 transition-all duration-500 hover:shadow-red-500/20 shadow-xl relative overflow-hidden group">
+            <div className="bg-gradient-to-br from-blood-900/20 to-blood-800/10 p-8 rounded-2xl silent-border-blood hover:border-blood-500/50 transition-all duration-500 hover:shadow-blood-500/20 shadow-xl relative overflow-hidden group">
               
               {/* Efecto de brillo */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blood-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               
               <div className="relative z-10">
-                <h4 className="text-xl font-bold text-red-400 mb-4">Disponibilidad</h4>
+                <h4 className="text-xl font-bold text-blood-400 mb-4">Disponibilidad</h4>
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-gray-300">Disponible para proyectos</span>
+                    <div className="w-3 h-3 bg-rust-400 rounded-full animate-pulse"></div>
+                    <span className="text-flesh-300">Disponible para proyectos</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-amber-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-                    <span className="text-gray-300">Respuesta en 24-48 horas</span>
+                    <div className="w-3 h-3 bg-hospital-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                    <span className="text-flesh-300">Respuesta en 24-48 horas</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-red-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-                    <span className="text-gray-300">Colaboraciones remotas</span>
+                    <div className="w-3 h-3 bg-blood-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+                    <span className="text-flesh-300">Colaboraciones remotas</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Formulario de contacto */}
-          <div className="bg-gradient-to-br from-black/80 via-gray-900/50 to-black/80 p-8 rounded-2xl border-2 border-amber-500/30 hover:border-amber-500/50 transition-all duration-500 hover:shadow-amber-500/20 shadow-xl relative overflow-hidden group">
+          {/* Formulario de contacto Silent Hill */}
+          <div className="hospital-card p-8 rounded-2xl silent-border-hospital hover:border-rust-500/50 transition-all duration-500 hover-shadow-rust-glow shadow-xl relative overflow-hidden group">
             
             {/* Efecto de brillo */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-rust-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-              <h3 className="text-2xl font-bold text-amber-400 mb-6 flex items-center space-x-3">
+              <h3 className="text-2xl font-bold text-rust-400 mb-6 flex items-center space-x-3">
                 <Send className="animate-pulse" />
                 <span>Enviar Mensaje</span>
               </h3>
               
               {/* Nombre */}
               <div className="group/input">
-                <label className="block text-sm font-medium text-gray-400 mb-2 flex items-center space-x-2">
+                <label className="block text-sm font-medium text-hospital-400 mb-2 flex items-center space-x-2 hospital-text">
                   <User size={16} />
                   <span>Nombre completo</span>
                 </label>
@@ -193,14 +193,14 @@ const Contact = () => {
                   value={formData.nombre}
                   onChange={handleChange}
                   placeholder="Tu nombre completo"
-                  className="w-full px-4 py-3 bg-gray-800/80 text-gray-200 rounded-xl placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400/50 border border-gray-700/50 transition-all duration-300 group-hover/input:border-amber-500/30"
+                  className="w-full px-4 py-3 hospital-card text-flesh-200 rounded-xl placeholder-hospital-500 focus:outline-none focus:ring-2 focus:ring-rust-400/50 focus:border-rust-400/50 silent-border-hospital transition-all duration-300 group-hover/input:border-rust-500/30"
                   required
                 />
               </div>
               
               {/* Email */}
               <div className="group/input">
-                <label className="block text-sm font-medium text-gray-400 mb-2 flex items-center space-x-2">
+                <label className="block text-sm font-medium text-hospital-400 mb-2 flex items-center space-x-2 hospital-text">
                   <Mail size={16} />
                   <span>Correo electrónico</span>
                 </label>
@@ -210,47 +210,47 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="tu@email.com"
-                  className="w-full px-4 py-3 bg-gray-800/80 text-gray-200 rounded-xl placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400/50 border border-gray-700/50 transition-all duration-300 group-hover/input:border-amber-500/30"
+                  className="w-full px-4 py-3 hospital-card text-flesh-200 rounded-xl placeholder-hospital-500 focus:outline-none focus:ring-2 focus:ring-rust-400/50 focus:border-rust-400/50 silent-border-hospital transition-all duration-300 group-hover/input:border-rust-500/30"
                   required
                 />
               </div>
               
               {/* Asunto */}
               <div className="group/input">
-                <label className="block text-sm font-medium text-gray-400 mb-2">Asunto</label>
+                <label className="block text-sm font-medium text-hospital-400 mb-2 hospital-text">Asunto</label>
                 <input
                   type="text"
                   name="asunto"
                   value={formData.asunto}
                   onChange={handleChange}
                   placeholder="¿En qué podemos colaborar?"
-                  className="w-full px-4 py-3 bg-gray-800/80 text-gray-200 rounded-xl placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400/50 border border-gray-700/50 transition-all duration-300 group-hover/input:border-amber-500/30"
+                  className="w-full px-4 py-3 hospital-card text-flesh-200 rounded-xl placeholder-hospital-500 focus:outline-none focus:ring-2 focus:ring-rust-400/50 focus:border-rust-400/50 silent-border-hospital transition-all duration-300 group-hover/input:border-rust-500/30"
                   required
                 />
               </div>
               
               {/* Mensaje */}
               <div className="group/input">
-                <label className="block text-sm font-medium text-gray-400 mb-2">Mensaje</label>
+                <label className="block text-sm font-medium text-hospital-400 mb-2 hospital-text">Mensaje</label>
                 <textarea
                   rows={5}
                   name="mensaje"
                   value={formData.mensaje}
                   onChange={handleChange}
                   placeholder="Cuéntame sobre tu proyecto o idea..."
-                  className="w-full px-4 py-3 bg-gray-800/80 text-gray-200 rounded-xl placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400/50 border border-gray-700/50 transition-all duration-300 group-hover/input:border-amber-500/30 resize-none"
+                  className="w-full px-4 py-3 hospital-card text-flesh-200 rounded-xl placeholder-hospital-500 focus:outline-none focus:ring-2 focus:ring-rust-400/50 focus:border-rust-400/50 silent-border-hospital transition-all duration-300 group-hover/input:border-rust-500/30 resize-none"
                   required
                 />
               </div>
               
-              {/* Botón de envío */}
+              {/* Botón de envío Silent Hill */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-black font-bold text-lg rounded-xl hover:from-amber-400 hover:via-amber-300 hover:to-amber-400 transition-all duration-300 flicker-terrifying-fast shadow-lg hover:shadow-amber-500/50 hover:scale-105 transform disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 relative overflow-hidden group/button"
+                className="w-full py-4 gradient-rust-blood text-black font-bold text-lg rounded-xl hover:from-rust-400 hover:via-rust-300 hover:to-blood-400 transition-all duration-300 flicker-silent-hill-fast shadow-lg hover-shadow-rust-glow hover:scale-105 transform disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 relative overflow-hidden group/button"
               >
                 {/* Efecto de brillo interno */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover/button:translate-x-[100%] transition-transform duration-1000"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-flesh-500/20 to-transparent translate-x-[-100%] group-hover/button:translate-x-[100%] transition-transform duration-1000"></div>
                 
                 <span className="relative flex items-center space-x-2">
                   {isSubmitting ? (
@@ -271,7 +271,7 @@ const Contact = () => {
         </div>
 
         {/* Línea decorativa inferior */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-400/50 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blood-400/50 to-transparent"></div>
       </div>
     </section>
   )
