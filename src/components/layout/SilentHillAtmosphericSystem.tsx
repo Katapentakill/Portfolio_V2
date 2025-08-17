@@ -605,14 +605,13 @@ const SilentHillAtmosphericSystem = () => {
     <>
       <canvas
         ref={canvasRef}
-        className="fixed inset-0 pointer-events-none z-10"
+        className="fixed inset-0 pointer-events-none z-[40]" // ⬅️ CAMBIO: antes z-10
         style={{
-          opacity: FOG.globalOpacity, // intensidad general de la niebla
-          mixBlendMode: currentMode === 'flashlight' ? 'normal' : 'screen',
+          opacity: FOG.globalOpacity,
+          mixBlendMode: currentMode === 'flashlight' ? 'normal' : 'normal', // ⬅️ CAMBIO: 'screen' -> 'normal'
           filter:
             currentMode === 'static' ? 'contrast(1.4) brightness(0.85)' :
             currentMode === 'hospital' ? 'contrast(1.25) brightness(0.65) saturate(0.7)' :
-            // fog → menos contraste y casi sin saturación
             'contrast(1.05) brightness(0.9) saturate(0.2)'
         }}
       />

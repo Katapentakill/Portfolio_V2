@@ -221,7 +221,7 @@ const Contact = () => {
                           className="text-gray-200 font-medium font-jetbrains text-sm group-hover/item:text-red-300 transition-colors"
                           style={{ fontFamily: 'var(--font-jetbrains)' }}
                         >
-                          alexandertapia.dev@gmail.com
+                          alexandertapiaolmedo@gmail.com
                         </p>
                         <span 
                           className="text-xs text-gray-500 uppercase tracking-wider font-palatino"
@@ -244,7 +244,7 @@ const Contact = () => {
                           className="text-gray-200 font-medium font-jetbrains text-sm group-hover/item:text-orange-300 transition-colors"
                           style={{ fontFamily: 'var(--font-jetbrains)' }}
                         >
-                          +56 9 1234 5678
+                          +56 9 6191 7853
                         </p>
                         <span 
                           className="text-xs text-gray-500 uppercase tracking-wider font-palatino"
