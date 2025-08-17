@@ -8,7 +8,19 @@ const SilentHillAtmosphericSystem = () => {
   const animationRef = useRef<number | null>(null)
   const [currentMode, setCurrentMode] = useState<'fog' | 'flashlight' | 'static' | 'hospital'>('fog')
   const [isFlashlightOn, setIsFlashlightOn] = useState(false)
-  
+
+  // =========================
+  //  AJUSTES RÁPIDOS DE NIEBLA
+  // =========================
+  const FOG = {
+    densityScale: 0.55,     // ↓ menos partículas (0.3–0.8)
+    sizeScale: 0.7,         // ↓ partículas más pequeñas (0.6–0.9)
+    baseOpacityMin: 0.03,   // ↓ opacidad base mínima
+    baseOpacityMax: 0.10,   // ↓ opacidad base máxima
+    globalOpacity: 0.55,    // ↓ transparencia general del canvas (0.4–0.7)
+    neutralOnly: true       // true = solo blanco/gris (sin óxido/rojos)
+  }
+
   // Tipos para las partículas
   interface FogParticle {
     x: number;
@@ -52,10 +64,11 @@ const SilentHillAtmosphericSystem = () => {
 
   // Escuchar cambios de modo desde el header
   useEffect(() => {
-    const handleAtmosphericChange = (event: CustomEvent) => {
-      const newMode = event.detail.mode
+    const handleAtmosphericChange = (event: Event) => {
+      const custom = event as CustomEvent
+      const newMode = custom.detail.mode as typeof currentMode
       setCurrentMode(newMode)
-      
+
       if (newMode === 'flashlight') {
         setIsFlashlightOn(true)
         document.body.style.backgroundColor = '#000000'
@@ -95,12 +108,12 @@ const SilentHillAtmosphericSystem = () => {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
     if (!ctx) return
-    
+
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
     }
-    
+
     resizeCanvas()
     window.addEventListener('resize', resizeCanvas)
 
@@ -108,7 +121,7 @@ const SilentHillAtmosphericSystem = () => {
     const createParticles = () => {
       particles.current = []
       staticParticles.current = []
-      
+
       if (currentMode === 'fog') {
         createFogParticles()
       } else if (currentMode === 'static') {
@@ -118,38 +131,45 @@ const SilentHillAtmosphericSystem = () => {
       }
     }
 
+    // ======= FOG (con ajustes de intensidad y colores neutros) =======
     const createFogParticles = () => {
-      const particleCount = Math.floor((canvas.width * canvas.height) / 1800)
-      
+      // Menos densidad: divisor mayor + densityScale
+      const particleCount = Math.floor(((canvas.width * canvas.height) / 2400) * FOG.densityScale)
+
       for (let i = 0; i < particleCount; i++) {
         const typeRand = Math.random()
-        const colorRand = Math.random()
-        
         let particleType: 'main' | 'dust' | 'shadow'
-        let particleColor: 'fog' | 'rust' | 'hospital' | 'blood'
-        
-        if (typeRand < 0.5) particleType = 'main'
-        else if (typeRand < 0.75) particleType = 'dust'
+        if (typeRand < 0.55) particleType = 'main'
+        else if (typeRand < 0.8) particleType = 'dust'
         else particleType = 'shadow'
-        
-        if (colorRand < 0.4) particleColor = 'fog'
-        else if (colorRand < 0.65) particleColor = 'rust'
-        else if (colorRand < 0.85) particleColor = 'hospital'
-        else particleColor = 'blood'
 
-        const baseSize = particleType === 'main' ? 160 : particleType === 'dust' ? 80 : 220
+        // Colores: solo blanco/gris si neutralOnly
+        let particleColor: 'fog' | 'rust' | 'hospital' | 'blood' = 'fog'
+        if (!FOG.neutralOnly) {
+          const colorRand = Math.random()
+          if (colorRand < 0.7) particleColor = 'fog'
+          else if (colorRand < 0.9) particleColor = 'hospital'
+          else particleColor = 'rust'
+        }
+
+        const baseSizeRaw = (particleType === 'main' ? 160 : particleType === 'dust' ? 80 : 220)
+        const baseSize = baseSizeRaw * FOG.sizeScale
+
+        const baseOpacityRandom = (Math.random() * (FOG.baseOpacityMax - FOG.baseOpacityMin)) + FOG.baseOpacityMin
+        const shadowBoost = particleType === 'shadow' ? 0.8 : 1 // sombras más sutiles
 
         const particle: FogParticle = {
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * (particleType === 'shadow' ? 0.2 : 0.4),
-          vy: (Math.random() - 0.5) * (particleType === 'shadow' ? 0.2 : 0.4),
+          vx: (Math.random() - 0.5) * (particleType === 'shadow' ? 0.18 : 0.32),
+          vy: (Math.random() - 0.5) * (particleType === 'shadow' ? 0.18 : 0.32),
           size: Math.random() * baseSize + (baseSize * 0.5),
-          opacity: Math.random() * (particleType === 'shadow' ? 0.12 : 0.2) + 0.08,
-          baseOpacity: Math.random() * (particleType === 'shadow' ? 0.12 : 0.2) + 0.08,
+          opacity: baseOpacityRandom * shadowBoost,
+          baseOpacity: baseOpacityRandom * shadowBoost,
           color: particleColor,
           pulse: Math.random() * Math.PI * 2,
-          pulseSpeed: 0.008 + Math.random() * 0.015,
+          // pulso un poco más lento
+          pulseSpeed: 0.006 + Math.random() * 0.012,
           depth: Math.random(),
           type: particleType
         }
@@ -160,7 +180,7 @@ const SilentHillAtmosphericSystem = () => {
 
     const createStaticParticles = () => {
       const particleCount = Math.floor((canvas.width * canvas.height) / 8)
-      
+
       for (let i = 0; i < particleCount; i++) {
         const particle: StaticParticle = {
           x: Math.random() * canvas.width,
@@ -175,7 +195,7 @@ const SilentHillAtmosphericSystem = () => {
 
     const createHospitalParticles = () => {
       const particleCount = Math.floor((canvas.width * canvas.height) / 3000)
-      
+
       for (let i = 0; i < particleCount; i++) {
         const particle: HospitalParticle = {
           x: Math.random() * canvas.width,
@@ -204,7 +224,7 @@ const SilentHillAtmosphericSystem = () => {
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      
+
       if (currentMode === 'fog') {
         animateFog(ctx)
       } else if (currentMode === 'flashlight') {
@@ -214,10 +234,11 @@ const SilentHillAtmosphericSystem = () => {
       } else if (currentMode === 'hospital') {
         animateHospital(ctx)
       }
-      
+
       animationRef.current = requestAnimationFrame(animate)
     }
 
+    // ======= ANIMACIÓN FOG (con reacción más suave al mouse) =======
     const animateFog = (ctx: CanvasRenderingContext2D) => {
       const sortedParticles = [...particles.current].sort((a, b) => {
         const aParticle = a as FogParticle
@@ -226,19 +247,21 @@ const SilentHillAtmosphericSystem = () => {
         const typeOrder: Record<'shadow' | 'main' | 'dust', number> = { shadow: 0, main: 1, dust: 2 }
         return typeOrder[aParticle.type] - typeOrder[bParticle.type]
       })
-      
+
       sortedParticles.forEach(particleGeneric => {
         const particle = particleGeneric as FogParticle
         const dx = particle.x - mousePos.current.x
         const dy = particle.y - mousePos.current.y
         const distance = Math.sqrt(dx * dx + dy * dy)
-        const maxDistance = particle.type === 'shadow' ? 250 : 300
-        
+        // Menor radio de influencia
+        const maxDistance = particle.type === 'shadow' ? 220 : 260
+
         if (distance < maxDistance) {
           const force = (maxDistance - distance) / maxDistance
           particle.opacity = particle.baseOpacity * (1 - force * 0.5)
-          
-          const pushStrength = force * (particle.type === 'shadow' ? 1.2 : 1.8) * (1 + particle.depth)
+
+          // Menos empuje
+          const pushStrength = force * (particle.type === 'shadow' ? 0.9 : 1.3) * (1 + particle.depth)
           const pushX = (dx / distance) * pushStrength
           const pushY = (dy / distance) * pushStrength
           particle.x += pushX
@@ -246,25 +269,25 @@ const SilentHillAtmosphericSystem = () => {
         } else {
           particle.opacity = particle.baseOpacity
         }
-        
+
         particle.pulse += particle.pulseSpeed
         const pulseMultiplier = 0.5 + Math.sin(particle.pulse) * 0.5
-        
+
         const speedMultiplier = particle.type === 'shadow' ? 0.2 : 0.3
         particle.x += particle.vx * speedMultiplier * (0.3 + particle.depth)
         particle.y += particle.vy * speedMultiplier * (0.3 + particle.depth)
-        
+
         if (Math.random() < 0.003) {
           particle.vx = (Math.random() - 0.5) * (particle.type === 'shadow' ? 0.2 : 0.4)
           particle.vy = (Math.random() - 0.5) * (particle.type === 'shadow' ? 0.2 : 0.4)
         }
-        
+
         // Wrap around edges
         if (particle.x < -particle.size) particle.x = canvas.width + particle.size
         if (particle.x > canvas.width + particle.size) particle.x = -particle.size
         if (particle.y < -particle.size) particle.y = canvas.height + particle.size
         if (particle.y > canvas.height + particle.size) particle.y = -particle.size
-        
+
         drawFogParticle(ctx, particle, pulseMultiplier)
       })
     }
@@ -273,7 +296,7 @@ const SilentHillAtmosphericSystem = () => {
       // Fondo completamente negro
       ctx.fillStyle = '#000000'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
-      
+
       if (isFlashlightOn) {
         // Crear gradiente radial para la linterna
         const flashlightRadius = 300
@@ -281,35 +304,35 @@ const SilentHillAtmosphericSystem = () => {
           mousePos.current.x, mousePos.current.y, 0,
           mousePos.current.x, mousePos.current.y, flashlightRadius
         )
-        
+
         // Efecto de linterna realista
         gradient.addColorStop(0, 'rgba(255, 255, 240, 0.9)')
         gradient.addColorStop(0.3, 'rgba(255, 255, 220, 0.7)')
         gradient.addColorStop(0.6, 'rgba(255, 255, 180, 0.4)')
         gradient.addColorStop(0.8, 'rgba(255, 255, 120, 0.2)')
         gradient.addColorStop(1, 'rgba(255, 255, 60, 0)')
-        
+
         ctx.save()
         ctx.globalCompositeOperation = 'lighter'
         ctx.fillStyle = gradient
         ctx.fillRect(0, 0, canvas.width, canvas.height)
-        
+
         // Añadir parpadeo ocasional de la linterna
         if (Math.random() < 0.02) {
           ctx.globalAlpha = 0.3 + Math.random() * 0.4
           ctx.fillStyle = gradient
           ctx.fillRect(0, 0, canvas.width, canvas.height)
         }
-        
+
         // Partículas de polvo en el haz de luz
         for (let i = 0; i < 50; i++) {
           const dustX = mousePos.current.x + (Math.random() - 0.5) * flashlightRadius * 1.5
           const dustY = mousePos.current.y + (Math.random() - 0.5) * flashlightRadius * 1.5
           const dustDistance = Math.sqrt(
-            Math.pow(dustX - mousePos.current.x, 2) + 
+            Math.pow(dustX - mousePos.current.x, 2) +
             Math.pow(dustY - mousePos.current.y, 2)
           )
-          
+
           if (dustDistance < flashlightRadius) {
             const dustOpacity = (1 - dustDistance / flashlightRadius) * 0.6
             ctx.globalAlpha = dustOpacity * (0.5 + Math.random() * 0.5)
@@ -319,10 +342,10 @@ const SilentHillAtmosphericSystem = () => {
             ctx.fill()
           }
         }
-        
+
         ctx.restore()
       }
-      
+
       // Mensaje de ayuda
       if (!isFlashlightOn) {
         ctx.save()
@@ -338,7 +361,7 @@ const SilentHillAtmosphericSystem = () => {
       // Fondo de TV estática
       ctx.fillStyle = '#0a0a0a'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
-      
+
       // Regenerar partículas estáticas constantemente
       if (Math.random() < 0.3) {
         for (let i = 0; i < 100; i++) {
@@ -351,11 +374,11 @@ const SilentHillAtmosphericSystem = () => {
           })
         }
       }
-      
+
       // Dibujar estática
       staticParticles.current = staticParticles.current.filter(particle => {
         particle.life--
-        
+
         if (particle.life > 0) {
           const lifeRatio = particle.life / particle.maxLife
           ctx.globalAlpha = particle.opacity * lifeRatio
@@ -365,7 +388,7 @@ const SilentHillAtmosphericSystem = () => {
         }
         return false
       })
-      
+
       // Líneas horizontales de interferencia
       for (let i = 0; i < 5; i++) {
         if (Math.random() < 0.3) {
@@ -375,7 +398,7 @@ const SilentHillAtmosphericSystem = () => {
           ctx.fillRect(0, y, canvas.width, 1 + Math.random() * 2)
         }
       }
-      
+
       // Interferencia de señal
       if (Math.random() < 0.1) {
         ctx.save()
@@ -390,12 +413,12 @@ const SilentHillAtmosphericSystem = () => {
         }
         ctx.restore()
       }
-      
+
       // Efecto de distorsión alrededor del mouse
       const distortRadius = 150
       const dx = mousePos.current.x
       const dy = mousePos.current.y
-      
+
       ctx.save()
       ctx.globalCompositeOperation = 'difference'
       const distortGradient = ctx.createRadialGradient(dx, dy, 0, dx, dy, distortRadius)
@@ -411,30 +434,30 @@ const SilentHillAtmosphericSystem = () => {
       // Fondo de hospital abandonado
       ctx.fillStyle = '#0f0f0f'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
-      
+
       particles.current.forEach(particleGeneric => {
         const particle = particleGeneric as HospitalParticle
         // Movimiento lento y pesado
         particle.x += particle.vx
         particle.y += particle.vy
-        
+
         // Parpadeo de luces fluorescentes
         particle.pulse += particle.pulseSpeed
         let pulseMultiplier = 0.3 + Math.sin(particle.pulse) * 0.3
-        
+
         if (particle.flicker && Math.random() < 0.05) {
           pulseMultiplier *= 0.1 + Math.random() * 0.3
         }
-        
+
         // Wrap around
         if (particle.x < 0) particle.x = canvas.width
         if (particle.x > canvas.width) particle.x = 0
         if (particle.y < 0) particle.y = canvas.height
         if (particle.y > canvas.height) particle.y = 0
-        
+
         ctx.save()
         ctx.globalAlpha = particle.opacity * pulseMultiplier
-        
+
         if (particle.color === 'light') {
           // Luces fluorescentes parpadeantes
           const gradient = ctx.createRadialGradient(
@@ -445,7 +468,7 @@ const SilentHillAtmosphericSystem = () => {
           gradient.addColorStop(0.4, 'rgba(200, 255, 200, 0.4)')
           gradient.addColorStop(0.8, 'rgba(150, 255, 150, 0.2)')
           gradient.addColorStop(1, 'rgba(100, 255, 100, 0)')
-          
+
           ctx.fillStyle = gradient
           ctx.beginPath()
           ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
@@ -459,16 +482,16 @@ const SilentHillAtmosphericSystem = () => {
           gradient.addColorStop(0, 'rgba(180, 180, 160, 0.6)')
           gradient.addColorStop(0.5, 'rgba(140, 140, 120, 0.3)')
           gradient.addColorStop(1, 'rgba(100, 100, 80, 0)')
-          
+
           ctx.fillStyle = gradient
           ctx.beginPath()
           ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
           ctx.fill()
         }
-        
+
         ctx.restore()
       })
-      
+
       // Líneas de luz intermitente (fluorescentes)
       if (Math.random() < 0.1) {
         for (let i = 0; i < 3; i++) {
@@ -480,7 +503,7 @@ const SilentHillAtmosphericSystem = () => {
           ctx.restore()
         }
       }
-      
+
       // Sombras que se mueven
       if (Math.random() < 0.03) {
         ctx.save()
@@ -496,16 +519,21 @@ const SilentHillAtmosphericSystem = () => {
       }
     }
 
-    const drawFogParticle = (ctx: CanvasRenderingContext2D, particle: FogParticle, pulseMultiplier: number) => {
+    const drawFogParticle = (
+      ctx: CanvasRenderingContext2D,
+      particle: FogParticle,
+      pulseMultiplier: number
+    ) => {
       ctx.save()
+      // Menor alpha total + factor por profundidad
       ctx.globalAlpha = particle.opacity * pulseMultiplier * (0.4 + particle.depth * 0.6)
-      
+
       const actualSize = particle.size * (0.5 + particle.depth * 0.5)
       const gradient = ctx.createRadialGradient(
         particle.x, particle.y, 0,
         particle.x, particle.y, actualSize
       )
-      
+
       switch (particle.color) {
         case 'rust':
           gradient.addColorStop(0, 'rgba(139, 69, 19, 0.9)')
@@ -525,40 +553,40 @@ const SilentHillAtmosphericSystem = () => {
           gradient.addColorStop(0.7, 'rgba(139, 0, 0, 0.1)')
           gradient.addColorStop(1, 'rgba(139, 0, 0, 0)')
           break
-        default: // fog
-          gradient.addColorStop(0, 'rgba(245, 245, 220, 0.8)')
-          gradient.addColorStop(0.4, 'rgba(210, 180, 140, 0.5)')
-          gradient.addColorStop(0.7, 'rgba(112, 128, 144, 0.3)')
-          gradient.addColorStop(1, 'rgba(28, 28, 28, 0)')
+        default: // fog (blanco/gris neutro)
+          gradient.addColorStop(0,   'rgba(255, 255, 255, 0.75)')
+          gradient.addColorStop(0.4, 'rgba(210, 210, 210, 0.35)')
+          gradient.addColorStop(0.7, 'rgba(150, 150, 150, 0.15)')
+          gradient.addColorStop(1,   'rgba(90, 90, 90, 0)')
       }
-      
+
       ctx.fillStyle = gradient
       ctx.beginPath()
       ctx.arc(particle.x, particle.y, actualSize, 0, Math.PI * 2)
       ctx.fill()
-      
+
       if (particle.type === 'shadow') {
-        ctx.globalAlpha = particle.opacity * 0.4
-        ctx.fillStyle = 'rgba(28, 28, 28, 0.9)'
+        ctx.globalAlpha = particle.opacity * 0.35
+        ctx.fillStyle = 'rgba(28, 28, 28, 0.85)'
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, actualSize * 0.7, 0, Math.PI * 2)
         ctx.fill()
       }
-      
+
       if (particle.color === 'rust' && Math.random() < 0.02) {
         ctx.globalAlpha = particle.opacity * 0.2
         ctx.fillStyle = 'rgba(139, 69, 19, 0.3)'
         ctx.beginPath()
         ctx.arc(
-          particle.x + (Math.random() - 0.5) * 20, 
-          particle.y + (Math.random() - 0.5) * 20, 
-          actualSize * 0.3, 
-          0, 
+          particle.x + (Math.random() - 0.5) * 20,
+          particle.y + (Math.random() - 0.5) * 20,
+          actualSize * 0.3,
+          0,
           Math.PI * 2
         )
         ctx.fill()
       }
-      
+
       ctx.restore()
     }
 
@@ -578,14 +606,17 @@ const SilentHillAtmosphericSystem = () => {
       <canvas
         ref={canvasRef}
         className="fixed inset-0 pointer-events-none z-10"
-        style={{ 
+        style={{
+          opacity: FOG.globalOpacity, // intensidad general de la niebla
           mixBlendMode: currentMode === 'flashlight' ? 'normal' : 'screen',
-          filter: currentMode === 'static' ? 'contrast(1.5) brightness(0.8)' : 
-                  currentMode === 'hospital' ? 'contrast(1.3) brightness(0.6) saturate(0.8)' :
-                  'contrast(1.2) brightness(0.8) saturate(1.1)'
+          filter:
+            currentMode === 'static' ? 'contrast(1.4) brightness(0.85)' :
+            currentMode === 'hospital' ? 'contrast(1.25) brightness(0.65) saturate(0.7)' :
+            // fog → menos contraste y casi sin saturación
+            'contrast(1.05) brightness(0.9) saturate(0.2)'
         }}
       />
-      
+
       {/* Indicador del modo actual */}
       <div className="fixed top-20 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-red-500/30">
         <div className="text-red-400 text-sm font-mono mb-1">Atmosfera:</div>
@@ -596,7 +627,7 @@ const SilentHillAtmosphericSystem = () => {
           </div>
         )}
       </div>
-      
+
       {/* Controles de ayuda */}
       <div className="fixed bottom-20 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-red-500/30 text-xs font-mono text-gray-400">
         <div>H - Hospital</div>

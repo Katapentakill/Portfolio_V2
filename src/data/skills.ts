@@ -15,11 +15,16 @@ export const skills: Skill[] = [
   { name: "JavaScript", category: "Languages", iconifyIcon: "logos:javascript", level: 90, featured: true },
   { name: "C#", category: "Languages", iconifyIcon: "logos:c-sharp", level: 75 },
   { name: "SQL", category: "Languages", iconifyIcon: "logos:mysql", level: 85 },
+  { name: "HTML5", category: "Languages", iconifyIcon: "logos:html-5", level: 85 },
+  { name: "CSS3", category: "Languages", iconifyIcon: "logos:css-3", level: 80 },
 
   // Frameworks - Según tus proyectos del CV
   { name: "NestJS", category: "Frameworks", iconifyIcon: "logos:nestjs", level: 85, featured: true },
   { name: "Angular", category: "Frameworks", iconifyIcon: "logos:angular-icon", level: 80, featured: true },
-  { name: "Next.js", category: "Frameworks", iconifyIcon: "logos:nextjs-icon", level: 70 }, // Nuevo - aprendiendo
+  { name: "Next.js", category: "Frameworks", iconifyIcon: "logos:nextjs-icon", level: 70 },
+  { name: "React", category: "Frameworks", iconifyIcon: "logos:react", level: 75 },
+  { name: "Django", category: "Frameworks", iconifyIcon: "logos:django", level: 75 },
+  { name: "Flask", category: "Frameworks", iconifyIcon: "logos:flask", level: 80 },
   { name: "Ionic", category: "Frameworks", iconifyIcon: "logos:ionic-icon", level: 75 },
   { name: "ASP.NET", category: "Frameworks", iconifyIcon: "logos:dotnet", level: 70 },
   { name: "Node.js", category: "Frameworks", iconifyIcon: "logos:nodejs-icon", level: 85 },
@@ -40,17 +45,23 @@ export const skills: Skill[] = [
   { name: "NumPy", category: "Data", iconifyIcon: "logos:numpy", level: 90, featured: true },
   { name: "Matplotlib", category: "Data", iconifyIcon: "logos:matplotlib-icon", level: 85 },
   { name: "Seaborn", category: "Data", image: "/seaborn-icon.png", level: 80 },
-  { name: "Power BI", category: "Data", iconifyIcon: "logos:microsoft-power-bi", level: 75 }, // Nuevo según certificación
+  { name: "Plotly", category: "Data", iconifyIcon: "logos:plotly-icon", level: 80 },
+  { name: "GeoPandas", category: "Data", image: "/geopandas-icon.png", level: 75 },
+  { name: "Folium", category: "Data", image: "/folium-icon.png", level: 70 },
+  { name: "Power BI", category: "Data", iconifyIcon: "logos:microsoft-power-bi", level: 75 },
   { name: "Polars", category: "Data", image: "/polars-icon.png", level: 70 },
 
   // Cloud/DevOps - Según tu proyecto de microservicios
   { name: "Docker", category: "Cloud/DevOps", iconifyIcon: "logos:docker-icon", level: 85, featured: true },
   { name: "Docker Compose", category: "Cloud/DevOps", iconifyIcon: "logos:docker-icon", level: 80 },
+  { name: "Kubernetes", category: "Cloud/DevOps", iconifyIcon: "logos:kubernetes", level: 75 },
   { name: "gRPC", category: "Cloud/DevOps", iconifyIcon: "logos:grpc", level: 75 },
   { name: "NGINX", category: "Cloud/DevOps", iconifyIcon: "logos:nginx", level: 70 },
   { name: "RabbitMQ", category: "Cloud/DevOps", iconifyIcon: "logos:rabbitmq-icon", level: 70 },
   { name: "GitHub Actions", category: "Cloud/DevOps", iconifyIcon: "logos:github-actions", level: 75 },
-  { name: "Railway", category: "Cloud/DevOps", iconifyIcon: "simple-icons:railway", level: 70 }, // Files.io alternativa común para deployment
+  { name: "IBM Cloud", category: "Cloud/DevOps", iconifyIcon: "logos:ibm", level: 70 },
+  { name: "Vercel", category: "Cloud/DevOps", iconifyIcon: "logos:vercel-icon", level: 75 },
+  { name: "Railway", category: "Cloud/DevOps", iconifyIcon: "simple-icons:railway", level: 70 },
 
   // Tools - Herramientas que usas
   { name: "Puppeteer", category: "Tools", iconifyIcon: "logos:puppeteer", level: 80 },
@@ -59,6 +70,8 @@ export const skills: Skill[] = [
   { name: "GitHub", category: "Tools", iconifyIcon: "logos:github-icon", level: 90 },
   { name: "JWT", category: "Tools", iconifyIcon: "logos:jwt-icon", level: 75 },
   { name: "TailwindCSS", category: "Tools", iconifyIcon: "logos:tailwindcss-icon", level: 85 },
+  { name: "Bootstrap", category: "Tools", iconifyIcon: "logos:bootstrap", level: 80 },
+  { name: "Redis", category: "Tools", iconifyIcon: "logos:redis", level: 70 },
   { name: "Cloudinary", category: "Tools", iconifyIcon: "logos:cloudinary-icon", level: 75 },
 
   // Databases - Según tus proyectos

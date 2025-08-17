@@ -33,7 +33,10 @@ const Hero = () => {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black">
+    <section
+      id="hero"
+      className="min-h-screen relative overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black scroll-mt-24 md:scroll-mt-28"
+    >
       {/* Espaciado para compensar el header fixed */}
       <div className="h-20"></div>
       
@@ -284,7 +287,7 @@ const Hero = () => {
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-50"></div>
       <div className="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-transparent via-red-500 to-transparent opacity-30"></div>
       <div className="absolute right-0 top-0 w-px h-full bg-gradient-to-b from-transparent via-red-500 to-transparent opacity-30"></div>
-    </div>
+    </section>
   )
 }
 
