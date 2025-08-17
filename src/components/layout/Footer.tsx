@@ -1,9 +1,51 @@
 'use client'
 
-import { Github, Mail, Linkedin, Heart, ArrowUp, Code, Coffee, Zap } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { 
+  Github, 
+  Linkedin, 
+  Mail, 
+  MapPin, 
+  Phone, 
+  Calendar,
+  ExternalLink,
+  Code,
+  Database,
+  Brain,
+  Zap,
+  Heart,
+  ArrowUp,
+  Skull,
+  Eye,
+  Coffee,
+  Settings2,
+  BadgeCheck,
+  Trophy
+} from 'lucide-react'
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear()
+  const [currentTime, setCurrentTime] = useState(new Date())
+  const [isFlickering, setIsFlickering] = useState(false)
+
+  // Actualizar hora cada segundo
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date())
+    }, 1000)
+
+    // Efecto de parpadeo aleatorio igual que tu header
+    const flickerInterval = setInterval(() => {
+      if (Math.random() < 0.1) { // 10% de probabilidad cada 3 segundos
+        setIsFlickering(true)
+        setTimeout(() => setIsFlickering(false), 150 + Math.random() * 300)
+      }
+    }, 3000)
+
+    return () => {
+      clearInterval(timer)
+      clearInterval(flickerInterval)
+    }
+  }, [])
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -16,132 +58,197 @@ const Footer = () => {
     }
   }
 
+  const navItems = [
+    { id: 'hero', label: 'Inicio', icon: ArrowUp },
+    { id: 'skills', label: 'Habilidades', icon: Settings2 },
+    { id: 'experience', label: 'Experiencia', icon: BadgeCheck },
+    { id: 'projects', label: 'Proyectos', icon: Trophy },
+    { id: 'contact', label: 'Contacto', icon: Phone },
+  ]
+
+
+
   return (
-    <footer className="relative z-20 hospital-card border-t-2 silent-border-rust mt-auto backdrop-blur-lg overflow-hidden">
+    <footer className={`relative z-20 bg-black/95 backdrop-blur-md border-t-2 border-red-500/50 mt-auto overflow-hidden transition-all duration-500 ${
+      isFlickering ? 'opacity-30' : 'opacity-100'
+    }`}>
       
-      {/* Efectos de fondo Silent Hill */}
-      <div className="absolute inset-0 gradient-dark-rust pointer-events-none"></div>
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-rust-400/50 to-transparent"></div>
-      
-      {/* Partículas flotantes Silent Hill */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+      {/* Efectos de fondo Silent Hill - igual que tu header */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/5 to-transparent animate-pulse"></div>
+        {/* Líneas de interferencia */}
+        {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className={`absolute w-1 h-1 rounded-full animate-float ${
-              i % 3 === 0 ? 'bg-rust-400/20' : i % 3 === 1 ? 'bg-hospital-400/20' : 'bg-blood-400/20'
-            }`}
+            className="absolute h-px bg-red-500/20 animate-pulse"
             style={{
-              left: `${5 + i * 12}%`,
-              top: `${20 + i * 8}%`,
-              animationDelay: `${i * 0.7}s`,
-              animationDuration: `${5 + i}s`
+              top: `${20 + i * 25}%`,
+              left: `${Math.random() * 20}%`,
+              width: `${60 + Math.random() * 40}%`,
+              animationDelay: `${i * 0.5}s`,
+              animationDuration: `${2 + Math.random()}s`
             }}
           />
         ))}
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 py-12 relative z-10">
+      {/* Partículas flotantes Silent Hill - igual que tu header */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className={`absolute w-1 h-1 rounded-full opacity-40 animate-pulse ${
+              i % 4 === 0 ? 'bg-red-500' : 
+              i % 4 === 1 ? 'bg-orange-400' : 
+              i % 4 === 2 ? 'bg-yellow-600' : 'bg-gray-400'
+            }`}
+            style={{
+              left: `${10 + i * 10}%`,
+              top: `${15 + i * 10}%`,
+              animationDelay: `${i * 0.5}s`,
+              animationDuration: `${3 + Math.random() * 2}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 relative z-10">
         
         {/* Contenido principal del footer */}
-        <div className="grid md:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-8">
 
-          {/* Sección 1: Sobre Alexander */}
-          <div className="md:col-span-2 space-y-6">
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-rust-400 to-blood-400 bg-clip-text text-transparent enhanced-visibility-sh flex items-center space-x-2">
-                <Code className="text-rust-400" size={24} />
-                <span>Alexander Tapia</span>
-              </h3>
+          {/* Sección 1: Información personal - Estilo Silent Hill */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Logo y título - igual que tu header */}
+            <div className="group">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="relative">
+                  <Skull size={28} className="text-red-500 group-hover:text-red-400 transition-colors duration-300" 
+                         style={{ filter: 'drop-shadow(0 0 12px rgba(220, 20, 60, 0.8))' }} />
+                  <div className="absolute inset-0 text-red-400 opacity-0 group-hover:opacity-50 animate-pulse">
+                    <Skull size={28} />
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold text-red-500 tracking-wider group-hover:text-red-400 transition-colors duration-300"
+                    style={{
+                      fontFamily: 'var(--font-silent-hill-title), Impact, Arial Black, sans-serif',
+                      textShadow: '0 0 15px rgba(220, 20, 60, 0.8), 2px 2px 0 rgba(0, 0, 0, 0.8)'
+                    }}>
+                  ALEXANDER TAPIA
+                </h3>
+              </div>
               
-              <p className="text-hospital-400 leading-relaxed text-base hospital-text">
-                Full Stack Developer apasionado por el <span className="text-rust-400 font-semibold">machine learning</span>, 
-                las competencias en <span className="text-blood-400 font-semibold">Kaggle</span> y crear experiencias 
+              {/* Subtítulo profesional */}
+              <h4 className="text-lg text-orange-300 font-semibold mb-4"
+                  style={{
+                    fontFamily: 'var(--font-palatino), Times New Roman, serif',
+                    textShadow: '0 0 10px rgba(255, 165, 0, 0.6)'
+                  }}>
+                DATA SCIENTIST & FULL STACK DEVELOPER
+              </h4>
+              
+              {/* Descripción profesional */}
+              <p className="text-gray-400 leading-relaxed mb-6"
+                 style={{ fontFamily: 'var(--font-palatino), Times New Roman, serif' }}>
+                Full Stack Developer apasionado por el <span className="text-red-400 font-semibold">machine learning</span>, 
+                las competencias en <span className="text-orange-400 font-semibold">Kaggle</span> y crear experiencias 
                 digitales que impactan. Siempre explorando el siguiente desafío tecnológico.
               </p>
-              
-              {/* Stats rápidas Silent Hill */}
+
+              {/* Stats rápidas Silent Hill - igual que tu hero */}
               <div className="grid grid-cols-3 gap-4 pt-4">
-                <div className="text-center p-3 gradient-dark-rust rounded-xl silent-border-rust hover:border-rust-500/40 transition-colors duration-300 group">
-                  <div className="text-xl font-bold text-rust-400 group-hover:scale-110 transition-transform duration-300">3+</div>
-                  <div className="text-xs text-hospital-500 uppercase tracking-wider hospital-text">Años</div>
-                </div>
-                <div className="text-center p-3 bg-gradient-to-br from-blood-500/10 to-transparent rounded-xl silent-border-blood hover:border-blood-500/40 transition-colors duration-300 group">
-                  <div className="text-xl font-bold text-blood-400 group-hover:scale-110 transition-transform duration-300">50+</div>
-                  <div className="text-xs text-hospital-500 uppercase tracking-wider hospital-text">Proyectos</div>
-                </div>
-                <div className="text-center p-3 gradient-hospital rounded-xl silent-border-hospital hover:border-hospital-500/40 transition-colors duration-300 group">
-                  <div className="text-xl font-bold text-hospital-400 group-hover:scale-110 transition-transform duration-300">∞</div>
-                  <div className="text-xs text-hospital-500 uppercase tracking-wider hospital-text">Pasión</div>
-                </div>
+                {[
+                  { number: '3+', label: 'Años', color: 'text-red-400' },
+                  { number: '50+', label: 'Proyectos', color: 'text-orange-400' },
+                  { number: '∞', label: 'Pasión', color: 'text-yellow-400' }
+                ].map((stat, index) => (
+                  <div key={index} className="text-center group cursor-default p-3 bg-black/40 backdrop-blur-sm rounded-lg border border-red-900/30 hover:border-red-500/50 transition-all duration-300">
+                    <div 
+                      className={`text-xl font-bold ${stat.color} group-hover:scale-110 transition-transform duration-300`}
+                      style={{
+                        fontFamily: 'var(--font-jetbrains), Courier New, monospace',
+                        textShadow: '0 0 8px currentColor'
+                      }}
+                    >
+                      {stat.number}
+                    </div>
+                    <div 
+                      className="text-xs text-gray-500 mt-1 font-medium uppercase tracking-wider"
+                      style={{ fontFamily: 'var(--font-palatino), Times New Roman, serif' }}
+                    >
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Sección 2: Enlaces rápidos */}
+          {/* Sección 2: Navegación */}
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-rust-400 enhanced-visibility-sh flex items-center space-x-2">
-              <Zap className="text-rust-400" size={20} />
-              <span>Navegación</span>
+            <h3 className="text-xl font-bold text-red-400 flex items-center space-x-2"
+                style={{ 
+                  fontFamily: 'var(--font-jetbrains), Courier New, monospace',
+                  textShadow: '0 0 8px rgba(220, 20, 60, 0.8)'
+                }}>
+              <Zap size={20} className="text-red-500" style={{ filter: 'drop-shadow(0 0 8px rgba(220, 20, 60, 0.8))' }} />
+              <span>NAVEGACIÓN</span>
             </h3>
             <div className="space-y-3">
-              {[
-                { id: 'hero', label: 'Inicio' },
-                { id: 'skills', label: 'Habilidades' },
-                { id: 'experience', label: 'Experiencia' },
-                { id: 'projects', label: 'Proyectos' },
-                { id: 'contact', label: 'Contacto' }
-              ].map((item, index) => (
+              {navItems.map((item, index) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`block text-hospital-300 hover:${index % 2 === 0 ? 'text-rust-300' : 'text-hospital-200'} transition-all duration-300 text-sm nav-enhanced-sh hover-drop-shadow-rust font-medium group ${
-                    index % 2 === 0 ? 'hover:translate-x-1' : 'hover:translate-x-2'
-                  }`}
+                  className="group flex items-center space-x-3 text-gray-400 hover:text-red-400 transition-all duration-300 text-sm font-medium hover:translate-x-2"
+                  style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}
                 >
-                  <span className="flex items-center space-x-2">
-                    <div className={`w-1 h-1 rounded-full transition-all duration-300 ${
-                      index % 3 === 0 ? 'bg-rust-400/50 group-hover:bg-rust-400' : 
-                      index % 3 === 1 ? 'bg-hospital-400/50 group-hover:bg-hospital-400' : 
-                      'bg-blood-400/50 group-hover:bg-blood-400'
-                    }`}></div>
-                    <span>{item.label}</span>
-                  </span>
+                  <item.icon size={14} className="group-hover:scale-110 transition-transform duration-300" />
+                  <span>{item.label}</span>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Sección 3: Redes sociales */}
+          {/* Sección 3: Enlaces útiles */}
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-blood-400 enhanced-visibility-sh flex items-center space-x-2">
-              <Coffee className="text-blood-400" size={20} />
-              <span>Conecta</span>
-            </h3>
+            <h4 className="text-xl font-bold text-orange-400 flex items-center space-x-2"
+                style={{ 
+                  fontFamily: 'var(--font-jetbrains), Courier New, monospace',
+                  textShadow: '0 0 8px rgba(255, 140, 0, 0.6)'
+                }}>
+              <Coffee size={20} className="text-orange-500" style={{ filter: 'drop-shadow(0 0 8px rgba(255, 140, 0, 0.8))' }} />
+              <span>CONECTA</span>
+            </h4>
             
-            {/* Redes sociales Silent Hill style */}
+            {/* Enlaces de contacto y redes */}
             <div className="space-y-4">
               <a 
                 href="https://github.com/Katapentakill" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group flex items-center space-x-3 p-3 rounded-xl hospital-card silent-border-hospital hover:silent-border-rust hover:gradient-dark-rust transition-all duration-300 hover:scale-105"
+                className="group flex items-center space-x-3 p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-gray-700 hover:border-purple-500/50 hover:bg-purple-500/5 transition-all duration-300"
               >
-                <Github size={24} className="text-hospital-300 group-hover:text-rust-300 transition-colors duration-300 group-hover:scale-110" />
+                <Github size={20} className="text-gray-400 group-hover:text-purple-400 transition-colors duration-300 group-hover:scale-110" />
                 <div>
-                  <div className="text-hospital-300 group-hover:text-rust-300 transition-colors duration-300 font-medium">GitHub</div>
-                  <div className="text-xs text-hospital-500 hospital-text">@Katapentakill</div>
+                  <div className="text-gray-300 group-hover:text-purple-300 transition-colors duration-300 font-medium text-sm"
+                       style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+                    GitHub
+                  </div>
+                  <div className="text-xs text-gray-500">@Katapentakill</div>
                 </div>
               </a>
               
               <a 
                 href="mailto:alexandertapiaolmedo@gmail.com"
-                className="group flex items-center space-x-3 p-3 rounded-xl hospital-card silent-border-hospital hover:silent-border-blood hover:bg-gradient-to-r hover:from-blood-500/10 hover:to-transparent transition-all duration-300 hover:scale-105"
+                className="group flex items-center space-x-3 p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-gray-700 hover:border-red-500/50 hover:bg-red-500/5 transition-all duration-300"
               >
-                <Mail size={24} className="text-hospital-300 group-hover:text-blood-300 transition-colors duration-300 group-hover:scale-110" />
+                <Mail size={20} className="text-gray-400 group-hover:text-red-400 transition-colors duration-300 group-hover:scale-110" />
                 <div>
-                  <div className="text-hospital-300 group-hover:text-blood-300 transition-colors duration-300 font-medium">Email</div>
-                  <div className="text-xs text-hospital-500 hospital-text">alexandertapiaolmedo@gmail.com</div>
+                  <div className="text-gray-300 group-hover:text-red-300 transition-colors duration-300 font-medium text-sm"
+                       style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+                    Email
+                  </div>
+                  <div className="text-xs text-gray-500">Colaboración directa</div>
                 </div>
               </a>
 
@@ -149,101 +256,126 @@ const Footer = () => {
                 href="https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group flex items-center space-x-3 p-3 rounded-xl hospital-card silent-border-hospital hover:border-hospital-400/50 hover:gradient-hospital transition-all duration-300 hover:scale-105"
+                className="group flex items-center space-x-3 p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-gray-700 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all duration-300"
               >
-                <Linkedin size={24} className="text-hospital-300 group-hover:text-hospital-200 transition-colors duration-300 group-hover:scale-110" />
+                <Linkedin size={20} className="text-gray-400 group-hover:text-blue-400 transition-colors duration-300 group-hover:scale-110" />
                 <div>
-                  <div className="text-hospital-300 group-hover:text-hospital-200 transition-colors duration-300 font-medium">LinkedIn</div>
-                  <div className="text-xs text-hospital-500 hospital-text">Alexander Tapia Olmedo</div>
+                  <div className="text-gray-300 group-hover:text-blue-300 transition-colors duration-300 font-medium text-sm"
+                       style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+                    LinkedIn
+                  </div>
+                  <div className="text-xs text-gray-500">Perfil profesional</div>
                 </div>
               </a>
             </div>
           </div>
-
         </div>
 
         {/* Línea divisoria con gradiente Silent Hill */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-rust-500/30 to-transparent mb-8"></div>
+        <div className="flex items-center justify-center my-8">
+          <div className="h-px bg-gradient-to-r from-transparent via-red-500 to-transparent w-full max-w-2xl"></div>
+          <div className="mx-4 w-2 h-2 bg-red-500 rounded-full animate-pulse" 
+               style={{ boxShadow: '0 0 10px rgba(220, 20, 60, 0.8)' }}></div>
+          <div className="h-px bg-gradient-to-r from-transparent via-red-500 to-transparent w-full max-w-2xl"></div>
+        </div>
 
         {/* Footer inferior */}
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="flex flex-col lg:flex-row justify-between items-center space-y-6 lg:space-y-0">
           
-          {/* Copyright */}
-          <div className="flex items-center space-x-2 text-hospital-500 text-sm hospital-text">
-            <span>© {currentYear} Alexander Tapia Olmedo.</span>
-            <span className="flex items-center space-x-1">
-              <span>Hecho con</span>
-              <Heart size={14} className="text-blood-400 animate-pulse" />
-              <span>y mucho</span>
-              <Coffee size={14} className="text-rust-400" />
-            </span>
+          {/* Información de contacto y tiempo */}
+          <div className="space-y-2">
+            <div className="flex items-center space-x-3 text-gray-400 text-sm">
+              <MapPin size={14} className="text-red-500" />
+              <span style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+                Antofagasta, Chile
+              </span>
+            </div>
+            <div className="flex items-center space-x-3 text-gray-400 text-sm">
+              <Calendar size={14} className="text-orange-500" />
+              <span style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+                {currentTime.toLocaleString('es-CL', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}
+              </span>
+            </div>
           </div>
 
-          {/* Redes sociales rápidas */}
-          <div className="flex items-center space-x-3">
-            <a
-              href="https://github.com/Katapentakill"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 hospital-card text-hospital-400 hover:text-rust-400 rounded-lg hover:bg-rust-400/10 transition-all duration-300 hover:scale-110"
-            >
-              <Github size={16} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 hospital-card text-hospital-400 hover:text-hospital-200 rounded-lg hover:bg-hospital-400/10 transition-all duration-300 hover:scale-110"
-            >
-              <Linkedin size={16} />
-            </a>
-            <a
-              href="mailto:alexandertapiaolmedo@gmail.com"
-              className="p-2 hospital-card text-hospital-400 hover:text-blood-400 rounded-lg hover:bg-blood-400/10 transition-all duration-300 hover:scale-110"
-            >
-              <Mail size={16} />
-            </a>
+          {/* Redes sociales principales - igual que tu header */}
+          <div className="flex items-center space-x-2">
+            {[
+              { href: 'https://github.com/Katapentakill', icon: Github, color: 'hover:text-purple-400' },
+              { href: 'https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b', icon: Linkedin, color: 'hover:text-blue-400' },
+              { href: 'mailto:alexandertapiaolmedo@gmail.com', icon: Mail, color: 'hover:text-red-400' }
+            ].map((social, index) => (
+              <a
+                key={index}
+                href={social.href}
+                target={social.href.startsWith('http') ? '_blank' : '_self'}
+                rel="noopener noreferrer"
+                className={`p-3 text-gray-400 ${social.color} rounded-lg hover:bg-current/10 transition-all duration-300 group border border-gray-700 hover:border-gray-500 backdrop-blur-sm`}
+              >
+                <social.icon size={18} className="group-hover:scale-110 transition-transform duration-300" 
+                             style={{ filter: 'drop-shadow(0 0 4px currentColor)' }} />
+              </a>
+            ))}
           </div>
 
           {/* Botón volver arriba Silent Hill */}
           <button
             onClick={scrollToTop}
-            className="group flex items-center space-x-2 px-4 py-2 gradient-rust-blood hover:from-rust-500/30 hover:to-blood-500/30 silent-border-rust hover:border-rust-500/50 rounded-full transition-all duration-300 hover:scale-105 hover:-translate-y-1"
+            className="group flex items-center space-x-2 px-4 py-2 bg-red-900/30 border border-red-500/50 text-red-400 hover:text-red-300 hover:border-red-400 transition-all duration-300 rounded-lg backdrop-blur-sm hover:bg-red-800/30 hover:scale-105"
           >
-            <ArrowUp size={16} className="text-rust-400 group-hover:text-rust-300 transition-colors duration-300 group-hover:-translate-y-0.5" />
-            <span className="text-rust-400 group-hover:text-rust-300 transition-colors duration-300 text-sm font-medium">
-              Volver Arriba
+            <span className="text-sm font-medium"
+                  style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+              VOLVER ARRIBA
             </span>
+            <ArrowUp size={16} className="group-hover:animate-bounce" />
           </button>
         </div>
 
-        {/* Efecto de resplandor Silent Hill */}
-        <style jsx>{`
-          @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(180deg); }
-          }
-          
-          .animate-float {
-            animation: float linear infinite;
-          }
-          
-          .enhanced-visibility-sh {
-            text-shadow: 0 0 10px rgba(139, 69, 19, 0.3);
-          }
-          
-          .nav-enhanced-sh {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          }
-          
-          .hover-drop-shadow-rust:hover {
-            filter: drop-shadow(0 0 8px rgba(139, 69, 19, 0.4));
-          }
-          
-          .hospital-text {
-            text-shadow: 1px 1px 2px rgba(28, 28, 28, 0.8);
-          }
-        `}</style>
+        {/* Copyright y créditos */}
+        <div className="mt-8 pt-6 border-t border-red-900/30">
+          <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0 text-sm text-gray-500">
+            
+            {/* Copyright */}
+            <div className="flex items-center space-x-2">
+              <span style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+                © 2025 Alexander Tapia. Todos los derechos reservados.
+              </span>
+            </div>
+
+            {/* Hecho con amor - igual que tu footer anterior */}
+            <div className="flex items-center space-x-2 text-gray-500 group">
+              <span style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+                Hecho con
+              </span>
+              <Heart size={14} className="text-red-500 group-hover:animate-pulse" />
+              <span>y mucho</span>
+              <Coffee size={14} className="text-orange-400 group-hover:animate-bounce" />
+              <span>en Antofagasta</span>
+            </div>
+
+            {/* Version/Build */}
+            <div className="text-xs text-gray-600"
+                 style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
+              v2.0.25 | Build: {new Date().getFullYear()}.{String(new Date().getMonth() + 1).padStart(2, '0')}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Línea de resplandor superior - igual que tu header */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent"></div>
+      
+      {/* Ruido de fondo sutil - igual que tu header */}
+      <div className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay"
+           style={{
+             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E")`
+           }}>
       </div>
     </footer>
   )

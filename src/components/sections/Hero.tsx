@@ -34,6 +34,9 @@ const Hero = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black">
+      {/* Espaciado para compensar el header fixed */}
+      <div className="h-20"></div>
+      
       {/* Efecto de niebla de fondo */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-radial from-transparent via-gray-800/20 to-gray-900/40"></div>
@@ -81,7 +84,7 @@ const Hero = () => {
       )}
 
       {/* Contenido principal */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen px-4 sm:px-6">
+      <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-5rem)] px-4 sm:px-6">
         <div className="text-center max-w-6xl mx-auto space-y-8">
           
           {/* Título principal con fuente Silent Hill */}

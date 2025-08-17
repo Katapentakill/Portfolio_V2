@@ -41,6 +41,9 @@
   --font-jetbrains: 'JetBrains Mono', 'Courier New', monospace;
   --font-inter: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
 
+  /* Header height variable para mejor responsividad */
+  --header-height: clamp(4rem, 8vh, 7rem);
+
   /* Silent Hill 1 - Fog World Colors */
   --sh1-fog-white: #F8F8FF;
   --sh1-fog-gray: #D3D3D3;
@@ -148,6 +151,27 @@ body {
   letter-spacing: 0.01em;
   line-height: 1.6;
   position: relative;
+}
+
+/* ==========================================
+   HERO CONTAINER - SOLUCIÓN RESPONSIVE
+   ========================================== */
+
+/* Contenedor hero que se adapta automáticamente al header */
+.hero-container {
+  padding-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* Alternativa más específica si prefieres control granular */
+.hero-section {
+  padding-top: clamp(5rem, 8vh, 8rem);
+  min-height: calc(100vh - clamp(5rem, 8vh, 8rem));
+}
+
+/* Para contenido que debe evitar el header fixed */
+.content-with-header {
+  margin-top: var(--header-height);
 }
 
 /* Scrollbar Silent Hill Enhanced */
@@ -638,10 +662,196 @@ body {
 }
 
 /* ==========================================
+   CLASES ADICIONALES PARA SKILLS SECTION
+   ========================================== */
+
+/* Hospital card - estilo médico */
+.hospital-card {
+  background: linear-gradient(135deg, 
+    rgba(47, 79, 79, 0.1) 0%, 
+    rgba(105, 105, 105, 0.05) 50%, 
+    rgba(47, 79, 79, 0.1) 100%);
+  border: 1px solid rgba(105, 105, 105, 0.3);
+  backdrop-filter: blur(12px);
+}
+
+/* Bordes Silent Hill */
+.silent-border-rust {
+  border-color: var(--sh2-rust-medium);
+}
+
+.silent-border-hospital {
+  border-color: var(--sh2-hospital-gray);
+}
+
+.silent-border-blood {
+  border-color: var(--sh2-blood-dark);
+}
+
+/* Gradientes oscuros */
+.gradient-dark-rust {
+  background: linear-gradient(135deg, 
+    rgba(139, 69, 19, 0.1) 0%, 
+    rgba(112, 66, 20, 0.05) 50%, 
+    rgba(139, 69, 19, 0.1) 100%);
+}
+
+.gradient-hospital {
+  background: linear-gradient(135deg, 
+    rgba(105, 105, 105, 0.1) 0%, 
+    rgba(47, 79, 79, 0.05) 50%, 
+    rgba(105, 105, 105, 0.1) 100%);
+}
+
+/* Efectos de hover */
+.hover-shadow-rust-glow:hover {
+  box-shadow: 0 0 20px rgba(139, 69, 19, 0.4);
+}
+
+.hover-shadow-hospital-glow:hover {
+  box-shadow: 0 0 20px rgba(105, 105, 105, 0.4);
+}
+
+/* Texto estilo hospital */
+.hospital-text {
+  font-family: var(--font-palatino);
+  letter-spacing: 0.02em;
+}
+
+/* Texto móvil con contraste */
+.mobile-text-contrast {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Colores específicos para Tailwind */
+.text-rust-400 {
+  color: var(--sh2-rust-medium);
+}
+
+.text-rust-500 {
+  color: var(--sh2-rust-deep);
+}
+
+.text-rust-300 {
+  color: var(--sh2-rust-light);
+}
+
+.text-hospital-400 {
+  color: var(--sh2-hospital-gray);
+}
+
+.text-hospital-500 {
+  color: var(--sh2-hospital-green);
+}
+
+.text-hospital-300 {
+  color: var(--sh2-hospital-white);
+}
+
+.text-blood-400 {
+  color: var(--sh2-blood-bright);
+}
+
+.text-blood-500 {
+  color: var(--sh2-blood-dark);
+}
+
+.text-blood-300 {
+  color: var(--sh4-blood-red);
+}
+
+.text-flesh-200 {
+  color: var(--sh2-flesh-pale);
+}
+
+.text-flesh-500 {
+  color: var(--sh2-flesh-sick);
+}
+
+/* Backgrounds para rust, hospital, blood */
+.bg-rust-400 {
+  background-color: var(--sh2-rust-medium);
+}
+
+.bg-hospital-400 {
+  background-color: var(--sh2-hospital-gray);
+}
+
+.bg-blood-400 {
+  background-color: var(--sh2-blood-bright);
+}
+
+.bg-blood-500 {
+  background-color: var(--sh2-blood-dark);
+}
+
+/* Bordes específicos */
+.border-rust-400 {
+  border-color: var(--sh2-rust-medium);
+}
+
+.border-hospital-400 {
+  border-color: var(--sh2-hospital-gray);
+}
+
+.border-blood-400 {
+  border-color: var(--sh2-blood-bright);
+}
+
+/* Gradientes específicos para las barras de progreso */
+.bg-gradient-to-r.from-rust-600.to-rust-400 {
+  background: linear-gradient(to right, var(--sh2-rust-deep), var(--sh2-rust-medium));
+}
+
+.bg-gradient-to-r.from-hospital-600.to-hospital-400 {
+  background: linear-gradient(to right, var(--sh2-hospital-green), var(--sh2-hospital-gray));
+}
+
+.bg-gradient-to-r.from-blood-600.to-blood-400 {
+  background: linear-gradient(to right, var(--sh2-blood-dark), var(--sh2-blood-bright));
+}
+
+/* Drop shadow effects */
+.drop-shadow-rust {
+  filter: drop-shadow(0 0 8px var(--sh-glow-rust));
+}
+
+.drop-shadow-hospital {
+  filter: drop-shadow(0 0 8px var(--sh-glow-hospital));
+}
+
+.drop-shadow-blood {
+  filter: drop-shadow(0 0 8px var(--sh-glow-blood));
+}
+
+/* Efecto flicker para títulos */
+.flicker-silent-hill {
+  animation: flicker-silent-hill 8s infinite;
+}
+
+.flicker-silent-hill-fast {
+  animation: flicker-silent-hill 4s infinite;
+}
+
+@keyframes flicker-silent-hill {
+  0%, 94%, 96%, 98%, 100% {
+    opacity: 1;
+  }
+  95%, 97% {
+    opacity: 0.7;
+  }
+}
+
+/* ==========================================
    RESPONSIVE DESIGN
    ========================================== */
 
 @media (max-width: 768px) {
+  /* Ajustar header height para móvil */
+  :root {
+    --header-height: clamp(4rem, 6vh, 5rem);
+  }
+
   .sh-hero-title {
     font-size: clamp(1.5rem, 10vw, 3rem);
   }
@@ -675,6 +885,11 @@ body {
 }
 
 @media (max-width: 480px) {
+  /* Header aún más pequeño en pantallas muy pequeñas */
+  :root {
+    --header-height: clamp(3.5rem, 5vh, 4.5rem);
+  }
+
   .sh-hero-stats {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
@@ -697,6 +912,13 @@ body {
   
   .sh-hover-glow:hover {
     box-shadow: 0 0 15px var(--sh-glow-neon);
+  }
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 1200px) {
+  :root {
+    --header-height: clamp(5rem, 7vh, 7rem);
   }
 }
 
@@ -759,6 +981,11 @@ body {
   
   .sh-hover-glow:hover {
     transform: none;
+  }
+  
+  .flicker-silent-hill,
+  .flicker-silent-hill-fast {
+    animation: none;
   }
 }
 
@@ -829,4 +1056,1181 @@ body {
     var(--sh2-hospital-gray) 0%,
     var(--sh4-chain-silver) 50%,
     var(--sh2-hospital-white) 100%);
+}
+
+/* ==========================================
+   EFECTOS ADICIONALES PARA SKILLS
+   ========================================== */
+
+/* Animación de float mejorada para partículas */
+@keyframes animate-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(-1deg);
+  }
+}
+
+.animate-float {
+  animation: animate-float 6s ease-in-out infinite;
+}
+
+/* Efecto de hover para stats */
+.hover-scale-110:hover {
+  transform: scale(1.1);
+}
+
+/* Efecto de carga progresiva */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Efecto de líneas de interferencia para fondos */
+.interference-lines {
+  position: relative;
+  overflow: hidden;
+}
+
+.interference-lines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 1px,
+    rgba(255, 0, 0, 0.03) 1px,
+    rgba(255, 0, 0, 0.03) 2px
+  );
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Efecto de resplandor para elementos importantes */
+.glow-on-hover {
+  transition: all 0.3s ease;
+}
+
+.glow-on-hover:hover {
+  filter: drop-shadow(0 0 15px currentColor);
+}
+
+/* Efecto de texto fantasmal */
+.ghost-text {
+  position: relative;
+}
+
+.ghost-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  color: rgba(255, 255, 255, 0.1);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ==========================================
+   CLASES DE COMPATIBILIDAD CON TAILWIND
+   ========================================== */
+
+/* Espaciado */
+.space-y-12 > * + * {
+  margin-top: 3rem;
+}
+
+.space-y-8 > * + * {
+  margin-top: 2rem;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+.space-y-3 > * + * {
+  margin-top: 0.75rem;
+}
+
+.space-y-2 > * + * {
+  margin-top: 0.5rem;
+}
+
+.space-y-1 > * + * {
+  margin-top: 0.25rem;
+}
+
+.space-x-6 > * + * {
+  margin-left: 1.5rem;
+}
+
+.space-x-4 > * + * {
+  margin-left: 1rem;
+}
+
+.space-x-3 > * + * {
+  margin-left: 0.75rem;
+}
+
+.space-x-2 > * + * {
+  margin-left: 0.5rem;
+}
+
+/* Grid específico */
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-cols-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+/* Gaps */
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+.gap-12 {
+  gap: 3rem;
+}
+
+/* Responsive variants */
+@media (min-width: 640px) {
+  .sm\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  .sm\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  
+  .sm\:gap-3 {
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  
+  .md\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  
+  .lg\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+/* ==========================================
+   EFECTOS FINALES SILENT HILL
+   ========================================== */
+
+/* Efecto de ruido para fondos */
+.noise-bg {
+  position: relative;
+}
+
+.noise-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 0, 0, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(255, 140, 0, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* Efecto de parpadeo para elementos críticos */
+.blink-critical {
+  animation: blink-critical 2s infinite;
+}
+
+@keyframes blink-critical {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0.3;
+  }
+}
+
+/* Efecto de desvanecimiento para transiciones */
+.fade-transition {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-transition.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Clases utilitarias finales */
+.cursor-default {
+  cursor: default;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.select-none {
+  user-select: none;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.z-20 {
+  z-index: 20;
+}
+
+.z-30 {
+  z-index: 30;
+}
+
+/* ==========================================
+   CLASES ADICIONALES PARA PROJECT SECTION
+   ========================================== */
+
+/* Efectos de resplandor específicos */
+.glow-blood {
+  text-shadow: 0 0 10px var(--sh-glow-blood);
+}
+
+.glow-rust {
+  text-shadow: 0 0 10px var(--sh-glow-rust);
+}
+
+.glow-hospital {
+  text-shadow: 0 0 10px var(--sh-glow-hospital);
+}
+
+/* Gradiente para botones especiales */
+.gradient-rust-blood {
+  background: linear-gradient(135deg, 
+    var(--sh2-rust-medium) 0%,
+    var(--sh2-blood-bright) 50%,
+    var(--sh3-neon-pink) 100%);
+}
+
+/* Colores específicos para texto y fondo */
+.text-flesh-300 {
+  color: var(--sh2-flesh-pale);
+}
+
+.text-flesh-500 {
+  color: var(--sh2-flesh-sick);
+}
+
+.text-flesh-400 {
+  color: #DEB887;
+}
+
+/* Bordes con opacidad para hover */
+.hover\:border-rust-500\/50:hover {
+  border-color: rgba(139, 69, 19, 0.5);
+}
+
+.hover\:border-hospital-500\/50:hover {
+  border-color: rgba(105, 105, 105, 0.5);
+}
+
+.hover\:border-blood-500\/50:hover {
+  border-color: rgba(139, 0, 0, 0.5);
+}
+
+/* Backgrounds con opacidad */
+.bg-rust-500\/10 {
+  background-color: rgba(139, 69, 19, 0.1);
+}
+
+.bg-hospital-500\/10 {
+  background-color: rgba(105, 105, 105, 0.1);
+}
+
+.bg-blood-500\/10 {
+  background-color: rgba(139, 0, 0, 0.1);
+}
+
+.bg-rust-400\/20 {
+  background-color: rgba(139, 69, 19, 0.2);
+}
+
+.bg-hospital-400\/20 {
+  background-color: rgba(105, 105, 105, 0.2);
+}
+
+.bg-blood-400\/20 {
+  background-color: rgba(220, 20, 60, 0.2);
+}
+
+/* Bordes con opacidad para badges */
+.border-rust-400\/30 {
+  border-color: rgba(139, 69, 19, 0.3);
+}
+
+.border-hospital-400\/30 {
+  border-color: rgba(105, 105, 105, 0.3);
+}
+
+.border-blood-400\/30 {
+  border-color: rgba(220, 20, 60, 0.3);
+}
+
+/* Colores para texto de badges */
+.text-rust-300 {
+  color: var(--sh2-rust-light);
+}
+
+.text-hospital-300 {
+  color: var(--sh2-hospital-white);
+}
+
+.text-blood-300 {
+  color: var(--sh4-blood-red);
+}
+
+/* Gradientes para barras de progreso */
+.bg-gradient-to-r.from-rust-600.to-rust-400 {
+  background: linear-gradient(to right, var(--sh2-rust-deep), var(--sh2-rust-medium));
+}
+
+.bg-gradient-to-r.from-hospital-600.to-hospital-400 {
+  background: linear-gradient(to right, var(--sh2-hospital-green), var(--sh2-hospital-gray));
+}
+
+.bg-gradient-to-r.from-blood-600.to-blood-400 {
+  background: linear-gradient(to right, var(--sh2-blood-dark), var(--sh2-blood-bright));
+}
+
+/* Animación de parpadeo lento para elementos críticos */
+.flicker-silent-hill-slow {
+  animation: flicker-silent-hill-slow 12s infinite;
+}
+
+@keyframes flicker-silent-hill-slow {
+  0%, 96%, 98%, 100% {
+    opacity: 1;
+  }
+  97%, 99% {
+    opacity: 0.6;
+  }
+}
+
+/* Hover effects mejorados para cards */
+.hover-shadow-rust-glow:hover {
+  box-shadow: 
+    0 0 20px rgba(139, 69, 19, 0.4),
+    0 10px 30px rgba(139, 69, 19, 0.2);
+}
+
+.hover-shadow-hospital-glow:hover {
+  box-shadow: 
+    0 0 20px rgba(105, 105, 105, 0.4),
+    0 10px 30px rgba(105, 105, 105, 0.2);
+}
+
+.hover-shadow-blood-glow:hover {
+  box-shadow: 
+    0 0 20px rgba(220, 20, 60, 0.4),
+    0 10px 30px rgba(220, 20, 60, 0.2);
+}
+
+/* Efecto de ruido mejorado */
+.noise-bg::before {
+  background-image: 
+    radial-gradient(circle at 15% 30%, rgba(255, 255, 255, 0.015) 0%, transparent 40%),
+    radial-gradient(circle at 85% 70%, rgba(255, 0, 0, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 50% 20%, rgba(255, 140, 0, 0.015) 0%, transparent 45%),
+    radial-gradient(circle at 25% 80%, rgba(105, 105, 105, 0.01) 0%, transparent 35%);
+  opacity: 0.4;
+}
+
+/* Gradientes específicos para backgrounds */
+.bg-blood-900\/20 {
+  background-color: rgba(70, 0, 0, 0.2);
+}
+
+.bg-blood-800\/10 {
+  background-color: rgba(100, 0, 0, 0.1);
+}
+
+/* Hover effects para bordes con opacidad */
+.hover\:border-rust-500\/60:hover {
+  border-color: rgba(139, 69, 19, 0.6);
+}
+
+.hover\:border-hospital-500\/60:hover {
+  border-color: rgba(105, 105, 105, 0.6);
+}
+
+.hover\:border-blood-500\/60:hover {
+  border-color: rgba(139, 0, 0, 0.6);
+}
+
+.hover\:border-rust-500\/70:hover {
+  border-color: rgba(139, 69, 19, 0.7);
+}
+
+.hover\:border-hospital-500\/70:hover {
+  border-color: rgba(105, 105, 105, 0.7);
+}
+
+.hover\:border-blood-500\/70:hover {
+  border-color: rgba(139, 0, 0, 0.7);
+}
+
+/* Backgrounds hover con opacidad */
+.hover\:bg-rust-500\/10:hover {
+  background-color: rgba(139, 69, 19, 0.1);
+}
+
+.hover\:bg-hospital-500\/10:hover {
+  background-color: rgba(105, 105, 105, 0.1);
+}
+
+.hover\:bg-blood-500\/10:hover {
+  background-color: rgba(139, 0, 0, 0.1);
+}
+
+.hover\:bg-rust-500\/30:hover {
+  background-color: rgba(139, 69, 19, 0.3);
+}
+
+.hover\:bg-hospital-500\/30:hover {
+  background-color: rgba(105, 105, 105, 0.3);
+}
+
+.hover\:bg-blood-500\/30:hover {
+  background-color: rgba(139, 0, 0, 0.3);
+}
+
+.hover\:bg-hospital-600\/10:hover {
+  background-color: rgba(47, 79, 79, 0.1);
+}
+
+/* Bordes con opacidad para elementos expandidos */
+.border-hospital-600\/50 {
+  border-color: rgba(47, 79, 79, 0.5);
+}
+
+/* Efectos especiales para elementos flesh */
+.bg-flesh-500\/5 {
+  background-color: rgba(245, 222, 179, 0.05);
+}
+
+.bg-flesh-400\/30 {
+  background-color: rgba(222, 184, 135, 0.3);
+}
+
+/* Animación de fadeIn para elementos expandidos */
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efecto de parpadeo rápido para elementos críticos */
+.flicker-silent-hill-fast {
+  animation: flicker-silent-hill-fast 3s infinite;
+}
+
+@keyframes flicker-silent-hill-fast {
+  0%, 94%, 96%, 98%, 100% {
+    opacity: 1;
+  }
+  95%, 97%, 99% {
+    opacity: 0.6;
+  }
+}
+
+/* Efectos de resplandor hover */
+.hover-shadow-rust-glow:hover {
+  box-shadow: 
+    0 0 20px rgba(139, 69, 19, 0.4),
+    0 10px 30px rgba(139, 69, 19, 0.2),
+    inset 0 0 20px rgba(139, 69, 19, 0.1);
+}
+
+.hover-shadow-hospital-glow:hover {
+  box-shadow: 
+    0 0 20px rgba(105, 105, 105, 0.4),
+    0 10px 30px rgba(105, 105, 105, 0.2),
+    inset 0 0 20px rgba(105, 105, 105, 0.1);
+}
+
+.hover-shadow-blood-glow:hover {
+  box-shadow: 
+    0 0 20px rgba(220, 20, 60, 0.4),
+    0 10px 30px rgba(220, 20, 60, 0.2),
+    inset 0 0 20px rgba(220, 20, 60, 0.1);
+}
+
+/* Efectos adicionales para el estilo Silent Hill */
+.sh-crt-scanlines {
+  position: relative;
+}
+
+.sh-crt-scanlines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(0, 255, 0, 0.03) 1px,
+    rgba(0, 255, 0, 0.03) 2px
+  );
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* Utilidades adicionales */
+.backdrop-blur-lg {
+  backdrop-filter: blur(16px);
+}
+
+.transform {
+  transform: translateZ(0);
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
+}
+
+.ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Grid responsive */
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  
+  .md\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Spacing utilities */
+.space-y-20 > * + * {
+  margin-top: 5rem;
+}
+
+.space-y-16 > * + * {
+  margin-top: 4rem;
+}
+
+.space-y-8 > * + * {
+  margin-top: 2rem;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+.space-y-3 > * + * {
+  margin-top: 0.75rem;
+}
+
+.space-y-2 > * + * {
+  margin-top: 0.5rem;
+}
+
+.space-y-1 > * + * {
+  margin-top: 0.25rem;
+}
+
+.space-x-4 > * + * {
+  margin-left: 1rem;
+}
+
+.space-x-3 > * + * {
+  margin-left: 0.75rem;
+}
+
+.space-x-2 > * + * {
+  margin-left: 0.5rem;
+}
+
+/* Sizing utilities */
+.w-1 {
+  width: 0.25rem;
+}
+
+.h-1 {
+  height: 0.25rem;
+}
+
+.w-1\.5 {
+  width: 0.375rem;
+}
+
+.h-1\.5 {
+  height: 0.375rem;
+}
+
+/* Position utilities */
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mb-12 {
+  margin-bottom: 3rem;
+}
+
+.mb-16 {
+  margin-bottom: 4rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mt-12 {
+  margin-top: 3rem;
+}
+
+.mt-16 {
+  margin-top: 4rem;
+}
+
+.mt-20 {
+  margin-top: 5rem;
+}
+
+/* Padding utilities */
+.p-4 {
+  padding: 1rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.p-8 {
+  padding: 2rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.py-20 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.pl-4 {
+  padding-left: 1rem;
+}
+
+.pt-4 {
+  padding-top: 1rem;
+}
+
+.pt-12 {
+  padding-top: 3rem;
+}
+
+/* Text utilities */
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .md\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+  
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+  
+  .md\:text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+  
+  .md\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+}
+
+/* Font weights */
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* Text alignment */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+/* Flexbox utilities */
+.flex {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .sm\:flex-row {
+    flex-direction: row;
+  }
+}
+
+/* Border utilities */
+.border {
+  border-width: 1px;
+}
+
+.border-2 {
+  border-width: 2px;
+}
+
+.border-t {
+  border-top-width: 1px;
+}
+
+.border-l-2 {
+  border-left-width: 2px;
+}
+
+/* Border radius */
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
+/* Layout utilities */
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.top-4 {
+  top: 1rem;
+}
+
+.right-4 {
+  right: 1rem;
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+/* Display utilities */
+.inline-block {
+  display: inline-block;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+/* Overflow utilities */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* Pointer events */
+.pointer-events-none {
+  pointer-events: none;
+}
+
+/* Width utilities */
+.w-full {
+  width: 100%;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.max-w-3xl {
+  max-width: 48rem;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+.max-w-5xl {
+  max-width: 64rem;
+}
+
+.max-w-7xl {
+  max-width: 80rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Height utilities */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.h-0\.5 {
+  height: 0.125rem;
+}
+
+.h-px {
+  height: 1px;
+}
+
+.w-24 {
+  width: 6rem;
+}
+
+.w-32 {
+  width: 8rem;
+}
+
+/* Leading utilities */
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+/* Letter spacing */
+.tracking-wide {
+  letter-spacing: 0.025em;
+}
+
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
+
+/* Gap utilities */
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.gap-8 {
+  gap: 2rem;
 }

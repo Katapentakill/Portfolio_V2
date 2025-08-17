@@ -4,10 +4,10 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import SilentHillAtmosphericSystem from '@/components/layout/SilentHillAtmosphericSystem'
 import Hero from '@/components/sections/Hero'
+import Contact from '@/components/sections/Contact'
 import Skills from '@/components/sections/Skills'
 import Experience from '@/components/sections/Experience'
-import Projects from '@/components/sections/Projects'
-import Contact from '@/components/sections/Contact'
+import ProjectsSection from '@/components/sections/Projects'
 
 export default function Home() {
   return (
@@ -21,7 +21,16 @@ export default function Home() {
       {/* Contenido principal */}
       <main className="relative z-20 flex-1">
         <Hero />
+        <Skills />
+        <Experience />
+        <ProjectsSection />
+        {/* Efectos de fondo en la sección de contacto */}
+        {/* Sección de contacto */}
+        <Contact />
       </main>
+
+      {/* Footer mejorado */}
+      <Footer />
       
       {/* Efectos de fondo adicionales Silent Hill */}
       <div className="fixed inset-0 pointer-events-none z-0">

@@ -1,7 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import { experiences, getExperiencesByType, type Experience } from '@/data/experience'
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   Briefcase, 
   GraduationCap, 
@@ -12,339 +11,501 @@ import {
   ChevronDown,
   ChevronUp,
   Star,
-  TrendingUp,
   FileText,
   Code,
-  Users,
-  Target,
+  TrendingUp,
   Zap,
-  Globe,
-  BookOpen
-} from 'lucide-react'
+  Clock,
+  AlertTriangle,
+  Eye
+} from 'lucide-react';
+import { experiences as experiencesData, type Experience } from '@/data/experience';
 
-const ExperienceCard = ({ experience, index }: { experience: Experience; index: number }) => {
-  const [isExpanded, setIsExpanded] = useState(false)
+interface ExperienceCardProps {
+  experience: Experience;
+  index: number;
+}
+
+interface SectionHeaderProps {
+  icon: any;
+  title: string;
+  count: number;
+  color: string;
+  description?: string;
+}
+
+// 👇 acepta opcionalmente experiences por props, y por defecto usa las importadas
+type ExperienceSectionProps = { 
+  experiences?: Experience[] 
+};
+
+const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isGlitching, setIsGlitching] = useState(false);
+  const [currentTime, setCurrentTime] = useState('');
+
+  useEffect(() => {
+    // Sistema de tiempo como en Silent Hill
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(now.toLocaleString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }));
+    };
+    
+    updateTime();
+    const timeInterval = setInterval(updateTime, 1000);
+
+    // Efecto de glitch aleatorio
+    const glitchTimer = setInterval(() => {
+      if (Math.random() < 0.05) {
+        setIsGlitching(true);
+        setTimeout(() => setIsGlitching(false), 150);
+      }
+    }, 5000);
+
+    return () => {
+      clearInterval(timeInterval);
+      clearInterval(glitchTimer);
+    };
+  }, []);
 
   const getIcon = () => {
     switch (experience.type) {
       case 'work':
-        return <Briefcase className="text-rust-400" size={24} />
+        return <Briefcase className="text-rust-400" size={20} />;
       case 'education':
-        return <GraduationCap className="text-hospital-400" size={24} />
+        return <GraduationCap className="text-hospital-400" size={20} />;
       case 'certification':
-        return <Award className="text-blood-400" size={24} />
+        return <Award className="text-blood-400" size={20} />;
       default:
-        return <Briefcase className="text-rust-400" size={24} />
+        return <Briefcase className="text-rust-400" size={20} />;
     }
-  }
+  };
 
-  const getTypeColor = () => {
+  const getCardClass = () => {
     switch (experience.type) {
       case 'work':
-        return 'gradient-dark-rust silent-border-rust hover:border-rust-500/60'
+        return 'gradient-dark-rust silent-border-rust hover:border-rust-500/60';
       case 'education':
-        return 'gradient-hospital silent-border-hospital hover:border-hospital-500/60'
+        return 'gradient-hospital silent-border-hospital hover:border-hospital-500/60';
       case 'certification':
-        return 'bg-gradient-to-br from-blood-900/20 to-blood-800/10 silent-border-blood hover:border-blood-500/60'
+        return 'bg-gradient-to-br from-blood-900/20 to-blood-800/10 silent-border-blood hover:border-blood-500/60';
       default:
-        return 'hospital-card silent-border-hospital hover:border-hospital-500/60'
+        return 'gradient-hospital silent-border-hospital hover:border-hospital-500/60';
     }
-  }
+  };
 
   const getAccentColor = () => {
     switch (experience.type) {
       case 'work':
-        return 'text-rust-400'
+        return 'text-rust-400';
       case 'education':
-        return 'text-hospital-400'
+        return 'text-hospital-400';
       case 'certification':
-        return 'text-blood-400'
+        return 'text-blood-400';
       default:
-        return 'text-hospital-400'
+        return 'text-hospital-400';
     }
-  }
-
-  const getBgColor = () => {
-    switch (experience.type) {
-      case 'work':
-        return 'bg-rust-400'
-      case 'education':
-        return 'bg-hospital-400'
-      case 'certification':
-        return 'bg-blood-400'
-      default:
-        return 'bg-hospital-400'
-    }
-  }
+  };
 
   const getTypeLabel = () => {
     switch (experience.type) {
       case 'work':
-        return 'Experiencia Profesional'
+        return 'WORK RECORD';
       case 'education':
-        return 'Formación Académica'
+        return 'EDUCATION FILE';
       case 'certification':
-        return 'Certificación Profesional'
+        return 'CERTIFICATION LOG';
       default:
-        return 'Experiencia'
+        return 'RECORD';
     }
-  }
+  };
+
+  const getStatusColor = () => {
+    switch (experience.type) {
+      case 'work':
+        return 'text-rust-400';
+      case 'education':
+        return 'text-hospital-400';
+      case 'certification':
+        return 'text-blood-400';
+      default:
+        return 'text-hospital-400';
+    }
+  };
 
   return (
-    <div className={`group relative hospital-card border-2 ${getTypeColor()} rounded-2xl p-6 hover:shadow-2xl transition-all duration-500 overflow-hidden`}>
+    <div className={`hospital-card border-2 ${getCardClass()} p-6 rounded-2xl relative overflow-hidden group transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl`}>
       
-      {/* Efecto de brillo de fondo Silent Hill */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-flesh-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      
-      {/* Indicador de destacado */}
-      {experience.featured && (
-        <div className="absolute top-4 right-4 gradient-rust-blood text-black px-3 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1 shadow-lg z-20">
-          <Star size={12} fill="currentColor" />
-          <span>Destacado</span>
-        </div>
+      {/* Efecto de glitch */}
+      {isGlitching && (
+        <div className="absolute inset-0 bg-red-500/20 blink-critical z-10 pointer-events-none"></div>
       )}
 
-      {/* Etiqueta de tipo */}
-      <div className={`absolute top-4 left-4 px-2 py-1 ${getBgColor()}/10 ${getAccentColor()} text-xs font-medium rounded-md border border-current/20`}>
-        {getTypeLabel()}
-      </div>
+      {/* Efectos de interferencia */}
+      <div className="absolute inset-0 interference-lines opacity-20 pointer-events-none"></div>
+      <div className="absolute inset-0 noise-bg opacity-30 pointer-events-none"></div>
 
-      <div className="relative z-10 mt-8">
-        {/* Header */}
+      {/* Header estilo expediente médico */}
+      <div className="relative z-20">
         <div className="flex items-start justify-between mb-6">
-          <div className="flex items-start space-x-4 flex-1">
-            <div className="p-3 hospital-card rounded-xl silent-border-hospital group-hover:border-rust-500/30 transition-colors duration-300">
-              {getIcon()}
+          {/* Cabecera de documento */}
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-hospital-600/50">
+              <div className="flex items-center space-x-3">
+                <div className="p-2 hospital-card rounded-lg silent-border-hospital">
+                  {getIcon()}
+                </div>
+                <div>
+                  <span className="font-jetbrains text-xs tracking-wider text-hospital-400">
+                    {getTypeLabel()} #{String(index + 1).padStart(3, '0')}
+                  </span>
+                  <div className="flex items-center space-x-2">
+                    <Clock size={12} className="text-hospital-500" />
+                    <span className="font-jetbrains text-xs text-hospital-500">
+                      LOGGED: {currentTime}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Estado del archivo */}
+              <div className="flex items-center space-x-2">
+                {experience.featured && (
+                  <div className="flex items-center space-x-1 px-2 py-1 bg-blood-500/20 border border-blood-500/50 rounded text-xs blink-critical">
+                    <AlertTriangle size={12} className="text-blood-400" />
+                    <span className="font-jetbrains text-blood-400">PRIORITY</span>
+                  </div>
+                )}
+                <div className={`w-2 h-2 ${experience.endDate === 'Presente' ? 'bg-rust-400 blink-critical' : 'bg-hospital-400'} rounded-full`}></div>
+              </div>
             </div>
-            
-            <div className="flex-1">
-              <h3 className={`text-xl font-bold ${getAccentColor()} mb-1 group-hover:drop-shadow-rust transition-all duration-300`}>
+
+            {/* Información principal */}
+            <div className="space-y-3">
+              <h3 className={`text-xl md:text-2xl font-bold ${getAccentColor()} tracking-wide font-palatino group-hover:drop-shadow-rust transition-all duration-300`}>
                 {experience.title}
               </h3>
-              <p className="text-flesh-200 font-semibold text-lg mb-3">{experience.company}</p>
               
-              <div className="flex flex-wrap gap-3 text-sm text-hospital-400 hospital-text">
-                <div className="flex items-center space-x-1">
+              <div className="text-flesh-200 font-bold text-lg font-palatino">
+                {experience.company}
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center space-x-2 text-hospital-400">
                   <MapPin size={14} />
-                  <span>{experience.location}</span>
+                  <span className="font-jetbrains tracking-wider">
+                    {experience.location}
+                  </span>
                 </div>
-                <div className="flex items-center space-x-1">
+                <div className="flex items-center space-x-2 text-hospital-400">
                   <Calendar size={14} />
-                  <span>{experience.startDate} - {experience.endDate}</span>
+                  <span className="font-jetbrains tracking-wider">
+                    {experience.startDate} - {experience.endDate}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Botón de certificado */}
+          {/* Panel lateral de certificado */}
           {experience.certificateUrl && (
-            <div className={`flex flex-col items-center space-y-2 ${experience.featured ? 'mt-12' : 'mt-0'}`}>
+            <div className="ml-6 flex flex-col items-center space-y-3">
+              <div className="bg-gradient-to-br from-blood-900/20 to-blood-800/10 silent-border-blood p-4 rounded-xl border-2">
+                <FileText className="text-blood-400 mx-auto mb-2" size={24} />
+                <span className="font-jetbrains text-xs text-blood-400 block text-center tracking-wider">
+                  CERTIFIED
+                </span>
+              </div>
               <a
                 href={experience.certificateUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group/cert flex items-center space-x-2 px-4 py-2 ${getBgColor()}/10 border border-current rounded-lg ${getAccentColor()} hover:${getBgColor().replace('bg-', 'bg-')}/20 hover:scale-105 transition-all duration-300 text-sm font-medium`}
-                title="Ver certificado oficial"
+                className="flex items-center space-x-2 px-3 py-2 text-blood-400 border border-blood-400/30 rounded-lg hover:bg-blood-500/10 transition-all duration-300 text-xs font-jetbrains hover:scale-105"
               >
-                <FileText size={16} className="group-hover/cert:animate-pulse" />
-                <span className="hidden sm:inline">Ver Certificado</span>
-                <ExternalLink size={12} />
+                <Eye size={12} />
+                <span>VIEW CERT</span>
               </a>
-              <span className="text-xs text-hospital-500 text-center hidden sm:block hospital-text">
-                Verificable oficialmente
-              </span>
             </div>
           )}
         </div>
 
-        {/* Descripción preview */}
-        <div className="mb-6">
-          <p className="text-flesh-300 leading-relaxed text-base">
-            {experience.description[0]}
-          </p>
-          {experience.description.length > 1 && (
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className={`mt-4 flex items-center space-x-2 ${getAccentColor()} hover:drop-shadow-rust transition-all duration-300 text-sm font-medium px-4 py-2 rounded-lg border border-current/30 hover:border-current/60 hover:scale-105 hospital-card`}
-            >
-              <span>{isExpanded ? 'Ver menos detalles' : 'Ver más detalles'}</span>
-              {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-            </button>
-          )}
-        </div>
+        {/* Contenido del expediente */}
+        <div className="space-y-6">
+          {/* Descripción principal */}
+          <div className="hospital-card silent-border-hospital p-4 rounded-lg">
+            <h4 className={`font-jetbrains text-sm ${getAccentColor()} mb-3 tracking-wider flex items-center space-x-2`}>
+              <FileText size={14} />
+              <span>CASE_DESCRIPTION.LOG</span>
+            </h4>
+            <p className="text-flesh-300 leading-relaxed font-palatino">
+              {experience.description[0]}
+            </p>
+            
+            {experience.description.length > 1 && (
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className={`mt-4 flex items-center space-x-2 ${getAccentColor()} font-jetbrains text-sm tracking-wider border border-current/30 px-3 py-2 rounded hover:border-current/60 transition-all duration-300 hover:scale-105`}
+              >
+                <span>{isExpanded ? '[COLLAPSE_DATA]' : '[EXPAND_DATA]'}</span>
+                {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+              </button>
+            )}
+          </div>
 
-        {/* Descripción expandida */}
-        {isExpanded && experience.description.length > 1 && (
-          <div className="mb-6 space-y-4 animate-fadeIn">
-            {experience.description.slice(1).map((desc, i) => (
-              <div key={i} className="relative">
-                <div className={`absolute left-0 top-0 bottom-0 w-0.5 ${getBgColor()}/50 rounded-full`}></div>
-                <p className="text-flesh-300 leading-relaxed pl-5 text-base">
-                  {desc}
-                </p>
+          {/* Detalles expandidos */}
+          {isExpanded && experience.description.length > 1 && (
+            <div className="bg-gradient-to-br from-blood-900/20 to-blood-800/10 silent-border-blood p-4 rounded-lg space-y-4 animate-fadeIn">
+              <h4 className="font-jetbrains text-sm text-blood-400 mb-3 tracking-wider flex items-center space-x-2">
+                <Eye size={14} />
+                <span>DETAILED_ANALYSIS.LOG</span>
+              </h4>
+              {experience.description.slice(1).map((desc, i) => (
+                <div key={i} className="border-l-2 border-blood-500/50 pl-4">
+                  <p className="text-flesh-300 leading-relaxed font-palatino">
+                    <span className="text-blood-400 font-jetbrains text-xs">[{String(i + 1).padStart(2, '0')}]</span> {desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Tecnologías */}
+          {experience.technologies && experience.technologies.length > 0 && (
+            <div className="hospital-card silent-border-hospital p-4 rounded-lg">
+              <h4 className={`font-jetbrains text-sm ${getAccentColor()} mb-3 tracking-wider flex items-center space-x-2`}>
+                <Code size={14} />
+                <span>TECH_STACK.SYS</span>
+              </h4>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                {experience.technologies.slice(0, isExpanded ? undefined : 8).map((tech, i) => (
+                  <div
+                    key={i}
+                    className={`px-3 py-1 text-xs font-bold rounded-lg border transition-all duration-300 hover:scale-105 font-jetbrains ${
+                      experience.type === 'work' 
+                        ? 'bg-rust-500/20 text-rust-300 silent-border-rust hover:border-rust-500/70 hover:bg-rust-500/30' 
+                        : experience.type === 'education'
+                        ? 'bg-hospital-500/20 text-hospital-300 silent-border-hospital hover:border-hospital-500/70 hover:bg-hospital-500/30'
+                        : 'bg-blood-500/20 text-blood-300 silent-border-blood hover:border-blood-500/70 hover:bg-blood-500/30'
+                    }`}
+                  >
+                    {tech}
+                  </div>
+                ))}
+                {!isExpanded && experience.technologies.length > 8 && (
+                  <button
+                    onClick={() => setIsExpanded(true)}
+                    className="px-3 py-1 text-xs font-bold hospital-card silent-border-hospital rounded-lg text-hospital-400 hover:border-hospital-500/70 transition-all duration-300 font-jetbrains"
+                  >
+                    +{experience.technologies.length - 8} MORE
+                  </button>
+                )}
               </div>
-            ))}
-          </div>
-        )}
-
-        {/* Tecnologías */}
-        {experience.technologies && experience.technologies.length > 0 && (
-          <div className="mb-6">
-            <h4 className={`text-sm font-semibold ${getAccentColor()} mb-3 flex items-center space-x-2`}>
-              <Code size={16} />
-              <span>Tecnologías & Herramientas</span>
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {experience.technologies.slice(0, isExpanded ? undefined : 10).map((tech, i) => (
-                <span
-                  key={i}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-all duration-300 ${
-                    experience.type === 'work' 
-                      ? 'bg-rust-500/10 text-rust-300 silent-border-rust hover:border-rust-500/50 hover:bg-rust-500/15' 
-                      : experience.type === 'education'
-                      ? 'bg-hospital-500/10 text-hospital-300 silent-border-hospital hover:border-hospital-500/50 hover:bg-hospital-500/15'
-                      : 'bg-blood-500/10 text-blood-300 silent-border-blood hover:border-blood-500/50 hover:bg-blood-500/15'
-                  } hover:scale-105`}
-                >
-                  {tech}
-                </span>
-              ))}
-              {!isExpanded && experience.technologies.length > 10 && (
-                <button
-                  onClick={() => setIsExpanded(true)}
-                  className="px-3 py-1.5 text-xs font-medium text-hospital-400 silent-border-hospital rounded-full hover:border-hospital-500/50 hover:text-hospital-300 transition-all duration-300 border"
-                >
-                  +{experience.technologies.length - 10} más
-                </button>
-              )}
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Logros */}
-        {isExpanded && experience.achievements && experience.achievements.length > 0 && (
-          <div className="space-y-4 animate-fadeIn hospital-card rounded-lg p-5 silent-border-hospital">
-            <h4 className={`text-sm font-semibold ${getAccentColor()} flex items-center space-x-2`}>
-              <TrendingUp size={16} />
-              <span>Logros & Resultados Destacados</span>
-            </h4>
-            <ul className="space-y-3">
-              {experience.achievements.map((achievement, i) => (
-                <li key={i} className="text-flesh-300 text-sm flex items-start space-x-3">
-                  <div className={`w-2 h-2 rounded-full ${getBgColor()} mt-2.5 flex-shrink-0`}></div>
-                  <span className="leading-relaxed">{achievement}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+          {/* Logros */}
+          {isExpanded && experience.achievements && experience.achievements.length > 0 && (
+            <div className="bg-gradient-to-br from-blood-900/20 to-blood-800/10 silent-border-blood p-4 rounded-lg animate-fadeIn">
+              <h4 className="font-jetbrains text-sm text-blood-400 mb-3 tracking-wider flex items-center space-x-2">
+                <TrendingUp size={14} />
+                <span>ACHIEVEMENTS.LOG</span>
+              </h4>
+              <div className="space-y-3">
+                {experience.achievements.map((achievement, i) => (
+                  <div key={i} className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-blood-400 rounded-full mt-2 blink-critical flex-shrink-0"></div>
+                    <p className="text-flesh-300 text-sm leading-relaxed font-palatino">
+                      {achievement}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-const SectionHeader = ({ 
+const SectionHeader: React.FC<SectionHeaderProps> = ({ 
   icon: Icon, 
   title, 
   count, 
   color,
   description
-}: { 
-  icon: any; 
-  title: string; 
-  count: number; 
-  color: string;
-  description?: string;
 }) => (
-  <div className="text-center mb-12">
-    <div className="flex justify-center items-center space-x-3 mb-4">
-      <Icon className={color} size={32} />
-      <h3 className={`text-2xl md:text-3xl font-bold ${color} tracking-wide`}>
-        {title}
-      </h3>
-      <div className={`px-3 py-1 ${color.replace('text-', 'bg-')}/20 ${color.replace('text-', 'border-')}/30 border rounded-full text-sm font-medium`}>
-        {count}
+  <div className="text-center mb-16">
+    <div className="hospital-card border-2 silent-border-rust rounded-2xl p-6 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-5 bg-gradient-to-b from-yellow-200 via-yellow-100 to-yellow-50"></div>
+      
+      <div className="relative z-10">
+        <div className="flex justify-center items-center space-x-4 mb-4">
+          <Icon className={color} size={32} />
+          <h3 className={`text-2xl md:text-3xl font-bold ${color} tracking-wide font-palatino`}>
+            {title}
+          </h3>
+          <div className={`px-3 py-1 ${color.replace('text-', 'bg-')}/20 ${color.replace('text-', 'border-')}/30 border rounded-full text-sm font-bold font-jetbrains`}>
+            {count} FILES
+          </div>
+        </div>
+        
+        <div className={`mx-auto h-1 w-24 rounded-full ${
+          color === 'text-rust-400' ? 'bg-gradient-to-r from-rust-600 to-rust-400' : 
+          color === 'text-hospital-400' ? 'bg-gradient-to-r from-hospital-600 to-hospital-400' : 
+          'bg-gradient-to-r from-blood-600 to-blood-400'
+        }`}></div>
+        
+        {description && (
+          <p className="text-hospital-400 text-sm max-w-2xl mx-auto mt-4 leading-relaxed font-palatino">
+            "{description}"
+          </p>
+        )}
       </div>
     </div>
-    <div className={`h-0.5 w-24 mx-auto ${color.replace('text-', 'bg-')}/50 rounded-full mb-3`}></div>
-    {description && (
-      <p className="text-hospital-400 text-sm max-w-2xl mx-auto hospital-text">
-        {description}
-      </p>
-    )}
   </div>
-)
+);
 
-function Experience() {
-  const workExperience = getExperiencesByType('work')
-  const education = getExperiencesByType('education')
-  const certifications = getExperiencesByType('certification')
+const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = experiencesData }) => {
+  // Agrupado con useMemo para no recalcular en cada render
+  const groupedExperiences = useMemo(() => {
+    return {
+      work: experiences.filter(exp => exp.type === 'work'),
+      education: experiences.filter(exp => exp.type === 'education'),
+      certification: experiences.filter(exp => exp.type === 'certification')
+    };
+  }, [experiences]);
+
+  const [currentTime, setCurrentTime] = useState('');
+  const [glitchTitle, setGlitchTitle] = useState('EXPERIENCE LOG');
+
+  useEffect(() => {
+    // Sistema de tiempo Silent Hill
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(now.toLocaleString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }));
+    };
+    
+    updateTime();
+    const timeInterval = setInterval(updateTime, 1000);
+
+    // Efecto de glitch en el título
+    const glitchEffect = () => {
+      const variants = ['EXPERIENCE LOG', '3XP3R13NC3 L0G', 'ＥＸＰＥＲＩＥＮＣＥ　ＬＯＧ', '？？？？？？？？？？？', 'PERSONNEL FILE', 'CASE HISTORY'];
+      setGlitchTitle(variants[Math.floor(Math.random() * variants.length)]);
+      setTimeout(() => setGlitchTitle('EXPERIENCE LOG'), 200);
+    };
+
+    const glitchInterval = setInterval(glitchEffect, 15000);
+    
+    return () => {
+      clearInterval(timeInterval);
+      clearInterval(glitchInterval);
+    };
+  }, []);
 
   return (
-    <section
-      id="experience"
-      className="relative z-20 min-h-screen px-6 flex items-center justify-center py-20"
-    >
-      <div className="w-full max-w-7xl hospital-card backdrop-blur-lg rounded-3xl silent-border-rust shadow-2xl hover-shadow-rust-glow p-12 z-30 relative overflow-hidden">
-        
-        {/* Efectos de fondo Silent Hill */}
-        <div className="absolute inset-0 gradient-dark-rust pointer-events-none"></div>
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-rust-400/50 to-transparent"></div>
-        
-        {/* Partículas flotantes */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(12)].map((_, i) => (
-            <div
-              key={i}
-              className={`absolute w-1 h-1 rounded-full animate-float ${
-                i % 3 === 0 ? 'bg-rust-400/30' : i % 3 === 1 ? 'bg-hospital-400/30' : 'bg-blood-400/30'
-              }`}
-              style={{
-                left: `${8 + i * 8}%`,
-                top: `${15 + i * 6}%`,
-                animationDelay: `${i * 0.5}s`,
-                animationDuration: `${4 + i * 0.5}s`
-              }}
-            />
-          ))}
-        </div>
+    <section id="experience" className="relative min-h-screen px-6 py-20 overflow-hidden">
+      
+      {/* Fondo atmosférico Silent Hill */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black"></div>
+      <div className="absolute inset-0 noise-bg"></div>
 
-        {/* Título principal Silent Hill */}
-        <div className="text-center mb-16 relative z-10">
-          <div className="relative inline-block">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-rust-400 via-blood-400 to-rust-400 bg-clip-text text-transparent tracking-wider flicker-silent-hill">
-              Mi Experiencia
+      {/* Partículas flotantes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className={`absolute w-1 h-1 rounded-full animate-float ${
+              i % 4 === 0 ? 'bg-rust-400/40' : 
+              i % 4 === 1 ? 'bg-hospital-400/40' : 
+              i % 4 === 2 ? 'bg-blood-400/40' : 'bg-flesh-200/40'
+            }`}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${i * 0.3}s`,
+              animationDuration: `${6 + Math.random() * 4}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto">
+        
+        {/* Header principal estilo Silent Hill */}
+        <div className="text-center mb-20">
+          <div className="relative inline-block mb-8">
+            <h2 className="text-5xl md:text-6xl font-bold font-silent-hill-title tracking-wider flicker-silent-hill">
+              <span className="bg-gradient-to-r from-blood-400 via-rust-400 to-blood-400 bg-clip-text text-transparent">
+                {glitchTitle}
+              </span>
             </h2>
-            <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-bold text-flesh-500/5 tracking-wider transform translate-x-1 translate-y-1">
-              Mi Experiencia
+            
+            <div className="absolute inset-0 text-5xl md:text-6xl font-bold text-flesh-500/10 tracking-wider transform translate-x-2 translate-y-2 font-silent-hill-title">
+              EXPERIENCE LOG
             </div>
           </div>
-          
-          <div className="flex justify-center mt-6">
-            <div className="h-1 w-32 bg-gradient-to-r from-rust-500 via-blood-500 to-rust-500 rounded-full shadow-lg hover-shadow-rust-glow"></div>
+
+          {/* Sistema de tiempo y status */}
+          <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
+            <div className="gradient-dark-rust silent-border-rust px-4 py-2 rounded-lg flex items-center space-x-3">
+              <Clock size={16} className="text-rust-400 blink-critical" />
+              <span className="font-jetbrains text-sm text-rust-400 tracking-wider">
+                ACCESS_TIME: {currentTime}
+              </span>
+            </div>
+
+            <div className="hospital-card silent-border-hospital px-4 py-2 rounded-lg flex items-center space-x-3">
+              <span className="font-jetbrains text-xs text-hospital-400 tracking-wider">
+                STATUS: RETRIEVING_PERSONNEL_FILES
+              </span>
+              <div className="w-2 h-2 bg-hospital-400 rounded-full blink-critical"></div>
+            </div>
           </div>
-          
-          <p className="text-hospital-400 mt-6 text-lg max-w-4xl mx-auto leading-relaxed hospital-text">
-            Mi trayectoria profesional en desarrollo de software, liderazgo de proyectos tecnológicos, 
-            ciencia de datos y arquitecturas distribuidas aplicadas a impacto social
-          </p>
+
+          {/* Subtítulo estilo diario */}
+          <div className="max-w-4xl mx-auto">
+            <p className="text-rust-400 font-palatino text-lg mb-2 flicker-silent-hill-slow">
+              "Found these old personnel files in the fog..."
+            </p>
+            <p className="text-flesh-300 hospital-text mb-2 font-palatino">
+              Each record contains traces of a journey through code and data.
+            </p>
+            <p className="text-blood-400 font-semibold font-palatino">
+              These are the experiences that shaped the path.
+            </p>
+          </div>
         </div>
 
-        {/* Contenido principal */}
-        <div className="space-y-20 relative z-10">
+        {/* Contenido de experiencias */}
+        <div className="space-y-20">
           
           {/* Experiencia Profesional */}
-          {workExperience.length > 0 && (
+          {groupedExperiences.work.length > 0 && (
             <div>
               <SectionHeader 
                 icon={Briefcase} 
-                title="Experiencia Profesional" 
-                count={workExperience.length} 
+                title="PROFESSIONAL EXPERIENCE" 
+                count={groupedExperiences.work.length} 
                 color="text-rust-400" 
-                description="Roles de liderazgo en desarrollo de proyectos tecnológicos con impacto social y salud rural"
+                description="Leadership roles in technology projects with social impact and rural health systems"
               />
-              <div className="grid gap-8">
-                {workExperience.map((exp, index) => (
+              <div className="space-y-8">
+                {groupedExperiences.work.map((exp, index) => (
                   <ExperienceCard key={exp.id} experience={exp} index={index} />
                 ))}
               </div>
@@ -352,17 +513,17 @@ function Experience() {
           )}
 
           {/* Educación */}
-          {education.length > 0 && (
+          {groupedExperiences.education.length > 0 && (
             <div>
               <SectionHeader 
                 icon={GraduationCap} 
-                title="Formación Académica" 
-                count={education.length} 
+                title="ACADEMIC RECORDS" 
+                count={groupedExperiences.education.length} 
                 color="text-hospital-400" 
-                description="Educación especializada en ingeniería de software, ciencia de datos e inteligencia artificial"
+                description="Specialized education in software engineering, data science and artificial intelligence"
               />
-              <div className="grid gap-8">
-                {education.map((exp, index) => (
+              <div className="space-y-8">
+                {groupedExperiences.education.map((exp, index) => (
                   <ExperienceCard key={exp.id} experience={exp} index={index} />
                 ))}
               </div>
@@ -370,17 +531,17 @@ function Experience() {
           )}
 
           {/* Certificaciones */}
-          {certifications.length > 0 && (
+          {groupedExperiences.certification.length > 0 && (
             <div>
               <SectionHeader 
                 icon={Award} 
-                title="Certificaciones Profesionales" 
-                count={certifications.length} 
+                title="CERTIFICATION LOGS" 
+                count={groupedExperiences.certification.length} 
                 color="text-blood-400" 
-                description="Certificaciones oficiales en desarrollo full-stack, cloud computing y tecnologías empresariales"
+                description="Official certifications in full-stack development, cloud computing and enterprise technologies"
               />
-              <div className="grid gap-8">
-                {certifications.map((exp, index) => (
+              <div className="space-y-8">
+                {groupedExperiences.certification.map((exp, index) => (
                   <ExperienceCard key={exp.id} experience={exp} index={index} />
                 ))}
               </div>
@@ -388,40 +549,55 @@ function Experience() {
           )}
         </div>
 
-        {/* Llamada a la acción */}
-        <div className="mt-16 text-center relative z-10">
-          <div className="hospital-card rounded-2xl p-8 silent-border-rust hover:border-rust-500/50 transition-all duration-300 bg-gradient-to-r from-rust-900/10 via-blood-900/10 to-rust-900/10">
-            <h3 className="text-xl font-bold text-rust-400 mb-3">
-              ¿Interesado en colaborar?
-            </h3>
-            <p className="text-flesh-300 mb-6 max-w-2xl mx-auto">
-              Busco oportunidades para aplicar mi experiencia en desarrollo full-stack, 
-              liderazgo de proyectos y tecnologías emergentes en proyectos de impacto.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href="#contact"
-                className="px-6 py-3 gradient-rust-blood text-black font-semibold rounded-lg hover:scale-105 transition-all duration-300 shadow-lg hover-shadow-rust-glow flex items-center space-x-2"
-              >
-                <span>Contactar</span>
-                <ExternalLink size={16} />
-              </a>
-              <a
-                href="#projects"
-                className="px-6 py-3 hospital-card silent-border-hospital text-hospital-300 font-semibold rounded-lg hover:border-hospital-500/50 hover:scale-105 transition-all duration-300 flex items-center space-x-2"
-              >
-                <span>Ver Proyectos</span>
-                <Code size={16} />
-              </a>
+        {/* Terminal de contacto */}
+        <div className="mt-20">
+          <div className="hospital-card border-2 silent-border-blood rounded-2xl p-8 relative overflow-hidden interference-lines">
+            <div className="text-center mb-8">
+              <h4 className="text-2xl font-bold text-blood-400 flicker-silent-hill-fast font-silent-hill-title tracking-wider">
+                COLLABORATION TERMINAL
+              </h4>
+              <div className="h-px bg-gradient-to-r from-transparent via-blood-500 to-transparent mt-3"></div>
+            </div>
+
+            <div className="text-center space-y-6">
+              <p className="text-flesh-300 max-w-2xl mx-auto font-palatino leading-relaxed">
+                <span className="text-rust-400 font-semibold">Looking for opportunities to apply experience in full-stack development,</span><br/>
+                project leadership and emerging technologies in impactful projects.
+                <span className="text-blood-400 font-semibold"> Ready for new challenges in the digital realm.</span>
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-4">
+                <button
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="group px-8 py-3 gradient-rust-blood text-black font-bold rounded-xl hover:from-rust-400 hover:via-rust-300 hover:to-blood-400 transition-all duration-300 hover:scale-105 transform shadow-lg hover-shadow-rust-glow flex items-center justify-center space-x-2 font-jetbrains"
+                >
+                  <span>INITIATE_CONTACT</span>
+                  <Zap size={16} className="group-hover:scale-110 transition-transform duration-300" />
+                </button>
+                <button
+                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="group px-8 py-3 border-2 silent-border-rust text-rust-400 font-bold rounded-xl hover:bg-rust-500/10 hover:border-rust-500/70 transition-all duration-300 hover:scale-105 transform flex items-center justify-center space-x-2 font-jetbrains"
+                >
+                  <span>VIEW_PROJECTS</span>
+                  <Code size={16} className="group-hover:scale-110 transition-transform duration-300" />
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-8 pt-6 border-t silent-border-hospital text-center">
+              <p className="font-jetbrains text-xs text-hospital-400 tracking-wider">
+                END_OF_PERSONNEL_FILE • SYSTEM_READY • AWAITING_NEW_ENTRIES
+              </p>
             </div>
           </div>
         </div>
-
-        {/* Línea decorativa inferior */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blood-400/50 to-transparent"></div>
       </div>
-    </section>
-  )
-}
 
-export default Experience
+      {/* Efectos de borde */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blood-500/50 to-transparent"></div>
+      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blood-500/50 to-transparent"></div>
+    </section>
+  );
+};
+
+export default ExperienceSection;
