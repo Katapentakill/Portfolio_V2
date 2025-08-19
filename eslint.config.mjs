@@ -12,25 +12,20 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
+    // 🔥 FLAT CONFIG FORMAT - Sin ignorePatterns aquí
     rules: {
-      // 🔥 DESACTIVAR REGLAS PROBLEMÁTICAS PARA EL BUILD
       "@typescript-eslint/no-unused-vars": "warn",
       "@typescript-eslint/no-explicit-any": "warn", 
       "react/no-unescaped-entities": "off",
       "react-hooks/exhaustive-deps": "warn",
       "@next/next/no-img-element": "warn",
-      
-      // 🔥 REGLAS ESPECÍFICAS PARA SILENT HILL PORTFOLIO
       "prefer-const": "warn",
-      "no-console": "off", // Para debugging
-      "@typescript-eslint/ban-ts-comment": "warn",
-      
-      // 🔥 PERMITIR ALGUNOS PATRONES COMUNES
-      "@typescript-eslint/no-empty-function": "warn",
-      "react/display-name": "off",
-      "import/no-anonymous-default-export": "off"
-    },
-    ignorePatterns: [
+      "no-console": "off"
+    }
+  },
+  {
+    // 🔥 ARCHIVOS A IGNORAR en formato flat config
+    ignores: [
       "node_modules/",
       ".next/",
       "out/",
