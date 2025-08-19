@@ -8,6 +8,34 @@ const SilentHillAtmosphericSystem = () => {
   const animationRef = useRef<number | null>(null)
   const [currentMode, setCurrentMode] = useState<'fog' | 'flashlight' | 'static' | 'hospital'>('fog')
   const [isFlashlightOn, setIsFlashlightOn] = useState(false)
+  
+  // 🔥 SOLUCIÓN: Estado para controlar si el componente está montado
+  const [isMounted, setIsMounted] = useState(false)
+  const [currentTime, setCurrentTime] = useState('')
+
+  // 🔥 SOLUCIÓN: Solo actualizar el tiempo después del montaje
+  useEffect(() => {
+    setIsMounted(true)
+    
+    const updateTime = () => {
+      const now = new Date()
+      setCurrentTime(now.toLocaleString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }))
+    }
+    
+    // Actualizar inmediatamente después del montaje
+    updateTime()
+    const timeInterval = setInterval(updateTime, 1000)
+    
+    return () => clearInterval(timeInterval)
+  }, [])
 
   // =========================
   //  AJUSTES RÁPIDOS DE NIEBLA
@@ -103,7 +131,7 @@ const SilentHillAtmosphericSystem = () => {
   }, [currentMode, isFlashlightOn])
 
   useEffect(() => {
-    if (!canvasRef.current) return
+    if (!canvasRef.current || !isMounted) return
 
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
@@ -599,16 +627,51 @@ const SilentHillAtmosphericSystem = () => {
         cancelAnimationFrame(animationRef.current)
       }
     }
-  }, [currentMode, isFlashlightOn])
+  }, [currentMode, isFlashlightOn, isMounted]) // 🔥 SOLUCIÓN: Agregar isMounted a las dependencias
+
+  // 🔥 SOLUCIÓN: No renderizar elementos con tiempo hasta que esté montado
+  if (!isMounted) {
+    return (
+      <>
+        <canvas
+          ref={canvasRef}
+          className="fixed inset-0 pointer-events-none z-[40]"
+          style={{
+            opacity: FOG.globalOpacity,
+            mixBlendMode: 'normal',
+            filter: 'contrast(1.05) brightness(0.9) saturate(0.2)'
+          }}
+        />
+        
+        {/* Indicador del modo actual SIN tiempo hasta estar montado */}
+        <div className="fixed top-20 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-red-500/30">
+          <div className="text-red-400 text-sm font-mono mb-1">Atmosfera:</div>
+          <div className="text-white text-xs font-mono capitalize">{currentMode}</div>
+          {currentMode === 'flashlight' && (
+            <div className="text-yellow-400 text-xs font-mono mt-1">
+              Presiona F: {isFlashlightOn ? 'ON' : 'OFF'}
+            </div>
+          )}
+        </div>
+
+        {/* Controles de ayuda */}
+        <div className="fixed bottom-20 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-red-500/30 text-xs font-mono text-gray-400">
+          <div>H - Hospital</div>
+          <div>N - Niebla</div>
+          <div>F - Linterna ON/OFF</div>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
       <canvas
         ref={canvasRef}
-        className="fixed inset-0 pointer-events-none z-[40]" // ⬅️ CAMBIO: antes z-10
+        className="fixed inset-0 pointer-events-none z-[40]"
         style={{
           opacity: FOG.globalOpacity,
-          mixBlendMode: currentMode === 'flashlight' ? 'normal' : 'normal', // ⬅️ CAMBIO: 'screen' -> 'normal'
+          mixBlendMode: currentMode === 'flashlight' ? 'normal' : 'normal',
           filter:
             currentMode === 'static' ? 'contrast(1.4) brightness(0.85)' :
             currentMode === 'hospital' ? 'contrast(1.25) brightness(0.65) saturate(0.7)' :
@@ -616,10 +679,15 @@ const SilentHillAtmosphericSystem = () => {
         }}
       />
 
-      {/* Indicador del modo actual */}
+      {/* Indicador del modo actual CON tiempo después del montaje */}
       <div className="fixed top-20 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-red-500/30">
         <div className="text-red-400 text-sm font-mono mb-1">Atmosfera:</div>
         <div className="text-white text-xs font-mono capitalize">{currentMode}</div>
+        {currentTime && (
+          <div className="text-gray-400 text-xs font-mono mt-1">
+            {currentTime}
+          </div>
+        )}
         {currentMode === 'flashlight' && (
           <div className="text-yellow-400 text-xs font-mono mt-1">
             Presiona F: {isFlashlightOn ? 'ON' : 'OFF'}

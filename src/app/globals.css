@@ -41,8 +41,8 @@
   --font-jetbrains: 'JetBrains Mono', 'Courier New', monospace;
   --font-inter: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* Header height variable para mejor responsividad */
-  --header-height: clamp(4rem, 8vh, 7rem);
+  /* HEADER HEIGHT FIJO EN PX */
+  --header-h: 64px;     /* alto real del header en desktop */
 
   /* Silent Hill 1 - Fog World Colors */
   --sh1-fog-white: #F8F8FF;
@@ -136,6 +136,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 8px);
 }
 
 body {
@@ -154,24 +155,36 @@ body {
 }
 
 /* ==========================================
-   HERO CONTAINER - SOLUCIÓN RESPONSIVE
+   HEADER Y SCROLL FIXES
    ========================================== */
+
+/* Hero nunca quedará debajo del header */
+#hero {
+  padding-top: calc(var(--header-h) + 2rem) !important;
+  min-height: calc(100svh - var(--header-h)) !important;
+  scroll-margin-top: calc(var(--header-h) + 1rem);
+}
+
+/* Para todas las secciones con ancla */
+section[id] {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
 
 /* Contenedor hero que se adapta automáticamente al header */
 .hero-container {
-  padding-top: var(--header-height);
-  min-height: calc(100vh - var(--header-height));
+  padding-top: calc(var(--header-h) + 1rem) !important;
+  min-height: calc(100vh - var(--header-h)) !important;
 }
 
 /* Alternativa más específica si prefieres control granular */
 .hero-section {
-  padding-top: clamp(5rem, 8vh, 8rem);
-  min-height: calc(100vh - clamp(5rem, 8vh, 8rem));
+  padding-top: calc(var(--header-h) + 2rem);
+  min-height: calc(100vh - var(--header-h) - 2rem) !important;
 }
 
 /* Para contenido que debe evitar el header fixed */
 .content-with-header {
-  margin-top: var(--header-height);
+  margin-top: var(--header-h);
 }
 
 /* Scrollbar Silent Hill Enhanced */
@@ -847,9 +860,8 @@ body {
    ========================================== */
 
 @media (max-width: 768px) {
-  /* Ajustar header height para móvil */
   :root {
-    --header-height: clamp(4rem, 6vh, 5rem);
+    --header-h: 56px;    /* alto real del header en móvil */
   }
 
   .sh-hero-title {
@@ -887,7 +899,7 @@ body {
 @media (max-width: 480px) {
   /* Header aún más pequeño en pantallas muy pequeñas */
   :root {
-    --header-height: clamp(3.5rem, 5vh, 4.5rem);
+    --header-h: 48px;
   }
 
   .sh-hero-stats {
@@ -918,7 +930,7 @@ body {
 /* Ajustes para pantallas grandes */
 @media (min-width: 1200px) {
   :root {
-    --header-height: clamp(5rem, 7vh, 7rem);
+    --header-h: 72px;    /* si en desktop grande el header crece */
   }
 }
 
@@ -1611,42 +1623,6 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Efecto de parpadeo rápido para elementos críticos */
-.flicker-silent-hill-fast {
-  animation: flicker-silent-hill-fast 3s infinite;
-}
-
-@keyframes flicker-silent-hill-fast {
-  0%, 94%, 96%, 98%, 100% {
-    opacity: 1;
-  }
-  95%, 97%, 99% {
-    opacity: 0.6;
-  }
-}
-
-/* Efectos de resplandor hover */
-.hover-shadow-rust-glow:hover {
-  box-shadow: 
-    0 0 20px rgba(139, 69, 19, 0.4),
-    0 10px 30px rgba(139, 69, 19, 0.2),
-    inset 0 0 20px rgba(139, 69, 19, 0.1);
-}
-
-.hover-shadow-hospital-glow:hover {
-  box-shadow: 
-    0 0 20px rgba(105, 105, 105, 0.4),
-    0 10px 30px rgba(105, 105, 105, 0.2),
-    inset 0 0 20px rgba(105, 105, 105, 0.1);
-}
-
-.hover-shadow-blood-glow:hover {
-  box-shadow: 
-    0 0 20px rgba(220, 20, 60, 0.4),
-    0 10px 30px rgba(220, 20, 60, 0.2),
-    inset 0 0 20px rgba(220, 20, 60, 0.1);
 }
 
 /* Efectos adicionales para el estilo Silent Hill */

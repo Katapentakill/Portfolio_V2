@@ -277,7 +277,7 @@ export const projects: Project[] = [
     priority: 8
   },
 
-  // ===== PROYECTOS IBM CERTIFICATION =====
+  // ===== PROYECTOS IBM CERTIFICATION (FILTRADOS) =====
   {
     id: 'ibm-backend-microservices',
     title: 'Backend Microservicios Full Stack - IBM',
@@ -311,34 +311,35 @@ export const projects: Project[] = [
     priority: 9
   },
   {
-    id: 'ibm-kubernetes-guestbook',
-    title: 'Guestbook Kubernetes - IBM',
-    description: 'Aplicación Go desplegada en Kubernetes con autoescalado, rollback y gestión de registry en IBM Cloud.',
+    id: 'ibm-microservice-evaluation',
+    title: 'Evaluación de Concesionarios - Microservicios',
+    description: 'Sistema distribuido con múltiples microservicios para evaluación de concesionarios con Docker.',
     longDescription: [
-      'Aplicación completa desarrollada en Go con frontend responsive',
-      'Desplegada en clúster Kubernetes con integración a IBM Cloud Container Registry',
-      'Autoescalado horizontal y rollback automático',
-      'Componentes Redis para persistencia master-slave'
+      'Sistema de evaluación de concesionarios basado en arquitectura de microservicios',
+      'Integra microservicio de productos (Flask Python), concesionarios (Node.js Express) y frontend (Flask)',
+      'Containerización completa con Docker Desktop y comunicación entre servicios',
+      'Interface web integrada con dropdown de productos y precios por concesionario'
     ],
     category: 'ibm',
-    technologies: ['Go', 'Kubernetes', 'Redis', 'Docker', 'IBM Cloud', 'HTML5', 'CSS3', 'jQuery'],
+    technologies: ['Python', 'Flask', 'Node.js', 'Express', 'Docker', 'Nginx', 'HTML', 'JavaScript'],
     features: [
-      'Backend robusto en Go',
-      'Orquestación con Kubernetes',
-      'Autoescalado basado en CPU',
-      'Rollback automático',
-      'Persistencia Redis master-slave',
-      'Cloud Registry integration'
+      'Microservicio de Productos (Flask - Puerto 5000)',
+      'Microservicio de Concesionarios (Express - Puerto 8080)',
+      'Frontend Flask con templates HTML (Puerto 5001)',
+      'Containerización completa con Docker',
+      'Comunicación RESTful entre servicios',
+      'Interfaz integrada con Nginx'
     ],
     achievements: [
-      'Despliegue exitoso en Kubernetes',
-      'Autoescalado funcionando correctamente',
-      'Integración con IBM Cloud Registry'
+      'Arquitectura de microservicios distribuida funcional',
+      'Comunicación exitosa entre servicios independientes',
+      'Despliegue local completo con Docker Desktop'
     ],
     status: 'completed',
-    startDate: 'Mayo 2024',
-    endDate: 'Junio 2024',
+    startDate: 'Marzo 2024',
+    endDate: 'Abril 2024',
     github: 'https://github.com/Katapentakill/IBM_Projects',
+    featured: true,
     priority: 10
   },
   {
@@ -377,23 +378,23 @@ export const projects: Project[] = [
     title: 'Emotion Detection - IBM Watson',
     description: 'Aplicación web de detección de emociones usando IBM Watson Natural Language Understanding.',
     longDescription: [
-      'Sistema de análisis de texto para identificar emociones dominantes',
       'Integración con IBM Watson NLU para procesamiento de lenguaje natural',
       'Interfaz web interactiva con resultados en tiempo real',
-      'API Flask robusta con manejo de errores y testing unitario'
+      'Conexión directa con API de IBM Watson para análisis de emociones',
+      'Frontend simple con formulario de entrada de texto'
     ],
     category: 'ibm',
-    technologies: ['Python', 'Flask', 'IBM Watson NLU', 'JavaScript', 'Bootstrap', 'HTML5'],
+    technologies: ['Python', 'Flask', 'IBM Watson NLU', 'JavaScript', 'HTML5', 'CSS3'],
     features: [
+      'Integración con API IBM Watson NLU',
       'Análisis de emociones en tiempo real',
-      'Detección de alegría, tristeza, miedo, disgusto e ira',
       'Interfaz web intuitiva',
-      'API RESTful con Flask',
-      'Pruebas unitarias incluidas'
+      'Detección de alegría, tristeza, miedo, disgusto e ira',
+      'Formulario de entrada de texto'
     ],
     achievements: [
-      'Integración exitosa con IBM Watson',
-      'Precisión alta en detección de emociones',
+      'Integración exitosa con IBM Watson API',
+      'Conexión funcional con servicios de NLU',
       'Interfaz usuario-friendly implementada'
     ],
     status: 'completed',
@@ -402,71 +403,107 @@ export const projects: Project[] = [
     github: 'https://github.com/Katapentakill/IBM_Projects',
     priority: 12
   },
-  {
-    id: 'ibm-django-courses',
-    title: 'Sistema de Cursos Django - IBM',
-    description: 'Plataforma educativa completa con sistema de exámenes y calificación automática usando Django.',
-    longDescription: [
-      'Plataforma web full-stack para educación online',
-      'Sistema completo de gestión de cursos y estudiantes',
-      'Exámenes de opción múltiple con calificación automática',
-      'Panel administrativo completo para instructores'
-    ],
-    category: 'ibm',
-    technologies: ['Python', 'Django', 'SQLite', 'Bootstrap 4', 'HTML5', 'JavaScript'],
-    features: [
-      'Gestión de usuarios y autenticación',
-      'Cursos con lecciones organizadas',
-      'Sistema de exámenes automatizado',
-      'Resultados con retroalimentación detallada',
-      'Panel administrativo Django',
-      'Interfaz responsive'
-    ],
-    achievements: [
-      'Sistema de exámenes completamente funcional',
-      'Gestión de usuarios robusta',
-      'Interfaz administrativa completa'
-    ],
-    status: 'completed',
-    startDate: 'Mayo 2024',
-    endDate: 'Junio 2024',
-    github: 'https://github.com/Katapentakill/IBM_Projects',
-    priority: 13
-  },
 
   // ===== PROYECTOS KAGGLE/DATA SCIENCE =====
   {
     id: 'kaggle-competitions-portfolio',
     title: 'Kaggle Competitions Portfolio',
-    description: 'Portafolio completo de competencias de Machine Learning con rankings top y soluciones innovadoras.',
+    description: 'Portafolio completo de 7+ competencias de Machine Learning con rankings top y soluciones innovadoras.',
     longDescription: [
-      'Participación activa en 7+ competencias de Machine Learning y Data Science',
-      'Especialización en NLP, series temporales, clasificación y regresión',
-      'Implementación de modelos avanzados como StackingClassifier, CatBoost, XGBoost',
-      'Fine-tuning de transformers como DistilBERT y Flan-T5'
+      'Participación activa en 7+ competencias de Machine Learning cubriendo múltiples dominios',
+      'Competencias completadas: Titanic, Space-Titanic, Store Sales Forecasting, Natural Disaster Tweets, EEDI NLP, House Prices, BrisT1D',
+      'Especialización en NLP con fine-tuning de DistilBERT y Flan-T5',
+      'Ensemble methods avanzados: StackingClassifier con 4 algoritmos base + Ridge meta-learner',
+      'Time series forecasting con CatBoost y feature engineering temporal'
     ],
     category: 'kaggle',
-    technologies: ['Python', 'Scikit-learn', 'CatBoost', 'XGBoost', 'PyTorch', 'DistilBERT', 'Flan-T5', 'Pandas'],
+    technologies: [
+      'Python', 'Scikit-learn', 'CatBoost', 'XGBoost', 'LightGBM', 
+      'PyTorch', 'Transformers', 'DistilBERT', 'Flan-T5', 'Pandas', 'NumPy'
+    ],
     features: [
-      'Competencias de Blood Glucose Prediction',
-      'House Prices Advanced Regression',
-      'EEDI Mining Misconceptions (NLP)',
-      'Natural Disaster Tweets Classification',
-      'Store Sales Time Series Forecasting',
-      'Space Titanic Sci-Fi Challenge'
+      'Titanic: StackingClassifier con 4 algoritmos + meta-learner',
+      'Space-Titanic: Feature engineering contextual espacial',
+      'Store Sales: Time series con múltiples fuentes de datos',
+      'Disaster Tweets: Fine-tuning DistilBERT con layer freezing',
+      'EEDI: Fine-tuning Flan-T5 para misconceptions matemáticos',
+      'House Prices: Meta-modelado con pipeline robusto',
+      'BrisT1D: XGBoost médico-específico optimizado'
     ],
     achievements: [
       '7+ competencias completadas exitosamente',
-      'Rankings top en múltiples competencias',
-      'Contribuciones a la comunidad Kaggle',
-      'Notebooks públicos con alta valoración'
+      'Rankings competitivos en múltiples dominios',
+      'Expertise demostrado en NLP, time series, classification y regression',
+      'Contribuciones públicas con notebooks de alta valoración'
     ],
     status: 'completed',
     startDate: 'Enero 2023',
     endDate: 'Presente',
     github: 'https://github.com/Katapentakill/data-science-portfolio',
     featured: true,
+    priority: 13
+  },
+  {
+    id: 'house-prices-regression',
+    title: 'House Prices Advanced Regression',
+    description: 'Predicción de precios de viviendas con técnicas avanzadas de regresión y ensemble methods.',
+    longDescription: [
+      'Solución completa para la competición de Kaggle House Prices utilizando técnicas avanzadas de regresión',
+      'Pipeline exhaustivo de análisis exploratorio, limpieza de datos y feature engineering',
+      'Implementación de meta-modelado (stacking) con Ridge Regression como meta-estimador',
+      'Manejo robusto de valores nulos con KNN Imputation y estrategias diferenciadas'
+    ],
+    category: 'kaggle',
+    technologies: ['Python', 'Scikit-learn', 'CatBoost', 'XGBoost', 'LightGBM', 'Pandas', 'NumPy', 'Seaborn', 'SHAP'],
+    features: [
+      'Análisis de correlación y filtrado de características',
+      'KNN Imputation para variables numéricas',
+      'Meta-modelado con stacking ensemble',
+      'Transformación logarítmica de variable objetivo',
+      'Eliminación sistemática de características con baja variabilidad',
+      'Visualizaciones comprehensivas para EDA'
+    ],
+    achievements: [
+      'Pipeline de limpieza reproducible implementado',
+      'Stacking ensemble con mejora significativa de RMSE',
+      'Manejo robusto de 79 características descriptivas'
+    ],
+    status: 'completed',
+    startDate: 'Agosto 2023',
+    endDate: 'Septiembre 2023',
+    github: 'https://github.com/Katapentakill/data-science-portfolio',
     priority: 14
+  },
+  {
+    id: 'brist1d-glucose-prediction',
+    title: 'BrisT1D Blood Glucose Prediction',
+    description: 'Predicción de niveles de glucosa en sangre para pacientes con diabetes tipo 1 usando XGBoost optimizado.',
+    longDescription: [
+      'Sistema predictivo para niveles de glucosa en sangre (bg+1:00) en pacientes con diabetes tipo 1',
+      'Ingeniería de características temporales específica para datos médicos',
+      'Optimización de hiperparámetros con RandomizedSearchCV y 5-fold cross-validation',
+      'Análisis de sesgo y visualización especializada para contexto clínico'
+    ],
+    category: 'kaggle',
+    technologies: ['Python', 'XGBoost', 'Scikit-learn', 'Pandas', 'NumPy', 'Matplotlib', 'RandomizedSearchCV'],
+    features: [
+      'Transformación logarítmica para normalización de datos glucémicos',
+      'Ingeniería temporal: descomposición en hours, minutes, total_minutes',
+      'Manejo de patrones circadianos en metabolismo de glucosa',
+      'Optimización sistemática de hiperparámetros XGBoost',
+      'Análisis de sesgo para validación médica',
+      'Visualización predicciones vs. valores reales'
+    ],
+    achievements: [
+      'Modelo médico-específico con XGBoost optimizado',
+      'Ingeniería temporal capturando ritmos circadianos',
+      'Pipeline robusto para datos de monitoreo continuo de glucosa'
+    ],
+    status: 'completed',
+    startDate: 'Octubre 2023',
+    endDate: 'Noviembre 2023',
+    github: 'https://github.com/Katapentakill/data-science-portfolio',
+    priority: 15
   },
   {
     id: 'geoscience-analysis',
@@ -497,7 +534,7 @@ export const projects: Project[] = [
     startDate: 'Junio 2023',
     endDate: 'Diciembre 2023',
     github: 'https://github.com/Katapentakill/data-science-portfolio',
-    priority: 15
+    priority: 16
   },
 
   // ===== HERRAMIENTAS Y UTILITIES =====
@@ -530,7 +567,7 @@ export const projects: Project[] = [
     startDate: 'Abril 2023',
     endDate: 'Agosto 2023',
     github: 'https://github.com/Katapentakill/data-science-portfolio',
-    priority: 16
+    priority: 17
   }
 ]
 

@@ -1,14 +1,37 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Home, User, Briefcase, Phone, Menu, X, Settings2, BadgeCheck, EyeOff, Trophy, Code, Github, Linkedin, Mail, Lightbulb, LightbulbOff, Zap, Eye, Skull } from 'lucide-react'
+import { 
+  Home, 
+  User, 
+  Briefcase, 
+  Phone, 
+  Menu, 
+  X, 
+  Settings2, 
+  BadgeCheck, 
+  Trophy, 
+  Code, 
+  Github, 
+  Linkedin, 
+  Mail, 
+  Lightbulb, 
+  LightbulbOff, 
+  Zap, 
+  Eye, 
+  Skull 
+} from 'lucide-react'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
   const [isFlickering, setIsFlickering] = useState(false)
+  // 🔥 SOLUCIÓN: Estado para controlar el montaje y efectos aleatorios
+  const [isMounted, setIsMounted] = useState(false)
+  const [interferenceLines, setInterferenceLines] = useState<Array<{top: string, left: string, width: string, delay: string, duration: string}>>([])
 
+  // Navegación completa con todos los íconos correctos
   const navItems = [
     { id: 'hero', icon: Home, label: 'Inicio' },
     { id: 'skills', icon: Settings2, label: 'Habilidades' },
@@ -18,22 +41,46 @@ const Header = () => {
   ]
 
   useEffect(() => {
+    // 🔥 SOLUCIÓN: Solo después del montaje generar efectos aleatorios
+    setIsMounted(true)
+    
+    // Generar líneas de interferencia una sola vez después del montaje
+    const generateInterferenceLines = () => {
+      const lines = []
+      for (let i = 0; i < 3; i++) {
+        lines.push({
+          top: `${20 + i * 30}%`,
+          left: `${Math.random() * 20}%`,
+          width: `${60 + Math.random() * 40}%`,
+          delay: `${i * 0.5}s`,
+          duration: `${2 + Math.random()}s`
+        })
+      }
+      setInterferenceLines(lines)
+    }
+    
+    generateInterferenceLines()
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
       
+      // Mejorar detección de sección activa
       const sections = navItems.map(item => item.id)
-      const currentSection = sections.find(section => {
+      let currentSection = 'hero' // default
+      
+      sections.forEach(section => {
         const element = document.getElementById(section)
         if (element) {
           const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
+          // Considerar header height en la detección
+          const headerHeight = 80 // altura aproximada del header
+          if (rect.top <= headerHeight + 50 && rect.bottom >= headerHeight + 50) {
+            currentSection = section
+          }
         }
-        return false
       })
       
-      if (currentSection) {
-        setActiveSection(currentSection)
-      }
+      setActiveSection(currentSection)
     }
 
     // Efecto de parpadeo aleatorio del header
@@ -45,6 +92,9 @@ const Header = () => {
     }, 3000)
     
     window.addEventListener('scroll', handleScroll)
+    // Llamar una vez al cargar para establecer sección inicial
+    handleScroll()
+    
     return () => {
       window.removeEventListener('scroll', handleScroll)
       clearInterval(flickerInterval)
@@ -56,10 +106,17 @@ const Header = () => {
   }
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
+    const element = document.getElementById(sectionId)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
+      const headerHeight = 80 // altura del header fijo
+      const elementPosition = element.offsetTop - headerHeight
+      
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      })
+      setIsMenuOpen(false)
+      setActiveSection(sectionId) // Establecer inmediatamente
     }
   }
 
@@ -80,24 +137,26 @@ const Header = () => {
           : 'backdrop-blur-sm bg-black/70 border-b border-red-900/30'
       } ${isFlickering ? 'opacity-30' : 'opacity-100'}`}>
         
-        {/* Efecto de interferencia de TV */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/5 to-transparent animate-pulse"></div>
-          {/* Líneas de interferencia */}
-          {[...Array(3)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute h-px bg-red-500/20 animate-pulse"
-              style={{
-                top: `${20 + i * 30}%`,
-                left: `${Math.random() * 20}%`,
-                width: `${60 + Math.random() * 40}%`,
-                animationDelay: `${i * 0.5}s`,
-                animationDuration: `${2 + Math.random()}s`
-              }}
-            />
-          ))}
-        </div>
+        {/* 🔥 SOLUCIÓN: Efectos de interferencia solo después del montaje */}
+        {isMounted && (
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/5 to-transparent animate-pulse"></div>
+            {/* Líneas de interferencia con valores fijos después del montaje */}
+            {interferenceLines.map((line, i) => (
+              <div
+                key={i}
+                className="absolute h-px bg-red-500/20 animate-pulse"
+                style={{
+                  top: line.top,
+                  left: line.left,
+                  width: line.width,
+                  animationDelay: line.delay,
+                  animationDuration: line.duration
+                }}
+              />
+            ))}
+          </div>
+        )}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center py-4">
@@ -371,20 +430,22 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Navegación flotante en móvil Enhanced */}
+      {/* Navegación flotante en móvil Enhanced - TODOS LOS ÍCONOS */}
       <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 md:hidden">
         <div className="flex items-center space-x-1 bg-black/80 backdrop-blur-lg rounded-full border border-red-500/50 px-3 py-2 shadow-2xl"
              style={{ boxShadow: '0 0 20px rgba(220,20,60,0.4), 0 8px 32px rgba(0,0,0,0.8)' }}>
-          {navItems.slice(0, 4).map((item, index) => (
+          {/* TODOS los navItems, no solo slice(0,4) */}
+          {navItems.map((item, index) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
               className={`p-2 rounded-full transition-all duration-300 ${
                 activeSection === item.id 
-                  ? 'bg-red-500/30 text-red-400' 
+                  ? 'bg-red-500/30 text-red-400 scale-110' 
                   : 'text-gray-400 hover:text-red-400 hover:bg-red-500/20'
               }`}
               style={activeSection === item.id ? { filter: 'drop-shadow(0 0 8px rgba(220,20,60,0.8))' } : {}}
+              title={item.label}
             >
               <item.icon size={16} />
             </button>

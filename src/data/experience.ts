@@ -111,6 +111,34 @@ export const experiences: Experience[] = [
 
   // ===== CERTIFICACIONES =====
   {
+    id: 'ibm-backend-cert',
+    title: 'IBM Back-End Development',
+    company: 'IBM Skills Network',
+    location: 'Online',
+    type: 'certification',
+    startDate: 'Enero 2025',
+    endDate: 'Agosto 2025',
+    description: [
+      'Certificación profesional especializada en desarrollo Back-End con 11 cursos completados',
+      'Dominio de herramientas y tecnologías usadas por desarrolladores back-end profesionales',
+      'Experiencia práctica en Linux scripting, Git/GitHub, Python, SQL, Django, Containers',
+      'Implementación de Microservices, Serverless, Application Security y Monitoring'
+    ],
+    technologies: [
+      'Linux Scripting', 'Git', 'GitHub', 'Python', 'SQL', 'Django', 'Flask', 
+      'Docker', 'Kubernetes', 'OpenShift', 'Microservices', 'Serverless',
+      'Application Security', 'Monitoring', 'DevOps', 'Container Technologies'
+    ],
+    achievements: [
+      '11 cursos especializados completados exitosamente',
+      'Múltiples labs prácticos y proyectos hands-on realizados',
+      'Back-end Application Development Capstone Project completado',
+      'Preparación para roles entry-level en Back-End Development'
+    ],
+    certificateUrl: 'https://coursera.org/verify/professional-cert/DMJQX86T5NYO',
+    featured: true
+  },
+  {
     id: 'ibm-fullstack-cert',
     title: 'IBM Full Stack Software Developer',
     company: 'IBM Skills Network',

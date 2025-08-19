@@ -20,15 +20,21 @@ import {
   Coffee,
   Settings2,
   BadgeCheck,
-  Trophy
+  Trophy,
+  Home
 } from 'lucide-react'
 
 const Footer = () => {
+  // 🔥 SOLUCIÓN: Controlar el montaje para el tiempo
+  const [isMounted, setIsMounted] = useState(false)
   const [currentTime, setCurrentTime] = useState(new Date())
   const [isFlickering, setIsFlickering] = useState(false)
 
-  // Actualizar hora cada segundo
   useEffect(() => {
+    // 🔥 SOLUCIÓN: Solo después del montaje
+    setIsMounted(true)
+    
+    // Actualizar hora cada segundo
     const timer = setInterval(() => {
       setCurrentTime(new Date())
     }, 1000)
@@ -52,21 +58,41 @@ const Footer = () => {
   }
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
+    const element = document.getElementById(sectionId)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerHeight = 80 // altura del header fijo
+      const elementPosition = element.offsetTop - headerHeight
+      
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      })
     }
   }
 
+  // MISMOS navItems que el Header para consistencia
   const navItems = [
-    { id: 'hero', label: 'Inicio', icon: ArrowUp },
+    { id: 'hero', label: 'Inicio', icon: Home },
     { id: 'skills', label: 'Habilidades', icon: Settings2 },
     { id: 'experience', label: 'Experiencia', icon: BadgeCheck },
     { id: 'projects', label: 'Proyectos', icon: Trophy },
     { id: 'contact', label: 'Contacto', icon: Phone },
   ]
 
-
+  // 🔥 SOLUCIÓN: No renderizar contenido con tiempo hasta estar montado
+  if (!isMounted) {
+    return (
+      <footer className="relative z-20 bg-black/95 backdrop-blur-md border-t-2 border-red-500/50 mt-auto overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 relative z-10">
+          <div className="text-center">
+            <p className="text-gray-400 text-sm">
+              © 2025 Alexander Tapia. Todos los derechos reservados.
+            </p>
+          </div>
+        </div>
+      </footer>
+    )
+  }
 
   return (
     <footer className={`relative z-20 bg-black/95 backdrop-blur-md border-t-2 border-red-500/50 mt-auto overflow-hidden transition-all duration-500 ${
@@ -184,7 +210,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Sección 2: Navegación */}
+          {/* Sección 2: Navegación MEJORADA */}
           <div className="space-y-6">
             <h3 className="text-xl font-bold text-red-400 flex items-center space-x-2"
                 style={{ 
@@ -199,17 +225,22 @@ const Footer = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="group flex items-center space-x-3 text-gray-400 hover:text-red-400 transition-all duration-300 text-sm font-medium hover:translate-x-2"
+                  className="group flex items-center space-x-3 text-gray-400 hover:text-red-400 transition-all duration-300 text-sm font-medium hover:translate-x-2 w-full text-left"
                   style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}
                 >
-                  <item.icon size={14} className="group-hover:scale-110 transition-transform duration-300" />
-                  <span>{item.label}</span>
+                  <item.icon size={14} className="group-hover:scale-110 transition-transform duration-300 group-hover:text-red-400" 
+                             style={{ filter: 'drop-shadow(0 0 4px currentColor)' }} />
+                  <span className="group-hover:text-red-300">{item.label}</span>
+                  {/* Indicador de navegación */}
+                  <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-1 h-1 bg-red-500 rounded-full animate-pulse"></div>
+                  </div>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Sección 3: Enlaces útiles */}
+          {/* Sección 3: Enlaces útiles MEJORADOS */}
           <div className="space-y-6">
             <h4 className="text-xl font-bold text-orange-400 flex items-center space-x-2"
                 style={{ 
@@ -220,52 +251,58 @@ const Footer = () => {
               <span>CONECTA</span>
             </h4>
             
-            {/* Enlaces de contacto y redes */}
+            {/* Enlaces de contacto y redes MEJORADOS */}
             <div className="space-y-4">
               <a 
                 href="https://github.com/Katapentakill" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group flex items-center space-x-3 p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-gray-700 hover:border-purple-500/50 hover:bg-purple-500/5 transition-all duration-300"
+                className="group flex items-center space-x-3 p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-gray-700 hover:border-purple-500/50 hover:bg-purple-500/5 transition-all duration-300 hover:scale-105"
               >
-                <Github size={20} className="text-gray-400 group-hover:text-purple-400 transition-colors duration-300 group-hover:scale-110" />
-                <div>
+                <Github size={20} className="text-gray-400 group-hover:text-purple-400 transition-colors duration-300 group-hover:scale-110" 
+                        style={{ filter: 'drop-shadow(0 0 6px currentColor)' }} />
+                <div className="flex-1">
                   <div className="text-gray-300 group-hover:text-purple-300 transition-colors duration-300 font-medium text-sm"
                        style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
                     GitHub
                   </div>
-                  <div className="text-xs text-gray-500">@Katapentakill</div>
+                  <div className="text-xs text-gray-500 group-hover:text-purple-400">@Katapentakill</div>
                 </div>
+                <ExternalLink size={14} className="text-gray-500 group-hover:text-purple-400 transition-colors duration-300" />
               </a>
               
               <a 
                 href="mailto:alexandertapiaolmedo@gmail.com"
-                className="group flex items-center space-x-3 p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-gray-700 hover:border-red-500/50 hover:bg-red-500/5 transition-all duration-300"
+                className="group flex items-center space-x-3 p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-gray-700 hover:border-red-500/50 hover:bg-red-500/5 transition-all duration-300 hover:scale-105"
               >
-                <Mail size={20} className="text-gray-400 group-hover:text-red-400 transition-colors duration-300 group-hover:scale-110" />
-                <div>
+                <Mail size={20} className="text-gray-400 group-hover:text-red-400 transition-colors duration-300 group-hover:scale-110" 
+                      style={{ filter: 'drop-shadow(0 0 6px currentColor)' }} />
+                <div className="flex-1">
                   <div className="text-gray-300 group-hover:text-red-300 transition-colors duration-300 font-medium text-sm"
                        style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
                     Email
                   </div>
-                  <div className="text-xs text-gray-500">Colaboración directa</div>
+                  <div className="text-xs text-gray-500 group-hover:text-red-400">Colaboración directa</div>
                 </div>
+                <ExternalLink size={14} className="text-gray-500 group-hover:text-red-400 transition-colors duration-300" />
               </a>
 
               <a 
                 href="https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group flex items-center space-x-3 p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-gray-700 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all duration-300"
+                className="group flex items-center space-x-3 p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-gray-700 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all duration-300 hover:scale-105"
               >
-                <Linkedin size={20} className="text-gray-400 group-hover:text-blue-400 transition-colors duration-300 group-hover:scale-110" />
-                <div>
+                <Linkedin size={20} className="text-gray-400 group-hover:text-blue-400 transition-colors duration-300 group-hover:scale-110" 
+                          style={{ filter: 'drop-shadow(0 0 6px currentColor)' }} />
+                <div className="flex-1">
                   <div className="text-gray-300 group-hover:text-blue-300 transition-colors duration-300 font-medium text-sm"
                        style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
                     LinkedIn
                   </div>
-                  <div className="text-xs text-gray-500">Perfil profesional</div>
+                  <div className="text-xs text-gray-500 group-hover:text-blue-400">Perfil profesional</div>
                 </div>
+                <ExternalLink size={14} className="text-gray-500 group-hover:text-blue-400 transition-colors duration-300" />
               </a>
             </div>
           </div>
@@ -279,90 +316,101 @@ const Footer = () => {
           <div className="h-px bg-gradient-to-r from-transparent via-red-500 to-transparent w-full max-w-2xl"></div>
         </div>
 
-        {/* Footer inferior */}
+        {/* Footer inferior MEJORADO */}
         <div className="flex flex-col lg:flex-row justify-between items-center space-y-6 lg:space-y-0">
           
           {/* Información de contacto y tiempo */}
           <div className="space-y-2">
-            <div className="flex items-center space-x-3 text-gray-400 text-sm">
-              <MapPin size={14} className="text-red-500" />
+            <div className="flex items-center space-x-3 text-gray-400 text-sm group hover:text-gray-300 transition-colors duration-300">
+              <MapPin size={14} className="text-red-500 group-hover:text-red-400 transition-colors duration-300" 
+                      style={{ filter: 'drop-shadow(0 0 4px currentColor)' }} />
               <span style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
                 Antofagasta, Chile
               </span>
             </div>
-            <div className="flex items-center space-x-3 text-gray-400 text-sm">
-              <Calendar size={14} className="text-orange-500" />
+            <div className="flex items-center space-x-3 text-gray-400 text-sm group hover:text-gray-300 transition-colors duration-300">
+              <Calendar size={14} className="text-orange-500 group-hover:text-orange-400 transition-colors duration-300" 
+                        style={{ filter: 'drop-shadow(0 0 4px currentColor)' }} />
               <span style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
                 {currentTime.toLocaleString('es-CL', {
                   year: 'numeric',
                   month: 'short',
                   day: 'numeric',
                   hour: '2-digit',
-                  minute: '2-digit'
+                  minute: '2-digit',
+                  second: '2-digit'
                 })}
               </span>
             </div>
           </div>
 
-          {/* Redes sociales principales - igual que tu header */}
+          {/* Redes sociales principales MEJORADAS */}
           <div className="flex items-center space-x-2">
             {[
-              { href: 'https://github.com/Katapentakill', icon: Github, color: 'hover:text-purple-400' },
-              { href: 'https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b', icon: Linkedin, color: 'hover:text-blue-400' },
-              { href: 'mailto:alexandertapiaolmedo@gmail.com', icon: Mail, color: 'hover:text-red-400' }
+              { href: 'https://github.com/Katapentakill', icon: Github, color: 'hover:text-purple-400', bgColor: 'hover:bg-purple-400/10' },
+              { href: 'https://www.linkedin.com/in/alexander-gubier-oscar-tapia-olmedo-10aa3725b', icon: Linkedin, color: 'hover:text-blue-400', bgColor: 'hover:bg-blue-400/10' },
+              { href: 'mailto:alexandertapiaolmedo@gmail.com', icon: Mail, color: 'hover:text-red-400', bgColor: 'hover:bg-red-400/10' }
             ].map((social, index) => (
               <a
                 key={index}
                 href={social.href}
                 target={social.href.startsWith('http') ? '_blank' : '_self'}
                 rel="noopener noreferrer"
-                className={`p-3 text-gray-400 ${social.color} rounded-lg hover:bg-current/10 transition-all duration-300 group border border-gray-700 hover:border-gray-500 backdrop-blur-sm`}
+                className={`p-3 text-gray-400 ${social.color} ${social.bgColor} rounded-lg transition-all duration-300 group border border-gray-700 hover:border-gray-500 backdrop-blur-sm hover:scale-110`}
               >
                 <social.icon size={18} className="group-hover:scale-110 transition-transform duration-300" 
-                             style={{ filter: 'drop-shadow(0 0 4px currentColor)' }} />
+                             style={{ filter: 'drop-shadow(0 0 6px currentColor)' }} />
               </a>
             ))}
           </div>
 
-          {/* Botón volver arriba Silent Hill */}
+          {/* Botón volver arriba Silent Hill MEJORADO */}
           <button
             onClick={scrollToTop}
-            className="group flex items-center space-x-2 px-4 py-2 bg-red-900/30 border border-red-500/50 text-red-400 hover:text-red-300 hover:border-red-400 transition-all duration-300 rounded-lg backdrop-blur-sm hover:bg-red-800/30 hover:scale-105"
+            className="group flex items-center space-x-2 px-4 py-2 bg-red-900/30 border border-red-500/50 text-red-400 hover:text-red-300 hover:border-red-400 transition-all duration-300 rounded-lg backdrop-blur-sm hover:bg-red-800/30 hover:scale-105 hover:shadow-lg"
+            style={{ boxShadow: '0 0 15px rgba(220, 20, 60, 0.3)' }}
           >
             <span className="text-sm font-medium"
                   style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
               VOLVER ARRIBA
             </span>
-            <ArrowUp size={16} className="group-hover:animate-bounce" />
+            <ArrowUp size={16} className="group-hover:animate-bounce group-hover:text-red-300" 
+                     style={{ filter: 'drop-shadow(0 0 4px currentColor)' }} />
           </button>
         </div>
 
-        {/* Copyright y créditos */}
+        {/* Copyright y créditos MEJORADOS */}
         <div className="mt-8 pt-6 border-t border-red-900/30">
           <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0 text-sm text-gray-500">
             
             {/* Copyright */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 group hover:text-gray-400 transition-colors duration-300">
               <span style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
                 © 2025 Alexander Tapia. Todos los derechos reservados.
               </span>
             </div>
 
-            {/* Hecho con amor - igual que tu footer anterior */}
-            <div className="flex items-center space-x-2 text-gray-500 group">
+            {/* Hecho con amor MEJORADO */}
+            <div className="flex items-center space-x-2 text-gray-500 group hover:text-gray-400 transition-colors duration-300">
               <span style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
                 Hecho con
               </span>
-              <Heart size={14} className="text-red-500 group-hover:animate-pulse" />
+              <Heart size={14} className="text-red-500 group-hover:animate-pulse group-hover:text-red-400" 
+                     style={{ filter: 'drop-shadow(0 0 4px currentColor)' }} />
               <span>y mucho</span>
-              <Coffee size={14} className="text-orange-400 group-hover:animate-bounce" />
+              <Coffee size={14} className="text-orange-400 group-hover:animate-bounce group-hover:text-orange-300" 
+                      style={{ filter: 'drop-shadow(0 0 4px currentColor)' }} />
               <span>en Antofagasta</span>
             </div>
 
-            {/* Version/Build */}
-            <div className="text-xs text-gray-600"
+            {/* Version/Build MEJORADO */}
+            <div className="text-xs text-gray-600 group hover:text-gray-500 transition-colors duration-300"
                  style={{ fontFamily: 'var(--font-jetbrains), Courier New, monospace' }}>
-              v2.0.25 | Build: {new Date().getFullYear()}.{String(new Date().getMonth() + 1).padStart(2, '0')}
+              <span className="group-hover:text-red-400 transition-colors duration-300">v2.0.25</span>
+              {' | '}
+              <span className="group-hover:text-orange-400 transition-colors duration-300">
+                Build: {new Date().getFullYear()}.{String(new Date().getMonth() + 1).padStart(2, '0')}
+              </span>
             </div>
           </div>
         </div>

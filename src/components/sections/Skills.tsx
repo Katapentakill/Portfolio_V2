@@ -124,13 +124,13 @@ const SkillBar: React.FC<SkillBarProps> = ({ skill, index, isMobile }) => {
         };
       case 'Frameworks':
         return {
-          bg: 'gradient-hospital',
-          border: 'silent-border-hospital hover:border-hospital-500/60',
-          shadow: 'hover-shadow-hospital-glow',
-          text: 'text-hospital-400',
-          glow: 'drop-shadow-hospital glow-on-hover',
-          ring: 'border-hospital-400/50',
-          progress: 'bg-gradient-to-r from-hospital-600 to-hospital-400',
+          bg: 'bg-gradient-to-br from-flesh-900/20 to-flesh-800/10',
+          border: 'silent-border-flesh hover:border-flesh-500/60',
+          shadow: 'hover-shadow-flesh-glow',
+          text: 'text-flesh-400',
+          glow: 'drop-shadow-flesh glow-on-hover',
+          ring: 'border-flesh-400/50',
+          progress: 'bg-gradient-to-r from-flesh-600 to-flesh-400',
           status: 'STABLE'
         };
       case 'Data':
@@ -146,13 +146,13 @@ const SkillBar: React.FC<SkillBarProps> = ({ skill, index, isMobile }) => {
         };
       case 'Cloud/DevOps':
         return {
-          bg: 'gradient-hospital',
-          border: 'silent-border-hospital hover:border-hospital-500/60',
-          shadow: 'hover-shadow-hospital-glow',
-          text: 'text-hospital-400',
-          glow: 'drop-shadow-hospital glow-on-hover',
-          ring: 'border-hospital-400/50',
-          progress: 'bg-gradient-to-r from-hospital-600 to-hospital-400',
+          bg: 'bg-gradient-to-br from-flesh-900/20 to-flesh-800/10',
+          border: 'silent-border-flesh hover:border-flesh-500/60',
+          shadow: 'hover-shadow-flesh-glow',
+          text: 'text-flesh-400',
+          glow: 'drop-shadow-flesh glow-on-hover',
+          ring: 'border-flesh-400/50',
+          progress: 'bg-gradient-to-r from-flesh-600 to-flesh-400',
           status: 'DEPLOYED'
         };
       case 'Tools':
@@ -474,18 +474,18 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
                     <div className={`w-3 h-3 rounded-full ${
                       category === 'Languages' ? 'bg-rust-400 blink-critical' :
                       category === 'AI/ML' ? 'bg-blood-400 blink-critical' :
-                      category === 'Frameworks' ? 'bg-hospital-400' :
+                      category === 'Frameworks' ? 'bg-flesh-400' :
                       category === 'Data' ? 'bg-rust-400' :
-                      category === 'Cloud/DevOps' ? 'bg-hospital-400' :
+                      category === 'Cloud/DevOps' ? 'bg-flesh-400' :
                       category === 'Tools' ? 'bg-blood-400' :
                       category === 'Databases' ? 'bg-rust-400' : 'bg-hospital-400'
                     }`}></div>
                     <h3 className={`text-2xl md:text-3xl font-bold tracking-wide font-palatino ${
                       category === 'Languages' ? 'text-rust-400' :
                       category === 'AI/ML' ? 'text-blood-400' :
-                      category === 'Frameworks' ? 'text-hospital-400' :
+                      category === 'Frameworks' ? 'text-flesh-400' :
                       category === 'Data' ? 'text-rust-400' :
-                      category === 'Cloud/DevOps' ? 'text-hospital-400' :
+                      category === 'Cloud/DevOps' ? 'text-flesh-400' :
                       category === 'Tools' ? 'text-blood-400' :
                       category === 'Databases' ? 'text-rust-400' : 'text-hospital-400'
                     }`}>
@@ -494,9 +494,9 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
                     <div className={`px-3 py-1 ${
                       category === 'Languages' ? 'bg-rust-400/20 border-rust-400/30 text-rust-300' :
                       category === 'AI/ML' ? 'bg-blood-400/20 border-blood-400/30 text-blood-300' :
-                      category === 'Frameworks' ? 'bg-hospital-400/20 border-hospital-400/30 text-hospital-300' :
+                      category === 'Frameworks' ? 'bg-flesh-400/20 border-flesh-400/30 text-flesh-300' :
                       category === 'Data' ? 'bg-rust-400/20 border-rust-400/30 text-rust-300' :
-                      category === 'Cloud/DevOps' ? 'bg-hospital-400/20 border-hospital-400/30 text-hospital-300' :
+                      category === 'Cloud/DevOps' ? 'bg-flesh-400/20 border-flesh-400/30 text-flesh-300' :
                       category === 'Tools' ? 'bg-blood-400/20 border-blood-400/30 text-blood-300' :
                       category === 'Databases' ? 'bg-rust-400/20 border-rust-400/30 text-rust-300' : 'bg-hospital-400/20 border-hospital-400/30 text-hospital-300'
                     } border rounded-full text-sm font-bold font-jetbrains`}>
@@ -506,9 +506,9 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
                   <div className={`h-0.5 w-32 mx-auto rounded-full mb-4 ${
                     category === 'Languages' ? 'bg-rust-400/50' :
                     category === 'AI/ML' ? 'bg-blood-400/50' :
-                    category === 'Frameworks' ? 'bg-hospital-400/50' :
+                    category === 'Frameworks' ? 'bg-flesh-400/50' :
                     category === 'Data' ? 'bg-rust-400/50' :
-                    category === 'Cloud/DevOps' ? 'bg-hospital-400/50' :
+                    category === 'Cloud/DevOps' ? 'bg-flesh-400/50' :
                     category === 'Tools' ? 'bg-blood-400/50' :
                     category === 'Databases' ? 'bg-rust-400/50' : 'bg-hospital-400/50'
                   }`}></div>
