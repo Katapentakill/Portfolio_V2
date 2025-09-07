@@ -16,11 +16,12 @@ interface SkillBarProps {
   isMobile: boolean;
 }
 
+// Optional skills prop with default fallback to imported data
 type SkillsSectionProps = { 
   skills?: Skill[] 
 };
 
-// Hook personalizado para Intersection Observer
+// Custom hook for Intersection Observer performance optimization
 const useIntersectionObserver = (options: IntersectionObserverInit = {}) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -48,7 +49,7 @@ const useIntersectionObserver = (options: IntersectionObserverInit = {}) => {
   return { targetRef, isIntersecting, isLoaded };
 };
 
-// Componente LazySection
+// Lazy loading component for performance optimization
 const LazySection: React.FC<LazyComponentProps> = ({ children, className = '', fallback }) => {
   const { targetRef, isLoaded } = useIntersectionObserver();
 
@@ -68,7 +69,7 @@ const LazySection: React.FC<LazyComponentProps> = ({ children, className = '', f
   );
 };
 
-// Componente de barra de habilidad
+// Individual skill bar component with atmospheric styling
 const SkillBar: React.FC<SkillBarProps> = ({ skill, index, isMobile }) => {
   const [animated, setAnimated] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -76,11 +77,13 @@ const SkillBar: React.FC<SkillBarProps> = ({ skill, index, isMobile }) => {
   const [isGlitching, setIsGlitching] = useState(false);
 
   useEffect(() => {
+    // Staggered animation timing for visual appeal
     const timer = setTimeout(() => {
       setAnimated(true);
       setIsVisible(true);
     }, index * (isMobile ? 50 : 100));
 
+    // Random glitch effect for atmospheric styling
     const glitchTimer = setInterval(() => {
       if (Math.random() < 0.03) {
         setIsGlitching(true);
@@ -98,6 +101,7 @@ const SkillBar: React.FC<SkillBarProps> = ({ skill, index, isMobile }) => {
     setImageError(true);
   }, []);
 
+  // Category-based color scheme configuration
   const getCategoryColorScheme = (category: string) => {
     switch (category) {
       case 'Languages':
@@ -193,6 +197,7 @@ const SkillBar: React.FC<SkillBarProps> = ({ skill, index, isMobile }) => {
 
   const colorClasses = getCategoryColorScheme(skill.category);
 
+  // Icon rendering with fallback hierarchy
   const renderIcon = () => {
     const iconClasses = `text-2xl sm:text-3xl mb-1 transition-all duration-300 ${colorClasses.text} ${colorClasses.glow} ${isGlitching ? 'animate-pulse' : ''}`;
 
@@ -227,6 +232,7 @@ const SkillBar: React.FC<SkillBarProps> = ({ skill, index, isMobile }) => {
       );
     }
 
+    // Fallback to text-based icon
     return (
       <div className="w-[32px] h-[32px] sm:w-[40px] sm:h-[40px] mb-1 hospital-card rounded-lg flex items-center justify-center hover-scale-110 transition-transform duration-300">
         <span className={`text-sm sm:text-base font-bold ${colorClasses.text}`}>
@@ -245,10 +251,12 @@ const SkillBar: React.FC<SkillBarProps> = ({ skill, index, isMobile }) => {
         transitionDelay: `${index * 30}ms`
       }}
     >
+      {/* Atmospheric glitch overlay effect */}
       {isGlitching && (
         <div className="absolute inset-0 bg-blood-500/20 blink-critical z-10 pointer-events-none"></div>
       )}
 
+      {/* Background atmospheric effects for desktop */}
       {!isMobile && (
         <div className="absolute inset-0 interference-lines opacity-20 pointer-events-none"></div>
       )}
@@ -256,20 +264,24 @@ const SkillBar: React.FC<SkillBarProps> = ({ skill, index, isMobile }) => {
       <div className="absolute inset-0 noise-bg opacity-50 pointer-events-none"></div>
 
       <div className="relative z-20 flex flex-col items-center space-y-2 w-full">
+        {/* Featured skill status indicator */}
         {skill.featured && (
           <div className={`absolute -top-2 -right-2 px-2 py-1 ${colorClasses.text} hospital-card rounded-full text-xs font-bold silent-border-hospital font-jetbrains blink-critical`}>
             {colorClasses.status}
           </div>
         )}
 
+        {/* Skill icon with hover effects */}
         <div className="relative hover-scale-110 transition-transform duration-300">
           {renderIcon()}
           
+          {/* Animated ring effect for featured skills on desktop */}
           {skill.featured && !isMobile && (
             <div className={`absolute inset-0 rounded-full border opacity-0 group-hover:opacity-100 transition-all duration-300 animate-pulse ${colorClasses.ring}`}></div>
           )}
         </div>
 
+        {/* Skill information display */}
         <div className="text-center space-y-2 w-full">
           <span 
             className={`text-xs font-bold tracking-wide transition-colors duration-300 block text-center font-jetbrains ${colorClasses.text} group-hover:drop-shadow-rust`}
@@ -282,6 +294,7 @@ const SkillBar: React.FC<SkillBarProps> = ({ skill, index, isMobile }) => {
             {skill.name}
           </span>
           
+          {/* Skill level progress bar */}
           {skill.level && (
             <div className="w-full">
               <div className="flex justify-between items-center mb-1">
@@ -308,7 +321,9 @@ const SkillBar: React.FC<SkillBarProps> = ({ skill, index, isMobile }) => {
   );
 };
 
+// Main skills section component
 const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) => {
+  // Memoized skill grouping for performance optimization
   const grouped = useMemo(() => {
     return skills.reduce<Record<string, Skill[]>>((acc, skill) => {
       (acc[skill.category] ??= []).push(skill);
@@ -326,6 +341,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     
+    // Atmospheric time system simulation
     const updateTime = () => {
       const now = new Date();
       setCurrentTime(now.toLocaleString('en-US', {
@@ -339,6 +355,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
     updateTime();
     const timeInterval = setInterval(updateTime, 1000);
 
+    // Progressive scan simulation for visual effect
     const progressInterval = setInterval(() => {
       setScanProgress(prev => {
         if (prev >= 100) return 100;
@@ -346,6 +363,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
       });
     }, 200);
 
+    // Ability detection counter simulation
     const abilitiesInterval = setInterval(() => {
       setDetectedAbilities(prev => {
         if (prev >= skills.length) return skills.length;
@@ -353,6 +371,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
       });
     }, 100);
 
+    // Title glitch effect for atmospheric styling
     const glitchEffect = () => {
       const variants = ['SKILL MATRIX', 'SK1LL M4TR1X', 'ＳＫＩＬＬ　ＭＡＴＲＩＸ', '？？？？？？？？？？', 'ABILITY LOG', 'COMPETENCIA DB'];
       setGlitchText(variants[Math.floor(Math.random() * variants.length)]);
@@ -376,9 +395,11 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
   return (
     <section id="skills" className="relative min-h-screen px-6 py-20 overflow-hidden">
       
+      {/* Atmospheric background layers */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black"></div>
       <div className="absolute inset-0 noise-bg"></div>
       
+      {/* Floating atmospheric particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (
           <div
@@ -402,6 +423,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
 
       <div className="relative z-10 max-w-7xl mx-auto">
         
+        {/* Main header with atmospheric effects */}
         <div className="text-center mb-16">
           <div className="relative inline-block mb-8">
             <h2 className="text-5xl md:text-6xl font-bold font-silent-hill-title tracking-wider flicker-silent-hill">
@@ -414,6 +436,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
             </div>
           </div>
 
+          {/* System control panel with scan information */}
           <div className="max-w-4xl mx-auto mb-12">
             <div className="hospital-card border-2 silent-border-rust rounded-2xl p-6 backdrop-blur-lg interference-lines">
               <div className="grid md:grid-cols-3 gap-4 mb-6">
@@ -437,6 +460,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
                 </div>
               </div>
 
+              {/* Visual scan progress bar */}
               <div className="mb-4">
                 <div className="w-full hospital-card rounded-full h-2 overflow-hidden silent-border-hospital">
                   <div 
@@ -449,6 +473,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
                 </div>
               </div>
 
+              {/* Atmospheric narrative text */}
               <div className="text-center">
                 <p className="text-rust-400 font-palatino text-lg mb-2 flicker-silent-hill-slow">
                   "The scanner detected multiple competency signatures..."
@@ -464,11 +489,13 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
           </div>
         </div>
 
+        {/* Skills categories with lazy loading optimization */}
         <div className="space-y-16">
           {Object.entries(grouped).map(([category, items]: [string, Skill[]], categoryIndex: number) => (
             <LazySection key={category}>
               <div className="space-y-8">
                 
+                {/* Category header with dynamic styling */}
                 <div className="text-center">
                   <div className="inline-flex items-center space-x-3 mb-4">
                     <div className={`w-3 h-3 rounded-full ${
@@ -523,6 +550,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
                   </p>
                 </div>
                 
+                {/* Responsive skills grid layout */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                   {items.map((skill: Skill, index: number) => (
                     <SkillBar 
@@ -538,6 +566,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
           ))}
         </div>
 
+        {/* System analysis completion section */}
         <div className="mt-20 pt-12 border-t silent-border-rust">
           <div className="hospital-card border-2 silent-border-blood rounded-2xl p-8 interference-lines">
             <div className="text-center mb-8">
@@ -547,6 +576,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
               <div className="h-px bg-gradient-to-r from-transparent via-blood-500 to-transparent mt-3"></div>
             </div>
 
+            {/* Statistical summary grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
               <div className="text-center group cursor-default">
                 <div className="text-3xl md:text-4xl font-bold text-rust-400 mb-2 group-hover:scale-110 transition-transform duration-300 font-jetbrains flicker-silent-hill">
@@ -589,6 +619,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
           </div>
         </div>
 
+        {/* Collaboration protocol initiation section */}
         <div className="mt-16 text-center">
           <div className="max-w-4xl mx-auto gradient-dark-rust silent-border-rust rounded-2xl p-8 interference-lines">
             <div className="flex items-center justify-center space-x-3 mb-6">
@@ -604,6 +635,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
               <span className="text-blood-400 font-semibold">Awaiting your mission parameters.</span>
             </p>
 
+            {/* Action buttons for navigation */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
@@ -621,6 +653,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
               </button>
             </div>
 
+            {/* Terminal simulation for atmospheric effect */}
             <div className="mt-8 text-left">
               <div className="hospital-card silent-border-hospital rounded-lg p-4 font-jetbrains text-sm">
                 <div className="flex items-center space-x-2 mb-2">
@@ -644,6 +677,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills = skillsData }) =>
         </div>
       </div>
 
+      {/* Section border effects for atmospheric styling */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blood-400/50 to-transparent"></div>
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rust-400/30 to-transparent"></div>
     </section>

@@ -11,16 +11,16 @@ const Contact = () => {
     mensaje: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  // 🔥 SOLUCIÓN: Controlar el montaje para el tiempo
+  // Control component mounting for time display consistency
   const [isMounted, setIsMounted] = useState(false)
   const [currentTime, setCurrentTime] = useState('')
   const [glitchText, setGlitchText] = useState('CONTACT LOG')
 
   useEffect(() => {
-    // 🔥 SOLUCIÓN: Solo después del montaje actualizar el tiempo
+    // Only update time after component has mounted to prevent hydration mismatch
     setIsMounted(true)
     
-    // Actualizar la hora cada segundo para simular el sistema de Silent Hill
+    // Update time every second for atmospheric system simulation
     const updateTime = () => {
       const now = new Date()
       setCurrentTime(now.toLocaleString('en-US', {
@@ -37,7 +37,7 @@ const Contact = () => {
     updateTime()
     const timeInterval = setInterval(updateTime, 1000)
 
-    // Efecto de glitch en el título
+    // Random title glitch effect for atmospheric styling
     const glitchEffect = () => {
       const variants = ['CONTACT LOG', 'C0NT4CT L0G', 'ＣＯＮＴＡＣＴ　ＬＯＧ', '¿¿¿¿¿¿¿ ???']
       setGlitchText(variants[Math.floor(Math.random() * variants.length)])
@@ -63,11 +63,11 @@ const Contact = () => {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Simular envío con efecto de "sistema procesando"
+    // Simulate submission with processing effect
     setTimeout(() => {
       setIsSubmitting(false)
       setFormData({ nombre: '', email: '', asunto: '', mensaje: '' })
-      // Aquí iría la lógica real de envío
+      // Real submission logic would go here
     }, 3000)
   }
 
@@ -76,20 +76,20 @@ const Contact = () => {
       id="contact"
       className="relative min-h-screen px-4 sm:px-6 py-20 z-10"
     >
-      {/* Efectos de interferencia Silent Hill - CORREGIDO Z-INDEX */}
+      {/* Atmospheric background effects with proper z-index layering */}
       <div className="absolute inset-0 opacity-20 pointer-events-none z-0">
         <div className="sh-interference absolute inset-0"></div>
         <div className="sh-crt-effect absolute inset-0"></div>
       </div>
 
-      {/* Líneas de interferencia aleatorias - CORREGIDO Z-INDEX */}
+      {/* Random interference lines for visual atmosphere */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         {[...Array(15)].map((_, i) => (
           <div
             key={i}
             className="absolute bg-gradient-to-r from-transparent via-red-500/10 to-transparent h-px sh-flicker-red"
             style={{
-              top: `${10 + i * 6}%`,
+              top: `${20 + i * 6}%`,
               left: `${Math.random() * 30}%`,
               width: `${40 + Math.random() * 50}%`,
               animationDelay: `${Math.random() * 5}s`
@@ -98,7 +98,7 @@ const Contact = () => {
         ))}
       </div>
 
-      {/* Partículas flotantes estilo polvo/ceniza - CORREGIDO Z-INDEX */}
+      {/* Floating atmospheric particles */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {[...Array(20)].map((_, i) => (
           <div
@@ -118,18 +118,18 @@ const Contact = () => {
         ))}
       </div>
 
-      {/* CONTENIDO PRINCIPAL - Z-INDEX SUPERIOR */}
+      {/* Main content with elevated z-index */}
       <div className="relative z-20 max-w-7xl mx-auto">
         
-        {/* Header estilo sistema de Silent Hill */}
+        {/* Header section with atmospheric styling */}
         <div className="mb-12 space-y-6">
-          {/* Título principal con glitch */}
+          {/* Main title with glitch effect */}
           <div className="text-center">
             <div className="relative inline-block">
               <h2 
                 className="sh-hero-title sh-fade-in"
                 style={{
-                  fontSize: 'clamp(2rem, 6vw, 4rem)', // REDUCIDO PARA MÓVIL
+                  fontSize: 'clamp(2rem, 6vw, 4rem)', // Responsive font sizing
                   textShadow: `
                     0 0 20px var(--sh-glow-red),
                     0 0 40px rgba(220, 20, 60, 0.6),
@@ -141,7 +141,7 @@ const Contact = () => {
                 {glitchText}
               </h2>
               
-              {/* Efecto de sombra fantasmal */}
+              {/* Ghostly shadow effect */}
               <div 
                 className="absolute inset-0 text-gray-600 opacity-10 transform translate-x-2 translate-y-2 pointer-events-none sh-hero-title"
                 style={{ fontSize: 'clamp(2rem, 6vw, 4rem)' }}
@@ -150,7 +150,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* 🔥 SOLUCIÓN: Solo mostrar el timestamp si está montado */}
+            {/* System timestamp - only render after mounting */}
             {isMounted && (
               <div className="mt-4 flex justify-center px-2">
                 <div className="sh-card-tech p-3 sm:p-4 rounded-lg flex items-center space-x-2 sm:space-x-4 text-xs sm:text-sm">
@@ -167,7 +167,7 @@ const Contact = () => {
             )}
           </div>
 
-          {/* Status Bar estilo juego - RESPONSIVE MEJORADO */}
+          {/* Status bar with responsive design */}
           <div className="flex justify-center px-2">
             <div className="sh-card p-3 sm:p-4 rounded-xl flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 text-xs w-full max-w-md sm:max-w-none sm:w-auto">
               <div className="flex items-center space-x-2">
@@ -182,7 +182,7 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Subtítulo estilo diario de Silent Hill - RESPONSIVE MEJORADO */}
+          {/* Atmospheric subtitle with narrative styling */}
           <div className="text-center max-w-4xl mx-auto px-4">
             <p 
               className="sh-hero-description text-sm sm:text-lg leading-relaxed"
@@ -195,15 +195,15 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Contenido principal estilo Silent Hill 2 - LAYOUT RESPONSIVO MEJORADO */}
+        {/* Main content layout with responsive grid */}
         <div className="grid lg:grid-cols-5 gap-6 lg:gap-8">
           
-          {/* Panel izquierdo - Información estilo documento */}
+          {/* Left panel - Contact information display */}
           <div className="lg:col-span-2 space-y-6">
             
-            {/* Información de contacto estilo documento encontrado */}
+            {/* Contact information card with document styling */}
             <div className="sh-card-important p-6 sm:p-8 rounded-2xl relative overflow-hidden group">
-              {/* Efecto de papel viejo */}
+              {/* Paper texture effect */}
               <div className="absolute inset-0 opacity-5 bg-gradient-to-b from-yellow-200 via-yellow-100 to-yellow-50"></div>
               
               <div className="relative z-10">
@@ -218,7 +218,7 @@ const Contact = () => {
                 </div>
                 
                 <div className="space-y-4 sm:space-y-6">
-                  {/* Email */}
+                  {/* Email contact */}
                   <div className="group/item border-l-2 border-red-800 pl-4 hover:border-red-500 transition-all duration-300">
                     <div className="flex items-start space-x-3 sm:space-x-4">
                       <div className="p-2 bg-red-900/30 rounded-lg border border-red-800 group-hover/item:border-red-600 transition-colors flex-shrink-0">
@@ -241,7 +241,7 @@ const Contact = () => {
                     </div>
                   </div>
                   
-                  {/* Teléfono */}
+                  {/* Phone contact */}
                   <div className="group/item border-l-2 border-orange-800 pl-4 hover:border-orange-500 transition-all duration-300">
                     <div className="flex items-start space-x-3 sm:space-x-4">
                       <div className="p-2 bg-orange-900/30 rounded-lg border border-orange-800 group-hover/item:border-orange-600 transition-colors flex-shrink-0">
@@ -264,7 +264,7 @@ const Contact = () => {
                     </div>
                   </div>
                   
-                  {/* Ubicación */}
+                  {/* Location information */}
                   <div className="group/item border-l-2 border-yellow-800 pl-4 hover:border-yellow-500 transition-all duration-300">
                     <div className="flex items-start space-x-3 sm:space-x-4">
                       <div className="p-2 bg-yellow-900/30 rounded-lg border border-yellow-800 group-hover/item:border-yellow-600 transition-colors flex-shrink-0">
@@ -290,7 +290,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Status Panel estilo Silent Hill */}
+            {/* System status panel */}
             <div className="sh-card-tech p-4 sm:p-6 rounded-xl relative overflow-hidden">
               <div className="relative z-10">
                 <h4 
@@ -330,16 +330,16 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Panel derecho - Formulario estilo terminal Silent Hill */}
+          {/* Right panel - Contact form with terminal styling */}
           <div className="lg:col-span-3">
             <div className="sh-card p-6 sm:p-8 rounded-2xl relative overflow-hidden">
-              {/* Efecto de terminal viejo */}
+              {/* Terminal background effect */}
               <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0 bg-gradient-to-b from-green-900/20 to-green-800/10"></div>
               </div>
               
               <div className="space-y-6 relative z-10">
-                {/* Header del formulario */}
+                {/* Form header */}
                 <div className="border-b border-gray-700 pb-4 mb-6">
                   <h3 
                     className="text-lg sm:text-2xl font-bold text-orange-400 font-palatino flex items-center space-x-3"
@@ -357,9 +357,9 @@ const Contact = () => {
                 </div>
                 
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-                  {/* Campos del formulario - LAYOUT RESPONSIVO MEJORADO */}
+                  {/* Form fields with responsive layout */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                    {/* Nombre */}
+                    {/* Name field */}
                     <div className="group/input">
                       <label 
                         className="block text-xs sm:text-sm font-medium text-gray-300 mb-2 flex items-center space-x-2 font-jetbrains"
@@ -384,7 +384,7 @@ const Contact = () => {
                       />
                     </div>
                     
-                    {/* Email */}
+                    {/* Email field */}
                     <div className="group/input">
                       <label 
                         className="block text-xs sm:text-sm font-medium text-gray-300 mb-2 flex items-center space-x-2 font-jetbrains"
@@ -410,7 +410,7 @@ const Contact = () => {
                     </div>
                   </div>
                   
-                  {/* Asunto */}
+                  {/* Subject field */}
                   <div className="group/input">
                     <label 
                       className="block text-xs sm:text-sm font-medium text-gray-300 mb-2 font-jetbrains"
@@ -434,7 +434,7 @@ const Contact = () => {
                     />
                   </div>
                   
-                  {/* Mensaje */}
+                  {/* Message content field */}
                   <div className="group/input">
                     <label 
                       className="block text-xs sm:text-sm font-medium text-gray-300 mb-2 font-jetbrains"
@@ -458,7 +458,7 @@ const Contact = () => {
                     />
                   </div>
                   
-                  {/* Botón de envío estilo Silent Hill */}
+                  {/* Submit button with atmospheric styling */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -468,7 +468,7 @@ const Contact = () => {
                       textShadow: '0 0 10px rgba(0, 0, 0, 0.8)'
                     }}
                   >
-                    {/* Efecto de barrido de luz */}
+                    {/* Light sweep effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover/button:translate-x-[100%] transition-transform duration-1000"></div>
                     
                     <span className="relative flex items-center space-x-3 uppercase tracking-wider">
@@ -487,7 +487,7 @@ const Contact = () => {
                   </button>
                 </form>
                 
-                {/* Footer del terminal */}
+                {/* Terminal footer */}
                 <div className="mt-6 pt-4 border-t border-gray-700">
                   <p 
                     className="text-xs text-gray-500 text-center font-jetbrains"
@@ -503,7 +503,7 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Footer decorativo - RESPONSIVE MEJORADO */}
+        {/* Decorative footer with responsive design */}
         <div className="mt-12 sm:mt-16 text-center">
           <div className="inline-flex items-center space-x-4 px-4 sm:px-6 py-3 sh-card rounded-full">
             <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
@@ -518,7 +518,7 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Efectos de borde */}
+      {/* Border effects */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent z-0"></div>
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent z-0"></div>
     </section>

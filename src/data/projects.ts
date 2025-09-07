@@ -1,5 +1,4 @@
 // 📁 /data/projects.ts - SOLO proyectos y trabajos destacados
-// Separado de /data/experience.ts para mantener orden limpio
 
 export interface Project {
   id: string

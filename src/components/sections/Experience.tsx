@@ -34,7 +34,7 @@ interface SectionHeaderProps {
   description?: string;
 }
 
-// 👇 acepta opcionalmente experiences por props, y por defecto usa las importadas
+// Optional experiences prop with default fallback to imported data
 type ExperienceSectionProps = { 
   experiences?: Experience[] 
 };
@@ -45,7 +45,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) =>
   const [currentTime, setCurrentTime] = useState('');
 
   useEffect(() => {
-    // Sistema de tiempo como en Silent Hill
+    // Atmospheric time system simulation
     const updateTime = () => {
       const now = new Date();
       setCurrentTime(now.toLocaleString('en-US', {
@@ -62,7 +62,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) =>
     updateTime();
     const timeInterval = setInterval(updateTime, 1000);
 
-    // Efecto de glitch aleatorio
+    // Random glitch effect for atmospheric styling
     const glitchTimer = setInterval(() => {
       if (Math.random() < 0.05) {
         setIsGlitching(true);
@@ -128,31 +128,38 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) =>
     }
   };
 
+  const categoryInfo = {
+    color: getAccentColor(),
+    bg: getCardClass(),
+    icon: getIcon(),
+    label: getTypeLabel()
+  };
+
   return (
-    <div className={`hospital-card border-2 ${getCardClass()} p-4 sm:p-6 rounded-2xl relative overflow-hidden group transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl`}>
+    <div className={`hospital-card border-2 ${categoryInfo.bg} p-4 sm:p-6 rounded-2xl relative overflow-hidden group transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl`}>
       
-      {/* Efecto de glitch */}
+      {/* Glitch effect overlay */}
       {isGlitching && (
         <div className="absolute inset-0 bg-red-500/20 blink-critical z-10 pointer-events-none"></div>
       )}
 
-      {/* Efectos de interferencia - Z-INDEX CORREGIDO */}
+      {/* Atmospheric interference effects */}
       <div className="absolute inset-0 interference-lines opacity-20 pointer-events-none z-0"></div>
       <div className="absolute inset-0 noise-bg opacity-30 pointer-events-none z-0"></div>
 
-      {/* Header estilo expediente médico - RESPONSIVE MEJORADO */}
+      {/* Header section with responsive design */}
       <div className="relative z-20">
         <div className="space-y-4 sm:space-y-6">
-          {/* Cabecera de documento - RESPONSIVE CORREGIDO */}
+          {/* Document header with responsive layout */}
           <div className="flex flex-col space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 pb-3 border-b border-hospital-600/50">
               <div className="flex items-center space-x-3 mb-2 sm:mb-0">
                 <div className="p-2 hospital-card rounded-lg silent-border-hospital flex-shrink-0">
-                  {getIcon()}
+                  {categoryInfo.icon}
                 </div>
                 <div>
                   <span className="font-jetbrains text-xs tracking-wider text-hospital-400 block">
-                    {getTypeLabel()} #{String(index + 1).padStart(3, '0')}
+                    {categoryInfo.label} #{String(index + 1).padStart(3, '0')}
                   </span>
                   <div className="flex items-center space-x-2 mt-1">
                     <Clock size={10} className="text-hospital-500 flex-shrink-0" />
@@ -163,7 +170,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) =>
                 </div>
               </div>
 
-              {/* Estado del archivo - RESPONSIVE */}
+              {/* File status indicators */}
               <div className="flex items-center space-x-2 self-start sm:self-center">
                 {experience.featured && (
                   <div className="flex items-center space-x-1 px-2 py-1 bg-blood-500/20 border border-blood-500/50 rounded text-xs blink-critical">
@@ -176,9 +183,9 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) =>
             </div>
 
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between space-y-4 lg:space-y-0">
-              {/* Información principal - RESPONSIVE MEJORADO */}
+              {/* Main information section */}
               <div className="flex-1 space-y-3 lg:pr-6">
-                <h3 className={`text-lg sm:text-xl md:text-2xl font-bold ${getAccentColor()} tracking-wide font-palatino group-hover:drop-shadow-rust transition-all duration-300`}>
+                <h3 className={`text-lg sm:text-xl md:text-2xl font-bold ${categoryInfo.color} tracking-wide font-palatino group-hover:drop-shadow-rust transition-all duration-300`}>
                   {experience.title}
                 </h3>
                 
@@ -196,16 +203,15 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) =>
                   <div className="flex items-center space-x-2 text-hospital-400">
                     <Calendar size={12} className="flex-shrink-0" />
                     <span className="font-jetbrains tracking-wider">
-                      {experience.startDate} - {experience.endDate}
+                      {experience.startDate} - {experience.endDate || 'ONGOING'}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Panel de certificado - RESPONSIVE CORREGIDO */}
+              {/* Certificate panel with responsive design */}
               {experience.certificateUrl && (
                 <div className="w-full lg:w-auto lg:ml-6 lg:flex-shrink-0">
-                  {/* En móvil: Layout horizontal compacto, en desktop: vertical */}
                   <div className="flex lg:flex-col items-center lg:items-center space-x-3 lg:space-x-0 lg:space-y-3 p-3 lg:p-0 bg-black/20 lg:bg-transparent rounded-lg lg:rounded-none">
                     <div className="bg-gradient-to-br from-blood-900/20 to-blood-800/10 silent-border-blood p-3 lg:p-4 rounded-xl border-2 flex lg:block items-center lg:items-center flex-shrink-0">
                       <FileText className="text-blood-400 mr-2 lg:mr-0 lg:mx-auto lg:mb-2" size={20} />
@@ -229,11 +235,11 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) =>
             </div>
           </div>
 
-          {/* Contenido del expediente - RESPONSIVE MEJORADO */}
+          {/* Experience content with responsive design */}
           <div className="space-y-4 sm:space-y-6">
-            {/* Descripción principal */}
+            {/* Main description */}
             <div className="hospital-card silent-border-hospital p-3 sm:p-4 rounded-lg">
-              <h4 className={`font-jetbrains text-xs sm:text-sm ${getAccentColor()} mb-3 tracking-wider flex items-center space-x-2`}>
+              <h4 className={`font-jetbrains text-xs sm:text-sm ${categoryInfo.color} mb-3 tracking-wider flex items-center space-x-2`}>
                 <FileText size={12} className="flex-shrink-0" />
                 <span>CASE_DESCRIPTION.LOG</span>
               </h4>
@@ -244,7 +250,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) =>
               {experience.description.length > 1 && (
                 <button
                   onClick={() => setIsExpanded(!isExpanded)}
-                  className={`mt-4 flex items-center space-x-2 ${getAccentColor()} font-jetbrains text-xs sm:text-sm tracking-wider border border-current/30 px-3 py-2 rounded hover:border-current/60 transition-all duration-300 hover:scale-105`}
+                  className={`mt-4 flex items-center space-x-2 ${categoryInfo.color} font-jetbrains text-xs sm:text-sm tracking-wider border border-current/30 px-3 py-2 rounded hover:border-current/60 transition-all duration-300 hover:scale-105`}
                 >
                   <span>{isExpanded ? '[COLLAPSE_DATA]' : '[EXPAND_DATA]'}</span>
                   {isExpanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
@@ -252,7 +258,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) =>
               )}
             </div>
 
-            {/* Detalles expandidos */}
+            {/* Expanded details */}
             {isExpanded && experience.description.length > 1 && (
               <div className="bg-gradient-to-br from-blood-900/20 to-blood-800/10 silent-border-blood p-3 sm:p-4 rounded-lg space-y-4 animate-fadeIn">
                 <h4 className="font-jetbrains text-xs sm:text-sm text-blood-400 mb-3 tracking-wider flex items-center space-x-2">
@@ -269,10 +275,10 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) =>
               </div>
             )}
 
-            {/* Tecnologías - RESPONSIVE MEJORADO */}
+            {/* Technologies section */}
             {experience.technologies && experience.technologies.length > 0 && (
               <div className="hospital-card silent-border-hospital p-3 sm:p-4 rounded-lg">
-                <h4 className={`font-jetbrains text-xs sm:text-sm ${getAccentColor()} mb-3 tracking-wider flex items-center space-x-2`}>
+                <h4 className={`font-jetbrains text-xs sm:text-sm ${categoryInfo.color} mb-3 tracking-wider flex items-center space-x-2`}>
                   <Code size={12} className="flex-shrink-0" />
                   <span>TECH_STACK.SYS</span>
                 </h4>
@@ -303,7 +309,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) =>
               </div>
             )}
 
-            {/* Logros - RESPONSIVE MEJORADO */}
+            {/* Achievements section */}
             {isExpanded && experience.achievements && experience.achievements.length > 0 && (
               <div className="bg-gradient-to-br from-blood-900/20 to-blood-800/10 silent-border-blood p-3 sm:p-4 rounded-lg animate-fadeIn">
                 <h4 className="font-jetbrains text-xs sm:text-sm text-blood-400 mb-3 tracking-wider flex items-center space-x-2">
@@ -368,7 +374,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 );
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = experiencesData }) => {
-  // Agrupado con useMemo para no recalcular en cada render
+  // Memoized grouping to prevent recalculation on each render
   const groupedExperiences = useMemo(() => {
     return {
       work: experiences.filter(exp => exp.type === 'work'),
@@ -381,7 +387,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = exp
   const [glitchTitle, setGlitchTitle] = useState('EXPERIENCE LOG');
 
   useEffect(() => {
-    // Sistema de tiempo Silent Hill
+    // Atmospheric time system
     const updateTime = () => {
       const now = new Date();
       setCurrentTime(now.toLocaleString('en-US', {
@@ -395,7 +401,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = exp
     updateTime();
     const timeInterval = setInterval(updateTime, 1000);
 
-    // Efecto de glitch en el título
+    // Title glitch effect
     const glitchEffect = () => {
       const variants = ['EXPERIENCE LOG', '3XP3R13NC3 L0G', 'ＥＸＰＥＲＩＥＮＣＥ　ＬＯＧ', '？？？？？？？？？？？', 'PERSONNEL FILE', 'CASE HISTORY'];
       setGlitchTitle(variants[Math.floor(Math.random() * variants.length)]);
@@ -413,11 +419,11 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = exp
   return (
     <section id="experience" className="relative min-h-screen px-4 sm:px-6 py-20 z-10">
       
-      {/* Fondo atmosférico Silent Hill - Z-INDEX CORREGIDO */}
+      {/* Atmospheric background with proper z-index */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black z-0"></div>
       <div className="absolute inset-0 noise-bg z-0"></div>
 
-      {/* Partículas flotantes - Z-INDEX CORREGIDO */}
+      {/* Floating atmospheric particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         {[...Array(20)].map((_, i) => (
           <div
@@ -437,10 +443,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = exp
         ))}
       </div>
 
-      {/* CONTENIDO PRINCIPAL - Z-INDEX SUPERIOR */}
+      {/* Main content with elevated z-index */}
       <div className="relative z-20 max-w-7xl mx-auto">
         
-        {/* Header principal estilo Silent Hill - RESPONSIVE MEJORADO */}
+        {/* Main header with responsive design */}
         <div className="text-center mb-16 sm:mb-20">
           <div className="relative inline-block mb-6 sm:mb-8">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-silent-hill-title tracking-wider flicker-silent-hill">
@@ -454,7 +460,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = exp
             </div>
           </div>
 
-          {/* Sistema de tiempo y status - RESPONSIVE MEJORADO */}
+          {/* System time and status with responsive design */}
           <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 mb-8 sm:mb-12 px-4">
             <div className="gradient-dark-rust silent-border-rust px-3 sm:px-4 py-2 rounded-lg flex items-center space-x-2 sm:space-x-3 w-full sm:w-auto justify-center">
               <Clock size={14} className="text-rust-400 blink-critical flex-shrink-0" />
@@ -471,7 +477,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = exp
             </div>
           </div>
 
-          {/* Subtítulo estilo diario - RESPONSIVE MEJORADO */}
+          {/* Narrative subtitle with responsive design */}
           <div className="max-w-4xl mx-auto px-4">
             <p className="text-rust-400 font-palatino text-sm sm:text-lg mb-2 flicker-silent-hill-slow">
               "Found these old personnel files in the fog..."
@@ -485,10 +491,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = exp
           </div>
         </div>
 
-        {/* Contenido de experiencias - ESPACIADO RESPONSIVO */}
+        {/* Experience content with responsive spacing */}
         <div className="space-y-16 sm:space-y-20">
           
-          {/* Experiencia Profesional */}
+          {/* Professional Experience */}
           {groupedExperiences.work.length > 0 && (
             <div>
               <SectionHeader 
@@ -506,7 +512,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = exp
             </div>
           )}
 
-          {/* Educación */}
+          {/* Education */}
           {groupedExperiences.education.length > 0 && (
             <div>
               <SectionHeader 
@@ -524,7 +530,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = exp
             </div>
           )}
 
-          {/* Certificaciones */}
+          {/* Certifications */}
           {groupedExperiences.certification.length > 0 && (
             <div>
               <SectionHeader 
@@ -543,7 +549,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = exp
           )}
         </div>
 
-        {/* Terminal de contacto - RESPONSIVE MEJORADO */}
+        {/* Collaboration terminal with responsive design */}
         <div className="mt-16 sm:mt-20">
           <div className="hospital-card border-2 silent-border-blood rounded-2xl p-6 sm:p-8 relative overflow-hidden interference-lines">
             <div className="text-center mb-6 sm:mb-8">
@@ -587,7 +593,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences = exp
         </div>
       </div>
 
-      {/* Efectos de borde - Z-INDEX CORREGIDO */}
+      {/* Border effects with proper z-index */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blood-500/50 to-transparent z-0"></div>
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blood-500/50 to-transparent z-0"></div>
     </section>

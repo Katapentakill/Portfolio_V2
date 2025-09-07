@@ -27,7 +27,7 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
   const [isFlickering, setIsFlickering] = useState(false)
-  // 🔥 SOLUCIÓN: Estado para controlar el montaje y efectos aleatorios
+  // Estado para controlar el montaje y efectos aleatorios
   const [isMounted, setIsMounted] = useState(false)
   const [interferenceLines, setInterferenceLines] = useState<Array<{top: string, left: string, width: string, delay: string, duration: string}>>([])
 
@@ -41,7 +41,7 @@ const Header = () => {
   ]
 
   useEffect(() => {
-    // 🔥 SOLUCIÓN: Solo después del montaje generar efectos aleatorios
+    // Solo después del montaje generar efectos aleatorios
     setIsMounted(true)
     
     // Generar líneas de interferencia una sola vez después del montaje
@@ -137,7 +137,7 @@ const Header = () => {
           : 'backdrop-blur-sm bg-black/70 border-b border-red-900/30'
       } ${isFlickering ? 'opacity-30' : 'opacity-100'}`}>
         
-        {/* 🔥 SOLUCIÓN: Efectos de interferencia solo después del montaje */}
+        {/* Efectos de interferencia solo después del montaje */}
         {isMounted && (
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/5 to-transparent animate-pulse"></div>

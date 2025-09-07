@@ -1,5 +1,4 @@
 // 📁 /data/experience.ts - SOLO experiencia laboral, educación y certificaciones
-// NO incluye proyectos (esos van en /data/projects.ts separado)
 
 export interface Experience {
   id: string

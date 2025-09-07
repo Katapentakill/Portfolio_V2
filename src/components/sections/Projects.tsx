@@ -47,7 +47,7 @@ interface CategorySectionProps {
   categoryId: string;
 }
 
-// 👇 acepta opcionalmente projects por props, y por defecto usa los importados
+// Optional projects prop with default fallback to imported data
 type ProjectsSectionProps = { 
   projects?: Project[] 
 };
@@ -137,10 +137,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   return (
     <div className={`group relative hospital-card border-2 ${categoryInfo.bg} rounded-2xl p-4 sm:p-6 hover:shadow-2xl transition-all duration-500 overflow-hidden interference-lines`}>
       
-      {/* Efecto de escaneo */}
+      {/* Atmospheric scan effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-flesh-500/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       
-      {/* Header de estado tipo terminal - RESPONSIVE MEJORADO */}
+      {/* Status indicators with responsive design */}
       <div className="absolute top-2 sm:top-4 right-2 sm:right-4 flex flex-col sm:flex-row items-end sm:items-center space-y-1 sm:space-y-0 sm:space-x-2">
         {project.featured && (
           <div className="gradient-rust-blood text-black px-2 py-1 rounded-full text-xs font-bold flex items-center space-x-1 blink-critical">
@@ -159,7 +159,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       </div>
 
       <div className="relative z-10">
-        {/* Header del proyecto - RESPONSIVE MEJORADO */}
+        {/* Project header with responsive design */}
         <div className="flex items-start space-x-3 sm:space-x-4 mb-4 sm:mb-6 pr-16 sm:pr-20">
           <div className="p-2 sm:p-3 hospital-card rounded-xl silent-border-hospital group-hover:border-rust-500/30 transition-colors duration-300 flex-shrink-0">
             {categoryInfo.icon}
@@ -180,7 +180,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
             <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-xs sm:text-sm text-hospital-400 mb-2 sm:mb-3 hospital-text space-y-1 sm:space-y-0">
               <div className="flex items-center space-x-1">
                 <Calendar size={10} className="flex-shrink-0" />
-                <span className="font-jetbrains">{project.startDate} - {project.endDate || 'ONGOING'}</span>
+                <span className="font-jetbrains tracking-wider">
+                  {project.startDate} - {project.endDate || 'ONGOING'}
+                </span>
               </div>
               <div className="flex items-center space-x-1">
                 <Activity size={10} className="flex-shrink-0" />
@@ -190,7 +192,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           </div>
         </div>
 
-        {/* Descripción con estilo terminal - RESPONSIVE MEJORADO */}
+        {/* Project description with terminal styling */}
         <div className="mb-4 sm:mb-6">
           <div className="hospital-card silent-border-hospital rounded-lg p-3 sm:p-4 mb-3 sm:mb-4">
             <div className="flex items-center space-x-2 mb-2">
@@ -214,7 +216,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           )}
         </div>
 
-        {/* Descripción expandida */}
+        {/* Expanded description */}
         {isExpanded && project.longDescription && (
           <div className="mb-4 sm:mb-6 space-y-3 animate-fadeIn">
             <div className="hospital-card silent-border-blood rounded-lg p-3 sm:p-4">
@@ -231,7 +233,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           </div>
         )}
 
-        {/* Stack tecnológico estilo hospital - RESPONSIVE MEJORADO */}
+        {/* Technology stack with responsive design */}
         <div className="mb-4 sm:mb-6">
           <div className="flex items-center space-x-2 mb-2 sm:mb-3">
             <Cpu size={12} className="text-hospital-400 flex-shrink-0" />
@@ -253,14 +255,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
               </span>
             ))}
             {!isExpanded && project.technologies.length > 4 && (
-              <span className="px-2 sm:px-3 py-1 text-xs font-bold text-hospital-400 silent-border-hospital rounded-lg border font-jetbrains">
+              <span className="px-2 sm:px-3 py-1 text-xs font-bold hospital-card silent-border-hospital rounded-lg text-hospital-400 hover:border-hospital-500/70 transition-all duration-300 font-jetbrains text-center">
                 +{project.technologies.length - 4}
               </span>
             )}
           </div>
         </div>
 
-        {/* Features expandidas */}
+        {/* Expanded features section */}
         {isExpanded && project.features && project.features.length > 0 && (
           <div className="mb-4 sm:mb-6 animate-fadeIn">
             <div className="hospital-card silent-border-rust rounded-lg p-3 sm:p-4">
@@ -280,7 +282,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           </div>
         )}
 
-        {/* Achievements expandidos */}
+        {/* Expanded achievements section */}
         {isExpanded && project.achievements && project.achievements.length > 0 && (
           <div className="mb-4 sm:mb-6 animate-fadeIn">
             <div className="hospital-card silent-border-blood rounded-lg p-3 sm:p-4">
@@ -300,7 +302,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           </div>
         )}
 
-        {/* Panel de control final - RESPONSIVE MEJORADO */}
+        {/* Action buttons with responsive design */}
         <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-3 sm:pt-4 border-t silent-border-hospital">
           {project.url && (
             <a
@@ -379,7 +381,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({
 };
 
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsData }) => {
-  // Agrupado con useMemo para no recalcular en cada render
+  // Memoized grouping to prevent recalculation on each render
   const groupedProjects = useMemo(() => {
     return {
       mvp: projects.filter(p => p.category === 'mvp'),
@@ -431,11 +433,11 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
   return (
     <section id="projects" className="relative min-h-screen px-4 sm:px-6 py-20 z-10">
       
-      {/* Fondo atmosférico Silent Hill - Z-INDEX CORREGIDO */}
+      {/* Atmospheric background with proper z-index */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black z-0"></div>
       <div className="absolute inset-0 noise-bg z-0"></div>
       
-      {/* Partículas flotantes de la niebla - Z-INDEX CORREGIDO */}
+      {/* Floating atmospheric particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         {[...Array(20)].map((_, i) => (
           <div
@@ -457,10 +459,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
         ))}
       </div>
 
-      {/* CONTENIDO PRINCIPAL - Z-INDEX SUPERIOR */}
+      {/* Main content with elevated z-index */}
       <div className="relative z-20 max-w-7xl mx-auto">
         
-        {/* Header Terminal - RESPONSIVE MEJORADO */}
+        {/* Terminal header with responsive design */}
         <div className="text-center mb-12 sm:mb-16">
           <div className="relative inline-block mb-6 sm:mb-8">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-silent-hill-title tracking-wider flicker-silent-hill">
@@ -473,7 +475,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
             </div>
           </div>
 
-          {/* Panel de Control Central - RESPONSIVE MEJORADO */}
+          {/* Central control panel with responsive design */}
           <div className="max-w-5xl mx-auto mb-8 sm:mb-12 px-2">
             <div className="hospital-card border-2 silent-border-rust rounded-2xl p-4 sm:p-6 backdrop-blur-lg interference-lines">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
@@ -512,10 +514,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
           </div>
         </div>
 
-        {/* Contenido de Proyectos - ESPACIADO RESPONSIVO */}
+        {/* Projects content with responsive spacing */}
         <div className="space-y-12 sm:space-y-16 lg:space-y-20">
           
-          {/* MVPs de Living Stones */}
+          {/* Living Stones MVPs */}
           {groupedProjects.mvp.length > 0 && (
             <CategorySection 
               title="MVP PROTOCOLS" 
@@ -527,7 +529,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
             />
           )}
 
-          {/* Proyectos Universitarios */}
+          {/* University Projects */}
           {groupedProjects.university.length > 0 && (
             <CategorySection 
               title="UNIVERSITY ARCHIVES" 
@@ -539,7 +541,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
             />
           )}
 
-          {/* Proyectos IBM */}
+          {/* IBM Projects */}
           {groupedProjects.ibm.length > 0 && (
             <CategorySection 
               title="IBM CERTIFIED SYSTEMS" 
@@ -551,7 +553,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
             />
           )}
 
-          {/* Competencias Kaggle */}
+          {/* Kaggle Competitions */}
           {groupedProjects.kaggle.length > 0 && (
             <CategorySection 
               title="KAGGLE EXPERIMENTS" 
@@ -563,7 +565,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
             />
           )}
 
-          {/* Herramientas */}
+          {/* Tools */}
           {groupedProjects.tools.length > 0 && (
             <CategorySection 
               title="AUTOMATION TOOLS" 
@@ -575,7 +577,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
             />
           )}
 
-          {/* Proyectos Personales */}
+          {/* Personal Projects */}
           {groupedProjects.personal.length > 0 && (
             <CategorySection 
               title="PERSONAL EXPERIMENTS" 
@@ -588,7 +590,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
           )}
         </div>
 
-        {/* Panel de Estadísticas - RESPONSIVE MEJORADO */}
+        {/* Statistics panel with responsive design */}
         <div className="mt-16 sm:mt-20 pt-8 sm:pt-12 border-t silent-border-rust">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
             <div className="text-center group">
@@ -635,7 +637,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
           </div>
         </div>
 
-        {/* Terminal de Comando Final - RESPONSIVE MEJORADO */}
+        {/* Final command terminal with responsive design */}
         <div className="mt-12 sm:mt-16 text-center">
           <div className="max-w-4xl mx-auto gradient-dark-rust silent-border-rust rounded-2xl p-6 sm:p-8 interference-lines">
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3 mb-4 sm:mb-6">
@@ -675,7 +677,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
               </a>
             </div>
 
-            {/* Línea de comando simulada - RESPONSIVE MEJORADA */}
+            {/* Simulated command line with responsive design */}
             <div className="mt-6 sm:mt-8 text-left">
               <div className="hospital-card silent-border-hospital rounded-lg p-3 sm:p-4 font-jetbrains text-xs sm:text-sm">
                 <div className="flex items-start space-x-1 sm:space-x-2 mb-2">
@@ -700,105 +702,9 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects = projectsDa
             </div>
           </div>
         </div>
-
-        {/* Mensaje de advertencia final - RESPONSIVE MEJORADO */}
-        <div className="mt-8 sm:mt-12 text-center">
-          <div className="max-w-3xl mx-auto hospital-card silent-border-blood rounded-lg p-4 sm:p-6">
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3 mb-3 sm:mb-4">
-              <AlertTriangle className="text-blood-400 flicker-silent-hill-fast flex-shrink-0" size={18} />
-              <span className="text-blood-400 font-bold font-jetbrains text-xs sm:text-sm text-center">WARNING: HIGH INNOVATION LEVELS DETECTED</span>
-              <AlertTriangle className="text-blood-400 flicker-silent-hill-fast flex-shrink-0" size={18} />
-            </div>
-            <p className="text-flesh-300 text-xs sm:text-sm font-palatino">
-              These {projects.length} projects represent the intersection of creativity and technology. 
-              <span className="text-rust-400 font-semibold"> Handle with care - they might inspire you to build something extraordinary.</span>
-            </p>
-          </div>
-        </div>
-
-        {/* Panel de Estadísticas de Tecnologías - RESPONSIVE MEJORADO */}
-        <div className="mt-12 sm:mt-16">
-          <div className="hospital-card border-2 silent-border-blood rounded-2xl p-6 sm:p-8 interference-lines">
-            <div className="text-center mb-6 sm:mb-8">
-              <h4 className="text-lg sm:text-2xl font-bold text-blood-400 flicker-silent-hill-fast font-silent-hill-title tracking-wider">
-                TECHNOLOGY ANALYSIS
-              </h4>
-              <div className="h-px bg-gradient-to-r from-transparent via-blood-500 to-transparent mt-2 sm:mt-3"></div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-              {/* Tecnologías más usadas */}
-              <div className="space-y-3 sm:space-y-4">
-                <h5 className="text-base sm:text-lg font-bold text-hospital-400 font-jetbrains">TOP_TECHNOLOGIES</h5>
-                {(() => {
-                  const techCount = projects.reduce((acc, project) => {
-                    project.technologies.forEach(tech => {
-                      acc[tech] = (acc[tech] || 0) + 1;
-                    });
-                    return acc;
-                  }, {} as Record<string, number>);
-                  
-                  return Object.entries(techCount)
-                    .sort(([,a], [,b]) => b - a)
-                    .slice(0, 8)
-                    .map(([tech, count]) => (
-                      <div key={tech} className="flex items-center justify-between">
-                        <span className="text-flesh-300 text-xs sm:text-sm font-palatino truncate pr-2">{tech}</span>
-                        <div className="flex items-center space-x-2 flex-shrink-0">
-                          <div className="w-16 sm:w-20 hospital-card rounded-full h-1 overflow-hidden silent-border-hospital">
-                            <div 
-                              className="h-full rounded-full bg-gradient-to-r from-rust-600 to-rust-400 transition-all duration-1000"
-                              style={{ width: `${(count / Math.max(...Object.values(techCount))) * 100}%` }}
-                            />
-                          </div>
-                          <span className="text-hospital-400 text-xs font-jetbrains w-4 sm:w-6 text-right">{count}</span>
-                        </div>
-                      </div>
-                    ));
-                })()}
-              </div>
-
-              {/* Distribución por categorías */}
-              <div className="space-y-3 sm:space-y-4">
-                <h5 className="text-base sm:text-lg font-bold text-blood-400 font-jetbrains">CATEGORY_DISTRIBUTION</h5>
-                {Object.entries(groupedProjects)
-                  .filter(([, projects]) => projects.length > 0)
-                  .map(([category, categoryProjects]) => (
-                    <div key={category} className="flex items-center justify-between">
-                      <span className="text-flesh-300 text-xs sm:text-sm font-palatino capitalize truncate pr-2">{category.replace('_', ' ')}</span>
-                      <div className="flex items-center space-x-2 flex-shrink-0">
-                        <div className="w-16 sm:w-20 hospital-card rounded-full h-1 overflow-hidden silent-border-hospital">
-                          <div 
-                            className={`h-full rounded-full transition-all duration-1000 ${
-                              category === 'mvp' || category === 'kaggle' ? 'bg-gradient-to-r from-rust-600 to-rust-400' :
-                              category === 'university' || category === 'tools' ? 'bg-gradient-to-r from-flesh-600 to-flesh-400' :
-                              'bg-gradient-to-r from-blood-600 to-blood-400'
-                            }`}
-                            style={{ width: `${(categoryProjects.length / projects.length) * 100}%` }}
-                          />
-                        </div>
-                        <span className="text-hospital-400 text-xs font-jetbrains w-4 sm:w-6 text-right">{categoryProjects.length}</span>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-
-            {/* Footer del análisis - RESPONSIVE MEJORADO */}
-            <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t silent-border-hospital text-center">
-              <p className="font-jetbrains text-xs text-hospital-400 tracking-wider mb-2">
-                PROJECT_ANALYSIS_COMPLETE • {projects.length}_ENTRIES_PROCESSED • SYSTEM_OPERATIONAL
-              </p>
-              <p className="text-flesh-300 text-xs sm:text-sm font-palatino">
-                Total development time: {projects.length * 120}+ hours across {Object.keys(groupedProjects).filter(cat => groupedProjects[cat as keyof typeof groupedProjects].length > 0).length} different domains.
-                <span className="text-blood-400 font-semibold"> Ready for the next challenge.</span>
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
 
-      {/* Efectos de interferencia finales - Z-INDEX CORREGIDO */}
+      {/* Border effects with proper z-index */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blood-400/50 to-transparent z-0"></div>
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rust-400/30 to-transparent z-0"></div>
     </section>

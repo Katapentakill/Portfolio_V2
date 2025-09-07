@@ -10,7 +10,7 @@ const Hero = () => {
   useEffect(() => {
     setIsClient(true)
     
-    // Efecto de glitch en el texto principal
+    // Text glitch effect for atmospheric styling
     const glitchEffect = () => {
       const original = 'ALEXANDER TAPIA'
       const glitched = 'ＡＬＥＸＡＮＤＥＲ　ＴＡＰＩＡ'
@@ -38,14 +38,14 @@ const Hero = () => {
       className="min-h-screen relative overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black"
       style={{ paddingTop: 'clamp(5rem, 8vh, 8rem)' }}
     >
-      {/* Efecto de niebla de fondo */}
+      {/* Background fog effect */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-radial from-transparent via-gray-800/20 to-gray-900/40"></div>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-radial from-red-900/10 via-transparent to-transparent rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-radial from-orange-800/10 via-transparent to-transparent rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
       </div>
 
-      {/* Líneas de interferencia */}
+      {/* Atmospheric interference lines */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <div
@@ -62,7 +62,7 @@ const Hero = () => {
         ))}
       </div>
 
-      {/* Partículas flotantes */}
+      {/* Floating atmospheric particles */}
       {isClient && (
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(12)].map((_, i) => (
@@ -84,11 +84,11 @@ const Hero = () => {
         </div>
       )}
 
-      {/* Contenido principal */}
+      {/* Main content */}
       <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-8rem)] px-4 sm:px-6">
         <div className="text-center max-w-6xl mx-auto space-y-8">
           
-          {/* Título principal con fuente Silent Hill */}
+          {/* Main title with atmospheric font styling */}
           <div className="relative">
             <h1 
               className="text-4xl sm:text-6xl lg:text-8xl font-silent-hill-title text-red-500 drop-shadow-2xl filter contrast-125"
@@ -107,7 +107,7 @@ const Hero = () => {
               {glitchText}
             </h1>
             
-            {/* Efecto de sombra fantasmal */}
+            {/* Ghostly shadow effect */}
             <div 
               className="absolute inset-0 text-4xl sm:text-6xl lg:text-8xl font-silent-hill-title text-gray-600 opacity-20 transform translate-x-2 translate-y-2 pointer-events-none"
               style={{ fontFamily: 'var(--font-silent-hill-title), Impact, Arial Black, sans-serif' }}
@@ -116,7 +116,7 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Subtítulo con fuente Palatino */}
+          {/* Professional subtitle */}
           <div className="space-y-4">
             <h2 
               className="text-xl sm:text-2xl lg:text-3xl text-orange-300 font-bold tracking-wide"
@@ -128,7 +128,7 @@ const Hero = () => {
               DATA SCIENTIST & FULL STACK DEVELOPER
             </h2>
             
-            {/* Línea de separación estilo Silent Hill */}
+            {/* Atmospheric divider line */}
             <div className="flex items-center justify-center space-x-4">
               <div className="h-px bg-gradient-to-r from-transparent via-red-500 to-transparent w-24"></div>
               <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
@@ -136,7 +136,7 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Tags con estética de hospital/industrial */}
+          {/* Professional skill tags */}
           <div className="flex flex-wrap justify-center gap-3 mt-8">
             {[
               { text: 'KAGGLE EXPERT', type: 'critical' },
@@ -168,7 +168,7 @@ const Hero = () => {
             ))}
           </div>
 
-          {/* Descripción con fuente Palatino */}
+          {/* Professional description */}
           <div className="max-w-4xl mx-auto space-y-4 mt-8">
             <p 
               className="text-lg sm:text-xl text-gray-300 leading-relaxed"
@@ -186,7 +186,7 @@ const Hero = () => {
             </p>
           </div>
 
-          {/* Estadísticas en formato hospital/médico */}
+          {/* Professional statistics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-12 max-w-4xl mx-auto">
             {[
               { number: '8+', label: 'Kaggle Competitions', color: 'text-red-400' },
@@ -214,7 +214,7 @@ const Hero = () => {
             ))}
           </div>
 
-          {/* Botones principales */}
+          {/* Call-to-action buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             <button
               onClick={() => scrollToSection('projects')}
@@ -240,7 +240,7 @@ const Hero = () => {
             </button>
           </div>
 
-          {/* Enlaces sociales */}
+          {/* Social media links */}
           <div className="flex justify-center space-x-6 pt-6">
             {[
               { href: 'https://github.com/Katapentakill', icon: Github, color: 'hover:text-red-400' },
@@ -259,7 +259,7 @@ const Hero = () => {
             ))}
           </div>
 
-          {/* Indicador de scroll */}
+          {/* Scroll indicator */}
           <div className="pt-16">
             <button
               onClick={() => scrollToSection('skills')}
@@ -280,7 +280,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Efectos de borde */}
+      {/* Section border effects */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-50"></div>
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-50"></div>
       <div className="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-transparent via-red-500 to-transparent opacity-30"></div>
