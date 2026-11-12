@@ -39,26 +39,13 @@ This portfolio represents Alexander Tapia's professional journey as a Data Scien
 ## Project Structure
 
 ```
-├── app/                    # Next.js App Router
-│   ├── layout.tsx         # Root layout with SEO
-│   ├── page.tsx           # Main page component
-│   └── globals.css        # Global styles
-├── components/
-│   ├── layout/            # Layout components
-│   │   ├── Header.tsx     # Navigation header
-│   │   ├── Footer.tsx     # Site footer
-│   │   └── SilentHillAtmosphericSystem.tsx
-│   └── sections/          # Page sections
-│       ├── Hero.tsx       # Landing section
-│       ├── Skills.tsx     # Skills matrix
-│       ├── Experience.tsx # Professional timeline
-│       ├── Projects.tsx   # Project showcase
-│       └── Contact.tsx    # Contact form
-├── data/                  # Static data
-│   ├── skills.ts          # Skills configuration
-│   ├── experience.ts      # Experience data
-│   └── projects.ts        # Projects data
-└── public/               # Static assets
+├── src/
+│   ├── app/          # Next.js App Router (layout, page, global styles)
+│   ├── components/   # Layout and section components
+│   ├── data/         # Static data (skills, experience, projects)
+│   ├── hooks/        # Custom React hooks
+│   └── lib/          # Utilities
+└── public/           # Static assets
 ```
 
 ## Getting Started
@@ -72,8 +59,8 @@ This portfolio represents Alexander Tapia's professional journey as a Data Scien
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/username/alexander-tapia-portfolio.git
-   cd alexander-tapia-portfolio
+   git clone https://github.com/Katapentakill/Portfolio_V2.git
+   cd Portfolio_V2
    ```
 
 2. **Install dependencies**
@@ -132,15 +119,15 @@ npm run type-check   # TypeScript type checking
 
 ### Data Configuration
 
-1. **Skills**: Edit `data/skills.ts` to update technical skills
-2. **Experience**: Modify `data/experience.ts` for work history
-3. **Projects**: Update `data/projects.ts` for project portfolio
+1. **Skills**: Edit `src/data/skills.ts` to update technical skills
+2. **Experience**: Modify `src/data/experience.ts` for work history
+3. **Projects**: Update `src/data/projects.ts` for project portfolio
 4. **Personal Info**: Update contact details in components
 
 ### Styling
 
 - **Colors**: Modify Tailwind configuration for color schemes
-- **Fonts**: Update font definitions in `app/layout.tsx`
+- **Fonts**: Update font definitions in `src/app/layout.tsx`
 - **Animations**: Customize atmospheric effects in component files
 
 ## Deployment
@@ -161,13 +148,6 @@ npm run type-check   # TypeScript type checking
 - **Netlify**: Compatible with static export
 - **AWS Amplify**: Full-stack deployment support
 - **GitHub Pages**: Static export deployment
-
-## Performance Metrics
-
-- **Lighthouse Score**: 95+ across all categories
-- **Core Web Vitals**: Optimized for user experience
-- **SEO**: Comprehensive meta tags and structured data
-- **Accessibility**: WCAG 2.1 AA compliance
 
 ## Browser Support
 
@@ -198,4 +178,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-**Built with Next.js** | **Designed for Impact** | **Optimized for Performance**
+**Built with Next.js**
